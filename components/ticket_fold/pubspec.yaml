@@ -1,0 +1,41 @@
+name: ticket_fold
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared:
+      path: ../_shared
+
+  provider: ^2.0.1
+  intl: ^0.15.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - images/
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans-Bold.ttf
+          weight: 700
+        - asset: fonts/OpenSans-SemiBold.ttf
+          weight: 600
+    - family: Oswald
+      fonts:
+        - asset: fonts/Oswald-Regular.ttf
