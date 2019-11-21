@@ -41,18 +41,23 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
   @override
   Widget build(context) {
     // Build a simple scaffold that shows the top bar and controls over the content
-    return Stack(
-      children: [
-        TransitionContainer(
-          darkModeValue: _darkModeValue,
-          child: DarkInkContent(
-              darkMode: _darkModeValue.value,
-              scrollController: _scrollController
+    return GestureDetector(
+      onTap: (){
+        _darkModeValue.value = !_darkModeValue.value;
+      },
+      child: Stack(
+        children: [
+          TransitionContainer(
+            darkModeValue: _darkModeValue,
+            child: DarkInkContent(
+                darkMode: _darkModeValue.value,
+                scrollController: _scrollController
+            ),
           ),
-        ),
-        DarkInkBar(darkModeValue: _darkModeValue),
-        DarkInkControls(darkModeValue: _darkModeValue),
-      ],
+          DarkInkBar(darkModeValue: _darkModeValue),
+          DarkInkControls(darkModeValue: _darkModeValue),
+        ],
+      ),
     );
   }
 }
