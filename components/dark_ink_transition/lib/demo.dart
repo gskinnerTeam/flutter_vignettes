@@ -40,11 +40,12 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
 
   @override
   Widget build(context) {
-    // Build a simple scaffold that shows the top bar and controls over the content
+    //Wrap the entire demo is a gestureDetector, just to more easily show off the darkMode transition.
     return GestureDetector(
       onTap: (){
         _darkModeValue.value = !_darkModeValue.value;
       },
+    // Build a simple scaffold that shows the top bar and controls over the content
       child: Stack(
         children: [
           TransitionContainer(

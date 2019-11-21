@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DarkInkControls extends StatefulWidget {
-
   final ValueNotifier<bool> darkModeValue;
 
-  DarkInkControls({ this.darkModeValue });
+  DarkInkControls({this.darkModeValue});
 
   @override
   State createState() {
@@ -12,9 +11,7 @@ class DarkInkControls extends StatefulWidget {
   }
 }
 
-class _DarkInkControlsState extends State<DarkInkControls>
-    with SingleTickerProviderStateMixin {
-
+class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProviderStateMixin {
   ValueNotifier<bool> _darkModeValue;
 
   AnimationController _controller;
@@ -25,8 +22,7 @@ class _DarkInkControlsState extends State<DarkInkControls>
   Color _backgroundColor;
   Color _foregroundColor;
 
-  _DarkInkControlsState(ValueNotifier<bool> darkModeValue)
-      : _darkModeValue = darkModeValue {
+  _DarkInkControlsState(ValueNotifier<bool> darkModeValue) : _darkModeValue = darkModeValue {
     _darkModeValue.addListener(_handleDarkModeChange);
     _updateColor();
   }
@@ -130,9 +126,9 @@ class _DarkInkControlsState extends State<DarkInkControls>
         children: [
           Transform(
             transform: Matrix4.translationValues(0, _buttonAnimation0.value, 0),
-            child:
-            FloatingActionButton(
-                mini: true,
+            child: FloatingActionButton(
+              mini: true,
+              heroTag: 0,
               onPressed: () => {},
               backgroundColor: _backgroundColor,
               foregroundColor: _foregroundColor,
@@ -143,7 +139,8 @@ class _DarkInkControlsState extends State<DarkInkControls>
           Transform(
             transform: Matrix4.translationValues(0, _buttonAnimation1.value, 0),
             child: FloatingActionButton(
-                mini: true,
+              mini: true,
+              heroTag: 1,
               onPressed: () => {},
               backgroundColor: _backgroundColor,
               foregroundColor: _foregroundColor,
@@ -154,6 +151,7 @@ class _DarkInkControlsState extends State<DarkInkControls>
           Transform(
             transform: Matrix4.translationValues(0, _buttonAnimation2.value, 0),
             child: FloatingActionButton(
+              heroTag: 2,
               mini: true,
               onPressed: () => {},
               backgroundColor: _backgroundColor,
@@ -164,7 +162,6 @@ class _DarkInkControlsState extends State<DarkInkControls>
         ],
       ),
     );
-
   }
 
   void _handleDarkModeChange() {
@@ -179,4 +176,3 @@ class _DarkInkControlsState extends State<DarkInkControls>
     _foregroundColor = _darkModeValue.value ? lightColor : darkColor;
   }
 }
-

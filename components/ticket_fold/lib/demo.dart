@@ -22,7 +22,7 @@ class TicketFoldDemo extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
-              physics: ClampingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               itemCount: _boardingPasses.length,
               itemBuilder: (BuildContext context, int index) {
                 return Ticket(
