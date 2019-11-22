@@ -40,7 +40,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
     _liquidSimController.addListener(_rebuildIfOpen);
     //create tween to raise the fill level of the card
     _fillTween = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _liquidSimController, curve: Interval(.10, .35, curve: Curves.easeOut)),
+      CurvedAnimation(parent: _liquidSimController, curve: Interval(.12, .45, curve: Curves.easeOut)),
     );
     //create tween to animate the 'points remaining' text
     _pointsTween = Tween<double>(begin: 0, end: 1).animate(
@@ -48,7 +48,6 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
     );
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -83,8 +82,8 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
       onTap: _handleTap,
       //Use an animated container so we can easily animate our widget height
       child: AnimatedContainer(
-        curve: Curves.elasticOut,
-        duration: Duration(milliseconds: 1500),
+        curve: !_wasOpen? ElasticOutCurve(.9) : Curves.elasticOut,
+        duration: Duration(milliseconds: !_wasOpen? 1200 : 1500),
         height: cardHeight,
         //Wrap content in a rounded shadow widget, so it will be rounded on the corners but also have a drop shadow
         child: RoundedShadow.fromRadius(
