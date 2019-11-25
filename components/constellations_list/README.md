@@ -6,12 +6,6 @@
 
 A set of vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
 
-<p align=center><a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p> 
-<p align=center>
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-HireUs.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Follow.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Website.png"/></a>
-</p>
 <br/>
 
 <p id="constellation_list">
