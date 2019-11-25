@@ -14,19 +14,19 @@ A set of vignettes to showcase the power of flutter created by [gskinner](https:
 </p>
 <br/>
 
-<h2 align=center>Vignettes Playground</h2>
-
-Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
-
-<p align=center><img src="https://gskinner.com/flutter_showcase/shared/appstore-Apple.png"/>  <img src="https://gskinner.com/flutter_showcase/shared/appstore-Google.png"/></p>
-<br/>
-
 <p id="constellation_list">
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="320" height="320" /></a>
 <a href="#constellation_list"><h3>Constellation List</h3></a>
 <p>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/shared/button-CTA@2x.png" width=170 height=50 /></a>
 </p><br/><br/><br/><br/><br/><br/><br/>
+
+<h2 align=center>Vignettes Playground</h2>
+
+Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
+
+<p align=center><img src="https://gskinner.com/flutter_showcase/shared/appstore-Apple.png"/>  <img src="https://gskinner.com/flutter_showcase/shared/appstore-Google.png"/></p>
+<br/>
 
 <h2 id="license" align=center>License</h2>
 
