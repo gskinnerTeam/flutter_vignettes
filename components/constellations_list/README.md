@@ -1,6 +1,19 @@
 <a href="https://www.gskinner.com/flutter_showcase/"><img src="https://gskinner.com/flutter_showcase/shared/header@2x.png"></a>
 <img src="https://gskinner.com/flutter_showcase/shared/subheader@2x.png">
 
+
+<h2 align=center> The Flutter Vignettes </h2>
+
+A set of vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
+
+<p align=center><a href="#license"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p> 
+<p align=center>
+<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-HireUs.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Follow.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Website.png"/></a>
+</p>
+<br/>
+
 <h2 align=center>Vignettes Playground</h2>
 
 Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
