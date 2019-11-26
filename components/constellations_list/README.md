@@ -15,7 +15,7 @@ This is one of the vignettes to showcase the power of flutter created by [gskinn
 <a href="#"><img align=center src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="600" height="600" /></a>
 <p align=center>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
 </p>
-
+<br/><br/>
 <h2 align=center>Vignettes Playground</h2>
 
 Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
