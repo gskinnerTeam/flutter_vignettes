@@ -1,6 +1,7 @@
 <a href="https://www.gskinner.com/flutter_showcase/"><img src="https://gskinner.com/flutter_showcase/shared/header@2x.png"></a>
 <img src="https://gskinner.com/flutter_showcase/shared/subheader@2x.png">
 
+<p align=center><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p>
 
 <h2 align=center> The Flutter Vignettes </h2>
 
