@@ -6,8 +6,6 @@
 
 This is one of the vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
 
-<p align=center><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p>
-
 <p id="constellation_list" align=center><a href="#constellation_list"><h1 align=center>Constellation List</h1></a></p>
 <p align=center><a href="#"><img src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="480" height="480" /></a></p>
 <p align=left>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
