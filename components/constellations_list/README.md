@@ -4,7 +4,7 @@
 
 <h2 align=center> The Flutter Vignettes </h2>
 
-A set of vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
+This is one of the vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
 
 <br/>
 
@@ -12,7 +12,6 @@ A set of vignettes to showcase the power of flutter created by [gskinner](https:
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="320" height="320" /></a>
 <a href="#constellation_list"><h3>Constellation List</h3></a>
 <p>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
-<a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/shared/button-CTA@2x.png" width=170 height=50 /></a>
 </p><br/><br/><br/><br/><br/><br/><br/>
 
 <h2 align=center>Vignettes Playground</h2>
