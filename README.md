@@ -1,6 +1,8 @@
 <a href="https://www.gskinner.com/flutter_showcase/"><img src="https://gskinner.com/flutter_showcase/shared/header@2x.png"></a>
 <img src="https://gskinner.com/flutter_showcase/shared/subheader@2x.png">
 
+[logo]: https://gskinner.com/flutter_showcase/shared/subheader@2x.png
+
 <h2 align=center> The Flutter Vignettes </h2>
 
 A set of vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
