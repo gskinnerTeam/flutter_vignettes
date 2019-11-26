@@ -39,31 +39,25 @@ Interested in trying some of the Vignettes on device? We've built a Vignettes Pl
 <br />  
 
 <p id="constellation_list">
-<a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="320" height="320" /></a>
+<a href="#"><img align="left" hspace=68 src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="237"/></a>
 <a href="#constellation_list"><h3>Constellation List</h3></a>
 <p>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/shared/button-CTA@2x.png" width=170 height=50 /></a>
-</p><br/><br/><br/><br/><br/><br/><br/>
-
-<br/>
+</p><br/><br/><br/><br/><br/><br/>
 
 <p id="gooey_edge">
-<a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/gooey_edge_edited.gif" width="320" height="320" /></a>
+<a href="#"><img align="left" hspace=68 src="https://gskinner.com/flutter_showcase/previews/gooey_edge_edited.gif" width="237" /></a>
 <a href="#gooey_edge"><h3>Mindfullness Gooey Transition</h3></a>
 <p>Demonstrates how to draw curved vector paths and use them to mask content. Utilizes a small physics simulation to calculate tension between a set of points.</p>
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/shared/button-CTA@2x.png" width=170 height=50 /></a>
-</p><br/><br/><br/><br/><br/><br/><br/>
-
-<br/>
+</p><br/><br/><br/><br/><br/><br/>
 
 <p id="drink_rewards_list">
-<a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/drink_rewards_list_edited.gif" width="320" height="320" /></a>
+<a href="#"><img align="left" hspace=68 src="https://gskinner.com/flutter_showcase/previews/drink_rewards_list_edited.gif" width="237" /></a>
 <a href="#gooey_edge"><h3>Drink Rewards Card</h3></a>
 <p>Shows how to easily create resizeable list items using AnimatedContainer. Also shows how to use the canvas drawing API to simulate a liquid effect.</p>
 <a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/shared/button-CTA@2x.png" width=170 height=50 /></a>
-</p><br/><br/><br/><br/><br/><br/><br/>
-
-<br/>
+</p><br/><br/><br/><br/><br/><br/>
 
 <h2 id="license" align=center>License</h2>
 
