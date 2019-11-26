@@ -10,9 +10,9 @@ This is one of the vignettes to showcase the power of flutter created by [gskinn
 
 <p align=center><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p>
 
-<p id="constellation_list">
-<a href="#"><img align="left" src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="320" height="320" /></a>
+<p id="constellation_list" align=center><br>
 <a href="#constellation_list"><h1>Constellation List</h1></a>
+<a href="#"><img src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="600" height="600" /></a>
 <p>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
 </p><br/><br/><br/><br/><br/><br/><br/>
 
