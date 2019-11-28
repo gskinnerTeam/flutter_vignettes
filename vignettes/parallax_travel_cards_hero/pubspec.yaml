@@ -1,0 +1,33 @@
+name: parallax_travel_cards_hero
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.3.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+
+  shared:
+      path: ../_shared/
+
+flutter:
+  uses-material-design: true
+  assets: 
+    - images/
+    - images/Paris/
+    - images/Small-Cards/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/Open-Sans/OpenSans-Regular.ttf
+        - asset: fonts/Open-Sans/OpenSans-Semibold.ttf
+          weight: 600
+        - asset: fonts/Open-Sans/OpenSans-Bold.ttf
+          weight: 700
+    - family: DMSerifDisplay
+      fonts:
+        - asset: fonts/DM-Serif-Display/DMSerifDisplay-Regular.ttf
