@@ -44,7 +44,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
     );
     //create tween to animate the 'points remaining' text
     _pointsTween = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _liquidSimController, curve: Interval(.1, .8, curve: Curves.easeOutQuart)),
+      CurvedAnimation(parent: _liquidSimController, curve: Interval(.1, .5, curve: Curves.easeOutQuart)),
     );
     super.initState();
   }
