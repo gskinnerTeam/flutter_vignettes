@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'main.dart';
 
 class AppColors {
-  static Color orangeAccent = Color(0xffff6b14);
+  static Color orangeAccent = Color(0xfff1a35d);
   static Color orangeAccentLight = Color(0xffff7f33);
-  static Color redAccent = Color(0xffbb1515);
+  static Color redAccent = Color(0xfff1a35d);
   static Color grey = Color(0xff4d4d4d);
 }
 

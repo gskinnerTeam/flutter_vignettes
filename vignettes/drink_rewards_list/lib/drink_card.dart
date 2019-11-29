@@ -89,7 +89,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
         child: RoundedShadow.fromRadius(
           12,
           child: Container(
-            color: Colors.white,
+            color: Color(0xff3d3f47),
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -160,14 +160,14 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
         Expanded(
           child: Text(
             widget.drinkData.title.toUpperCase(),
-            style: Styles.text(20, AppColors.grey, true),
+            style: Styles.text(18, Colors.white, true),
           ),
         ),
         //Star Icon
-        Icon(Icons.star, size: 20, color: AppColors.redAccent),
+        Icon(Icons.star, size: 20, color: AppColors.orangeAccent),
         SizedBox(width: 4),
         //Points Text
-        Text("${widget.drinkData.requiredPoints}", style: Styles.text(20, AppColors.orangeAccent, true))
+        Text("${widget.drinkData.requiredPoints}", style: Styles.text(20, Colors.white, true))
       ],
     );
   }
@@ -179,16 +179,16 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("You're only ", style: Styles.text(12, AppColors.grey, false)),
+            Text("You're only ", style: Styles.text(12, Colors.white, false)),
             Text(" ${pointsValue.round()} ", style: Styles.text(16, AppColors.orangeAccent, true)),
-            Text(" points away", style: Styles.text(12, AppColors.grey, false)),
+            Text(" points away", style: Styles.text(12, Colors.white, false)),
           ],
         ),
         SizedBox(height: 16),
         Text(
           "Redeem your points for a cup of happiness! Our signature espresso is blanced with steamed milk and topped with a light layer of foam. ",
           textAlign: TextAlign.center,
-          style: Styles.text(14, AppColors.grey, false, height: 1.5),
+          style: Styles.text(14, Colors.white, false, height: 1.5),
         ),
         SizedBox(height: 16),
         //Main Button

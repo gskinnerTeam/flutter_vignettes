@@ -30,7 +30,7 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff8f8f8),
+      backgroundColor: Color(0xff22222b),
       body: Theme(
         data: ThemeData(fontFamily: "Poppins", primarySwatch: Colors.orange),
         child: Stack(
@@ -75,27 +75,28 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
           shadowColor: Color(0x0).withAlpha(65),
           child: Container(
             width: double.infinity,
-            child: Image.asset("images/Header.png", fit: BoxFit.fill, package: App.pkg,),
+            child: Image.asset("images/Header-Dark.png", fit: BoxFit.fill, package: App.pkg,),
           )),
     );
   }
 
-  Column _buildTopContent() {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 35),
-        Text("My Rewards", style: Styles.text(22, Colors.white, true)),
-        SizedBox(height: 18),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.star, color: AppColors.redAccent, size: 32),
-            SizedBox(width: 8),
-            Text("$_earnedPoints", style: Styles.text(50, Colors.white, true)),
-          ],
-        ),
-        Text("Your Points Balance", style: Styles.text(14, Colors.white, false))
-      ],
+  Widget _buildTopContent() {
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Text("My Rewards", style: Styles.text(22, Colors.white, true)),
+          SizedBox(height: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.star, color: AppColors.redAccent, size: 32),
+              SizedBox(width: 8),
+              Text("$_earnedPoints", style: Styles.text(50, Colors.white, true)),
+            ],
+          ),
+          Text("Your Points Balance", style: Styles.text(14, Colors.white, false))
+        ],
+      ),
     );
   }
 
