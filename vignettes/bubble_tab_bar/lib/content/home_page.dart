@@ -6,7 +6,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12),
       child: ListView.builder(
         itemCount: 9,
         itemBuilder: (content, index) {

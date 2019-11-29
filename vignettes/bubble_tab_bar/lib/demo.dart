@@ -25,11 +25,11 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
   void initState() {
     //Declare some buttons for our tab bar
     _navBarItems = [
-      NavBarItemData("Home", OMIcons.home, 120, Color(0xff01b87d), Color(0xffebf8f3)),
-      NavBarItemData("Gallery", OMIcons.image, 120, Color(0xff594ccf), Color(0xfff0f0fc)),
-      NavBarItemData("Camera", OMIcons.camera, 120, Color(0xff09a8d9), Color(0xffe7f6fb)),
-      NavBarItemData("Likes", OMIcons.favoriteBorder, 120, Color(0xffcf4c7a), Color(0xfffaf0f3)),
-      NavBarItemData("Saved", OMIcons.save, 120, Color(0xfff2873f), Color(0xfffbe9d6)),
+      NavBarItemData("Home", OMIcons.home, 110, Color(0xff01b87d), Color(0xffebf8f3)),
+      NavBarItemData("Gallery", OMIcons.image, 110, Color(0xff594ccf), Color(0xfff0f0fc)),
+      NavBarItemData("Camera", OMIcons.camera, 115, Color(0xff09a8d9), Color(0xffe7f6fb)),
+      NavBarItemData("Likes", OMIcons.favoriteBorder, 100, Color(0xffcf4c7a), Color(0xfffaf0f3)),
+      NavBarItemData("Saved", OMIcons.save, 105, Color(0xfff2873f), Color(0xfffbe9d6)),
     ];
 
     //Create the views which will be mapped to the indices for our nav btns
@@ -45,6 +45,8 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
 
   @override
   Widget build(BuildContext context) {
+    var accentColor = _navBarItems[_selectedNavIndex].iconColor;
+
     //Create custom navBar, pass in a list of buttons, and listen for tap event
     var navBar = NavBar(
       items: _navBarItems,
@@ -62,7 +64,11 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
           //Wrap the current page in an AnimatedSwitcher for an easy cross-fade effect
           child: AnimatedSwitcher(
             duration: Duration(milliseconds: 350),
-            child: contentView,
+            //Pass the current accent color down as a theme, so our overscroll indicator matches the btn color
+            child: Theme(
+              data: ThemeData(accentColor: accentColor),
+              child: contentView,
+            ),
           ),
         ),
       ),
