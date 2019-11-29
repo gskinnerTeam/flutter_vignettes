@@ -82,18 +82,17 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
       onTap: _handleTap,
       //Use an animated container so we can easily animate our widget height
       child: AnimatedContainer(
-        curve: !_wasOpen? ElasticOutCurve(.9) : Curves.elasticOut,
-        duration: Duration(milliseconds: !_wasOpen? 1200 : 1500),
+        curve: !_wasOpen ? ElasticOutCurve(.9) : Curves.elasticOut,
+        duration: Duration(milliseconds: !_wasOpen ? 1200 : 1500),
         height: cardHeight,
         //Wrap content in a rounded shadow widget, so it will be rounded on the corners but also have a drop shadow
         child: RoundedShadow.fromRadius(
           12,
           child: Container(
-            color: Color(0xff3d3f47),
+            color: Color(0xff303238),
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-
                 //Background liquid layer
                 AnimatedOpacity(
                   opacity: widget.isOpen ? 1 : 0,
@@ -154,7 +153,12 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
     return Row(
       children: <Widget>[
         //Icon
-        Image.asset("images/" + widget.drinkData.iconImage, fit: BoxFit.fitWidth, width: 50, package: App.pkg,),
+        Image.asset(
+          "images/" + widget.drinkData.iconImage,
+          fit: BoxFit.fitWidth,
+          width: 50,
+          package: App.pkg,
+        ),
         SizedBox(width: 24),
         //Label
         Expanded(
@@ -173,16 +177,25 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
   }
 
   Column _buildBottomContent(double pointsValue) {
+    bool isDisabled = widget.earnedPoints < widget.drinkData.requiredPoints;
+
+    List<Widget> rowChildren = [];
+    if (pointsValue == 0) {
+      rowChildren.add(Text("Congratulations!", style: Styles.text(16, Colors.white, true)));
+    } else {
+      rowChildren.addAll([
+        Text("You're only ", style: Styles.text(12, Colors.white, false)),
+        Text(" ${pointsValue.round()} ", style: Styles.text(16, AppColors.orangeAccent, true)),
+        Text(" points away", style: Styles.text(12, Colors.white, false)),
+      ]);
+    }
+
     return Column(
       children: [
         //Body Text
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("You're only ", style: Styles.text(12, Colors.white, false)),
-            Text(" ${pointsValue.round()} ", style: Styles.text(16, AppColors.orangeAccent, true)),
-            Text(" points away", style: Styles.text(12, Colors.white, false)),
-          ],
+          children: rowChildren,
         ),
         SizedBox(height: 16),
         Text(
@@ -195,13 +208,16 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
         ButtonTheme(
           minWidth: 200,
           height: 40,
-          child: FlatButton(
-            //Enable the button if we have enough points. Can do this by assigning a onPressed listener, or not.
-            onPressed: widget.earnedPoints > widget.drinkData.requiredPoints ? () {} : null,
-            color: AppColors.orangeAccent,
-            disabledColor: AppColors.orangeAccent.withAlpha(75),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-            child: Text("REDEEM", style: Styles.text(16, Colors.white, true)),
+          child: Opacity(
+            opacity: isDisabled ? .4 : 1,
+            child: FlatButton(
+              //Enable the button if we have enough points. Can do this by assigning a onPressed listener, or not.
+              onPressed: isDisabled ? () {} : null,
+              color: AppColors.orangeAccent,
+              disabledColor: AppColors.orangeAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              child: Text("REDEEM", style: Styles.text(16, Colors.white, true)),
+            ),
           ),
         )
       ],
