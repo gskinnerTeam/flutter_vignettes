@@ -21,6 +21,6 @@ class App extends StatelessWidget {
           textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white, fontFamily: 'OpenSans'),
           iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
         ),
-        home: ParticleSwipeDemo());
+        home: SafeArea(child: ParticleSwipeDemo()));
   }
 }

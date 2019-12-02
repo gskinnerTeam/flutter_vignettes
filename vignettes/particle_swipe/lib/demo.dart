@@ -24,7 +24,7 @@ class ParticleSwipeDemo extends StatefulWidget {
 }
 
 class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerProviderStateMixin {
-  static const double headerHeight = 80;
+  //static const double headerHeight = 80;
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   ListModel _model;
   SpriteSheet _spriteSheet;
@@ -65,39 +65,39 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
     Size screenSize = MediaQuery.of(context).size;
     // Draw the header and List UI with a ParticleFieldPainter layered over top:
     return Scaffold(
-      body: Stack(children: <Widget>[
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: screenSize.height - headerHeight,
-            child: _buildList(),
-          ),
-        ),
-        _buildHeader(),
-        Positioned.fill(
-            bottom: MediaQuery.of(context).size.height * .16,
-            child: IgnorePointer(
-              child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
-            )),
-      ]),
+      body: Column(
+        children: [
+          _buildHeader(),
+          Flexible(
+            child: Stack(children: <Widget>[
+              _buildList(),
+              Positioned.fill(
+                  child: IgnorePointer(
+                    child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
+                  )),
+            ]),
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildHeader() {
     return Container(
-      height: headerHeight,
       decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xffaa07de), Color(0xffde4ed6)])),
-      child: Stack(fit: StackFit.expand, children: <Widget>[
-        SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Row(children: <Widget>[
-            Icon(Icons.menu, size: 28),
-            SizedBox(width: 18),
-            Text('Inbox', style: TextStyle(fontFamily: 'OpenSans', fontSize: 21, letterSpacing: .3, package: App.pkg))
-          ]),
-        )),
-      ]),
+      child: SafeArea(
+        child: Stack(children: <Widget>[
+          SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 26),
+            child: Row(children: <Widget>[
+              Icon(Icons.menu, size: 28),
+              SizedBox(width: 18),
+              Text('Inbox', style: TextStyle(fontFamily: 'OpenSans', fontSize: 21, letterSpacing: .3, package: App.pkg))
+            ]),
+          )),
+        ]),
+      ),
     );
   }
 
@@ -123,7 +123,7 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
 
     if (action == SwipeAction.remove) {
       // Delay the start of the effect a little bit, so the item is mostly closed before it begins.
-      Future.delayed(Duration(milliseconds: 100)).then((_) => _particleField.lineExplosion(x, y + 1.0, w));
+      Future.delayed(Duration(milliseconds: 100)).then((_) => _particleField.lineExplosion(x, y - 130, w));
 
       // Remove the item (using the ItemModel to sync everything), and redraw the UI (to update count):
       setState(() {
@@ -134,7 +134,7 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
     if (action == SwipeAction.favorite) {
       data.toggleFavorite();
       if (data.isFavorite) {
-        _particleField.pointExplosion(x + 63, y + 49, 100);
+        _particleField.pointExplosion(x + 60, y - 80, 100);
       }
     }
   }
