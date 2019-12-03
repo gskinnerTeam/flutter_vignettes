@@ -47,6 +47,7 @@ class SwipeItemState extends State<SwipeItem> {
   ScrollController _scrollController;
   double _swipeDistance = 0.0;
   Key _key = GlobalKey();
+  bool _isPerformingAction = false;
 
   SwipeItemState();
 
@@ -88,14 +89,17 @@ class SwipeItemState extends State<SwipeItem> {
                 ..translate(swipeDistance * swipeSign * -0.5, 0.0)
                 ..scale(0.5 + 0.5 * swipeRatio),
               child: Stack(alignment: Alignment.center, children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                        boxShadow: [if (widget.data.isFavorite && lToR) BoxShadow(color: Colors.white70.withOpacity(swipeRatio), blurRadius: 18)],
-                        borderRadius: BorderRadius.circular(50),
-                        color: widget.data.isFavorite || !lToR? Colors.white : Colors.transparent),
-                  ),
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        if (widget.data.isFavorite && lToR)
+                          BoxShadow(color: Colors.white70.withOpacity(swipeRatio), blurRadius: 18)
+                      ],
+                      borderRadius: BorderRadius.circular(50),
+                      color: widget.data.isFavorite || !lToR ? Colors.white : Colors.transparent),
+                ),
                 Icon(
                   lToR ? Icons.stars : Icons.cancel,
                   color: indicatorColor,
@@ -135,16 +139,17 @@ class SwipeItemState extends State<SwipeItem> {
 
   void _handleSwipe() {
     double d = _scrollController.position.pixels;
-    if (d > SwipeItem.swipeDistance) {
+    if (d > SwipeItem.swipeDistance && !_isPerformingAction) {
       // Completed a left swipe. Call onRemove, and reset the scroll controller to release the swipe.
       widget.onSwipe?.call(_key, action: SwipeAction.remove);
       _resetScrollController();
-    } else if (d < -SwipeItem.swipeDistance) {
+    } else if (d < -SwipeItem.swipeDistance && !_isPerformingAction) {
+      _isPerformingAction = true;
       // Right swipe.
-      _scrollController.removeListener(_handleSwipe);
       widget.onSwipe?.call(_key, action: SwipeAction.favorite);
-      _scrollController.animateTo(0, duration: Duration(milliseconds: 800), curve: Interval(.25, 1, curve: Curves.easeOutQuad));
-      _resetScrollController();
+      _scrollController
+          .animateTo(0, duration: Duration(milliseconds: 800), curve: Interval(.25, 1, curve: Curves.easeOutQuad))
+          .whenComplete(() => _isPerformingAction = false);
     }
     // Redraw the item with the new swipe distance:
     setState(() {

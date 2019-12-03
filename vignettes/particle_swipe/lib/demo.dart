@@ -73,8 +73,8 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
               _buildList(),
               Positioned.fill(
                   child: IgnorePointer(
-                    child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
-                  )),
+                child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
+              )),
             ]),
           )
         ],
@@ -108,7 +108,8 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
       physics: ClampingScrollPhysics(),
       itemBuilder: (BuildContext context, int index, _) {
         var item = _model[index];
-        return SwipeItem(data: item, isEven: index.isEven, onSwipe: (key, {action}) => _performSwipeAction(item, key, action));
+        return SwipeItem(
+            data: item, isEven: index.isEven, onSwipe: (key, {action}) => _performSwipeAction(item, key, action));
       },
     );
   }
