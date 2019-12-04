@@ -12,7 +12,7 @@ class Waterfall extends ParticleFX {
   double _hue = 0.0;
 
   Waterfall({@required SpriteSheet spriteSheet, @required Size size}) :
-    super(spriteSheet: spriteSheet, size: size, count: size.width > 800 ? 40000 : 20000);
+    super(spriteSheet: spriteSheet, size: size, count: size.shortestSide > 600 ? 40000 : 20000);
 
   @override
   void fillInitialData() {
