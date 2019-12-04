@@ -1,7 +1,7 @@
 
 ![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png)
 
-#### The Flutter Vignettes
+### The Flutter Vignettes
 
 A collection of explorations into the exciting user experience possibilities enabled by the Flutter platform. Built by gskinner in partnership with Google, these vignettes range from the practical to the novel. They aim to inspire both developers and designers to build delightful and beautiful experiences with Flutter.
 
@@ -11,13 +11,13 @@ Play with them on your mobile device by installing the Flutter Vignette Playgrou
 
 ![iOS](https://gskinner.com/flutter_showcase/shared/appstore-Apple.png) ![android](https://gskinner.com/flutter_showcase/shared/appstore-Google.png)
 
-#### About gskinner
+### About gskinner
 
 We exit to build inovative digital experiences for smart clients, and we love how easy Flutter makes that. Don't hesitate to [stop by our site](https://gskinner.com) to learn more about what we do. We'd love to hear from you!
 
 Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
 
-#### The Vignettes
+### The Vignettes
 
 <br />  
 
@@ -42,7 +42,7 @@ Interested in trying some of the Vignettes on device? We've built a Vignettes Pl
 <a href="#">View Vignette</a>
 </p><br/><br/><br/><br/><br/><br/>
 
-#### License
+### License
 
 These vignettes are released under the MIT license. You can use the code for any purpose, including commercial projects, within the terms of the [licsense agreement]
 
