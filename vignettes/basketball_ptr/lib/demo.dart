@@ -95,7 +95,7 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
             onNotification: _handleScrollNotification,
             child: GameListView(
               controller: _scrollController,
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
               model: _model
             ),
           ),
@@ -119,7 +119,12 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
     }
 
     if (notification is ScrollUpdateNotification) {
+      if (notification.dragDetails == null && _percentage >= 1.2 && notification.scrollDelta != 0) {
+        _scrollController.jumpTo(_scrollController.offset);
+      }
       if (notification.scrollDelta > 0.0) {
+        deltaOffset += notification.scrollDelta;
+      } else if (_scrollController.offset < 0) {
         deltaOffset += notification.scrollDelta;
       }
     }
