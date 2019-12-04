@@ -1,0 +1,36 @@
+name: sparkle_party
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  shared:
+    path: ../_shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - assets/
+   - assets/buttons/
+
+  fonts:
+    - family: TitilliumWeb
+      fonts:
+        - asset: fonts/TitilliumWeb-Bold.ttf
+          weight: 700
+        - asset: fonts/TitilliumWeb-SemiBold.ttf
+          weight: 600
+

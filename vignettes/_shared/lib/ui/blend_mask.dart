@@ -32,15 +32,10 @@ class RenderBlendMask extends RenderProxyBox {
 
   @override
   void paint(context, offset) {
-    // Create a new layer and specify the blend mode to composite it with:
-    context.canvas.saveLayer(offset & size, Paint()..blendMode=_blendMode);
+    // Create a new layer and specify the blend mode and opacity to composite it with:
+    context.canvas.saveLayer(offset & size, Paint()..blendMode=_blendMode..color=Color.fromARGB((_opacity * 255).round(), 255, 255, 255));
 
-    // Only push an opacity layer is the layer isn't opaque
-    if (_opacity != 1.0) {
-      context.pushOpacity(offset, (_opacity * 255).round(), super.paint);
-    } else {
-      super.paint(context, offset);
-    }
+    super.paint(context, offset);
 
     // Composite the layer back into the canvas using the blendmode:
     context.canvas.restore();
