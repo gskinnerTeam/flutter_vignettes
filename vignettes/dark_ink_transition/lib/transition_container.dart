@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared/ui/widget_mask.dart';
 import 'package:shared/ui/animated_sprite.dart';
 
-import './demo.dart';
 import 'main.dart';
 
 class TransitionContainer extends StatefulWidget {
@@ -25,18 +24,23 @@ class _TransitionContainerState extends State<TransitionContainer>
   AnimationController _controller;
   Animation<double> _animation;
 
-  ImageProvider _image;
+  List<ImageProvider> _images;
+  int _currentImageIndex = 0;
 
   Widget _childForeground;
   Widget _childBackground;
 
   _TransitionContainerState(ValueNotifier<bool> darkModeValue, this._childBackground) {
-    darkModeValue?.addListener(handleDarkModeChange);
+    darkModeValue?.addListener(() { _handleDarkModeChange(darkModeValue.value); });
   }
 
   @override
   void initState() {
-    _image = AssetImage('assets/images/mask_transition_sheet.png', package: App.pkg);
+    _images = [
+      AssetImage('assets/images/ink_mask.png', package: App.pkg),
+      AssetImage('assets/images/wipe_mask.png', package: App.pkg),
+      AssetImage('assets/images/tendril_mask.png', package: App.pkg),
+    ];
 
     _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
     _animation = TweenSequence(
@@ -46,18 +50,22 @@ class _TransitionContainerState extends State<TransitionContainer>
           weight: 30,
         ),
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 35.0),
+          tween: Tween<double>(begin: 0.0, end: 34.0),
           weight: 70,
         ),
       ],
     ).animate(_controller);
-    _animation.addStatusListener((status) {
+    _controller.addListener(() {
+      setState(() {
+      });
+    });
+    _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          _controller.reset();
           _childBackground = _childForeground;
           _childForeground = null;
         });
+          _controller.reset();
       }
     });
     super.initState();
@@ -66,7 +74,10 @@ class _TransitionContainerState extends State<TransitionContainer>
   @override
   void didUpdateWidget(TransitionContainer oldWidget) {
     if (widget.child != oldWidget.child) {
-      _childForeground = widget.child;
+      setState(() {
+        _childForeground = widget.child;
+      });
+      _controller.forward();
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -101,7 +112,7 @@ class _TransitionContainerState extends State<TransitionContainer>
             height: height,
             // Draw the transition animation as the mask
             child: AnimatedSprite(
-              image: _image,
+              image: _images[_currentImageIndex],
               frameWidth: 360,
               frameHeight: 720,
               animation: _animation,
@@ -126,8 +137,15 @@ class _TransitionContainerState extends State<TransitionContainer>
     );
   }
 
-  void handleDarkModeChange() {
-    _controller.forward(from: 0.0);
+  void _handleDarkModeChange(bool darkMode) {
+    if (darkMode) {
+      setState(() {
+        ++_currentImageIndex;
+        if (_currentImageIndex >= _images.length) {
+          _currentImageIndex = 0;
+        }
+      });
+    }
   }
 }
 
