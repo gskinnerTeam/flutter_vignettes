@@ -41,13 +41,15 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
       });
     });
 
-    // We don't have access to context here so wait until this function completes before telling the controllers where to go
-    Future.delayed(Duration(milliseconds: 1), () {
-      _xController.value = _indexToPosition(_selectedIndex) / MediaQuery.of(context).size.width;
-      _yController.value = 1.0;
-    });
-
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _xController.value = _indexToPosition(_selectedIndex) / MediaQuery.of(context).size.width;
+    _yController.value = 1.0;
+
+    super.didChangeDependencies();
   }
 
   @override
