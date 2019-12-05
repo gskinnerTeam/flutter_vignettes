@@ -43,7 +43,7 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
   void initState() {
     _transitionController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 350),
     );
     _textController = AnimationController(
       vsync: this,
@@ -77,9 +77,7 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
           Center(
             child: Image.asset("assets/sparkleparty_logo.png", package: App.pkg),
           ),
-
-          BlendMask(
-            blendMode: BlendMode.srcOver,
+          Opacity(
             opacity: 1.0 - _transitionController.value,
             child: NotificationListener<TouchPointChangeNotification>(
               onNotification: _handleInteraction,

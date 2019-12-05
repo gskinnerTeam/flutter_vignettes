@@ -18,18 +18,15 @@ class _BouncingWidgetState extends State<BouncingWidget> {
 
   @override
   void initState() {
-    _bounceIcon();
+    _bounceIcon(true);
     super.initState();
   }
 
-  void _bounceIcon() async {
-    _bounceCurve = Curves.easeOut;
-    setState(() => _offsetY = 20);
+  void _bounceIcon(bool up) async {
+    _bounceCurve = up? Curves.easeOut : Curves.easeIn;
+    setState(() => _offsetY = up? 0 : 20);
     await Future.delayed(_bounceDuration);
-    _bounceCurve = Curves.easeIn;
-    setState(() => _offsetY = 0);
-    await Future.delayed(_bounceDuration);
-    _bounceIcon();
+    if(mounted){ _bounceIcon(!up); }
   }
 
   @override

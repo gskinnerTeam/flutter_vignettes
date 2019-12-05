@@ -85,7 +85,7 @@ class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderSt
           //Use BoxDecoration top create a rounded container
           decoration: BoxDecoration(
             color: widget.isSelected ? widget.data.selectedColor : Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(widget.isSelected ? 24 : 6)),
+            borderRadius: BorderRadius.all(Radius.circular(24)),
           ),
           //Wrap the row in a ClippedView to suppress any overflow errors if we momentarily exceed the screen size
           child: ClippedView(

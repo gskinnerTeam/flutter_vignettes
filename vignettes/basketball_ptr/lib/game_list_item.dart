@@ -4,6 +4,7 @@ import './theme_info.dart';
 import './demo_data.dart';
 import './game_time.dart';
 import './game_score.dart';
+import 'main.dart';
 
 class GameListItem extends StatelessWidget {
   final BasketballGameData data;
@@ -23,7 +24,7 @@ class GameListItem extends StatelessWidget {
             width: 64,
             height: 64,
             child: Image(
-              image: AssetImage(data.homeTeamLogoPath),
+              image: AssetImage(data.homeTeamLogoPath, package: App.pkg),
             ),
           ),
           Text(data.homeTeamCity, style: ThemeInfo.textStyleTeam),
@@ -56,7 +57,7 @@ class GameListItem extends StatelessWidget {
             width: 64,
             height: 64,
             child: Image(
-              image: AssetImage(data.awayTeamLogoPath),
+              image: AssetImage(data.awayTeamLogoPath, package: App.pkg),
             ),
           ),
           Text(data.awayTeamCity, style: ThemeInfo.textStyleTeam),

@@ -9,7 +9,7 @@ import 'main.dart';
 import 'particle_field.dart';
 import 'particle_field_painter.dart';
 import 'removed_swipe_item.dart';
-import 'sprite_sheet.dart';
+import 'components/sprite_sheet.dart';
 import 'swipe_item.dart';
 
 class ParticleSwipeDemo extends StatefulWidget {
@@ -64,41 +64,13 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     // Draw the header and List UI with a ParticleFieldPainter layered over top:
-    return Scaffold(
-      body: Column(
-        children: [
-          _buildHeader(),
-          Flexible(
-            child: Stack(children: <Widget>[
-              _buildList(),
-              Positioned.fill(
-                  child: IgnorePointer(
-                child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
-              )),
-            ]),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xffaa07de), Color(0xffde4ed6)])),
-      child: SafeArea(
-        child: Stack(children: <Widget>[
-          SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 26),
-            child: Row(children: <Widget>[
-              Icon(Icons.menu, size: 28),
-              SizedBox(width: 18),
-              Text('Inbox', style: TextStyle(fontFamily: 'OpenSans', fontSize: 21, letterSpacing: .3, package: App.pkg))
-            ]),
-          )),
-        ]),
-      ),
-    );
+    return Stack(children: <Widget>[
+      _buildList(),
+      Positioned.fill(
+          child: IgnorePointer(
+        child: CustomPaint(painter: ParticleFieldPainter(field: _particleField, spriteSheet: _spriteSheet)),
+      )),
+    ]);
   }
 
   Widget _buildList() {
@@ -108,8 +80,7 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
       physics: ClampingScrollPhysics(),
       itemBuilder: (BuildContext context, int index, _) {
         var item = _model[index];
-        return SwipeItem(
-            data: item, isEven: index.isEven, onSwipe: (key, {action}) => _performSwipeAction(item, key, action));
+        return SwipeItem(data: item, isEven: index.isEven, onSwipe: (key, {action}) => _performSwipeAction(item, key, action));
       },
     );
   }
@@ -117,14 +88,14 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
   void _performSwipeAction(Email data, GlobalKey key, SwipeAction action) {
     // Get item's render box, and use it to calculate the position for the particle effect:
     final RenderBox box = key.currentContext.findRenderObject();
-    Offset position = box.localToGlobal(Offset.zero);
+    Offset position = box.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
     double x = position.dx;
     double y = position.dy;
     double w = box.size.width;
 
     if (action == SwipeAction.remove) {
       // Delay the start of the effect a little bit, so the item is mostly closed before it begins.
-      Future.delayed(Duration(milliseconds: 100)).then((_) => _particleField.lineExplosion(x, y - 130, w));
+      Future.delayed(Duration(milliseconds: 100)).then((_) => _particleField.lineExplosion(x, y, w));
 
       // Remove the item (using the ItemModel to sync everything), and redraw the UI (to update count):
       setState(() {
@@ -135,7 +106,7 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
     if (action == SwipeAction.favorite) {
       data.toggleFavorite();
       if (data.isFavorite) {
-        _particleField.pointExplosion(x + 60, y - 80, 100);
+        _particleField.pointExplosion(x + 60, y + 46, 100);
       }
     }
   }

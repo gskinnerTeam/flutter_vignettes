@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'particle_field.dart';
-import 'sprite_sheet.dart';
+import 'components/sprite_sheet.dart';
 
 
 // Renders a ParticleField.

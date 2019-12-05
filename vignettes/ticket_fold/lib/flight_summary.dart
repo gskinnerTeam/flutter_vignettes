@@ -76,7 +76,7 @@ class FlightSummary extends StatelessWidget {
     if (theme == SummaryTheme.dark)
       return BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        image: DecorationImage(image: AssetImage('images/bg_blue.png'), fit: BoxFit.cover),
+        image: DecorationImage(image: AssetImage('images/bg_blue.png', package: App.pkg), fit: BoxFit.cover),
       );
   }
 

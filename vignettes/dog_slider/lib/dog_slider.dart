@@ -52,9 +52,9 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
       //If value is 0, keep dog offscreen, otherwise, set target to the current slider pos
       targetX: _sliderValue == 0 ? _offscreenX : _slidePosX,
       //Play walk anim when moving
-      onMoveStarted: () => _dogController.play("walk"),
+      onMoveStarted: () => _dogController.play("walk", mixSeconds:.01),
       //play sit animation when we reach our destination
-      onDestinationReached: () => _dogController.play("sit-front"),
+      onDestinationReached: () => _dogController.play("sit-front", mixSeconds: .01),
     );
     //Use Ticker to redraw view, and update dog physics
     _dogTicker = Ticker((elapsed) {

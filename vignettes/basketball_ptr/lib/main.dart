@@ -7,8 +7,8 @@ import './demo.dart';
 void main() => runApp(App());
 
 class App extends StatelessWidget {
-  static String _pkg = "basketball_ptr";
 
+  static String _pkg = "basketball_ptr";
   static String get pkg => Env.getPackage(_pkg);
 
   @override
