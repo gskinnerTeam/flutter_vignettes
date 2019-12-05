@@ -55,7 +55,7 @@ class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderSt
           child: Icon(
             widget.data.icon,
             size: 24,
-            color: widget.isSelected ? widget.data.iconColor : Color(0xffcccccc),
+            color: widget.isSelected ? Colors.white : Color(0xffcccccc),
           ),
         ),
         //Add some hz spacing
@@ -63,7 +63,7 @@ class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderSt
         //Label
         Text(
           widget.data.title,
-          style: TextStyle(color: widget.data.iconColor, fontFamily: "Montserrat", package: App.pkg),
+          style: TextStyle(color: Colors.white, fontFamily: "Montserrat", package: App.pkg),
         ),
       ],
     );
@@ -84,7 +84,7 @@ class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderSt
           duration: Duration(milliseconds: (700 / _animScale).round()),
           //Use BoxDecoration top create a rounded container
           decoration: BoxDecoration(
-            color: widget.isSelected ? widget.data.bgColor : Colors.white,
+            color: widget.isSelected ? widget.data.selectedColor : Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(widget.isSelected ? 24 : 6)),
           ),
           //Wrap the row in a ClippedView to suppress any overflow errors if we momentarily exceed the screen size

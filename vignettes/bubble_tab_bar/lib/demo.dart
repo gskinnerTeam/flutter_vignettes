@@ -25,11 +25,11 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
   void initState() {
     //Declare some buttons for our tab bar
     _navBarItems = [
-      NavBarItemData("Home", OMIcons.home, 110, Color(0xff01b87d), Color(0xffebf8f3)),
-      NavBarItemData("Gallery", OMIcons.image, 110, Color(0xff594ccf), Color(0xfff0f0fc)),
-      NavBarItemData("Camera", OMIcons.camera, 115, Color(0xff09a8d9), Color(0xffe7f6fb)),
-      NavBarItemData("Likes", OMIcons.favoriteBorder, 100, Color(0xffcf4c7a), Color(0xfffaf0f3)),
-      NavBarItemData("Saved", OMIcons.save, 105, Color(0xfff2873f), Color(0xfffbe9d6)),
+      NavBarItemData("Home", OMIcons.home, 110, Color(0xff01b87d)),
+      NavBarItemData("Gallery", OMIcons.image, 110, Color(0xff594ccf)),
+      NavBarItemData("Camera", OMIcons.camera, 115, Color(0xff09a8d9)),
+      NavBarItemData("Likes", OMIcons.favoriteBorder, 100, Color(0xffcf4c7a)),
+      NavBarItemData("Saved", OMIcons.save, 105, Color(0xfff2873f)),
     ];
 
     //Create the views which will be mapped to the indices for our nav btns
@@ -45,7 +45,7 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
 
   @override
   Widget build(BuildContext context) {
-    var accentColor = _navBarItems[_selectedNavIndex].iconColor;
+    var accentColor = _navBarItems[_selectedNavIndex].selectedColor;
 
     //Create custom navBar, pass in a list of buttons, and listen for tap event
     var navBar = NavBar(
