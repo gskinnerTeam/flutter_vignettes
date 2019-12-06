@@ -12,7 +12,6 @@ class Email {
   Email({this.from, this.subject, this.body, this.isRead = false, this.isFavorite = false});
 
   toggleFavorite() {
-    print("Toggle for  item#: $randNum isFavorite=$isFavorite");
     this.isFavorite = !this.isFavorite;
   }
 }
