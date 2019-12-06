@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:dog_slider/dog_flare_controller.dart';
+
 import 'dog_slider_bg_painter.dart';
 import 'main.dart';
 import 'moving_character_physics_2d.dart';
@@ -33,7 +35,7 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
   double _dogWidth = 100;
   Ticker _dogTicker;
   MovingCharacterPhysics2d _dogPhysics;
-  FlareControls _dogController;
+  DogFlareControls _dogController;
 
   @override
   void initState() {
@@ -44,7 +46,7 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
     //animationController to handle our ball
     _ballAnim = AnimationController(vsync: this)..addListener(() => setState(() {}));
     //Dog controller to handle animations
-    _dogController = FlareControls();
+    _dogController = DogFlareControls();
     //Character physics for dog
     _dogPhysics = MovingCharacterPhysics2d(
       //Start dog offscreen
@@ -52,9 +54,9 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
       //If value is 0, keep dog offscreen, otherwise, set target to the current slider pos
       targetX: _sliderValue == 0 ? _offscreenX : _slidePosX,
       //Play walk anim when moving
-      onMoveStarted: () => _dogController.play("walk", mixSeconds:.01),
+      onMoveStarted: () => _dogController.play("walk"),
       //play sit animation when we reach our destination
-      onDestinationReached: () => _dogController.play("sit-front", mixSeconds: .01),
+      onDestinationReached: () => _dogController.play("sit-front"),
     );
     //Use Ticker to redraw view, and update dog physics
     _dogTicker = Ticker((elapsed) {

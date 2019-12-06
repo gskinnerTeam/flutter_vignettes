@@ -17,7 +17,7 @@ class DogFlareControls extends FlareController {
   }
 
   // Create new animation, and assign it as current
-  void play(String name, {double mix = 1.0, double mixSeconds = 0.2}) {
+  void play(String name) {
     _animationName = name;
     //Exit early if name or artboard are null
     if (_animationName == null || _artBoard == null) return;
@@ -35,8 +35,8 @@ class DogFlareControls extends FlareController {
   // Advance animation and call onComplete when a non-looping anim has finished.
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
+    if(_animationLayer == null){ return false; }
     FlareAnimationLayer layer = _animationLayer;
-    layer.mix += elapsed;
     layer.time += elapsed;
     //Loop?
     if (layer.animation.isLooping) {
