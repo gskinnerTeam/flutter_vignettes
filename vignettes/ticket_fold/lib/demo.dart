@@ -6,10 +6,18 @@ import 'demo_data.dart';
 import 'main.dart';
 import 'ticket.dart';
 
-class TicketFoldDemo extends StatelessWidget {
+class TicketFoldDemo extends StatefulWidget {
+  @override
+  _TicketFoldDemoState createState() => _TicketFoldDemoState();
+}
+
+class _TicketFoldDemoState extends State<TicketFoldDemo> {
   final List<BoardingPassData> _boardingPasses = DemoData().boardingPasses;
+
   final Color _backgroundColor = Color(0xFFf0f0f0);
+
   final ScrollController _scrollController = ScrollController();
+
   final List<int> _openTickets = [];
 
   @override
