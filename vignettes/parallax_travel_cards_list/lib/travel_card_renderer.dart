@@ -76,8 +76,10 @@ class TravelCardRenderer extends StatelessWidget {
         ),
         Expanded(child: SizedBox(),),
         FlatButton(
+          disabledColor: Colors.transparent,
           color: Colors.transparent,
           child: Text('Learn More'.toUpperCase(), style: Styles.cardAction),
+          onPressed: null,
         ),
         SizedBox(height: 8)
       ],
