@@ -86,8 +86,8 @@ class LiquidPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
 
-    _drawLiquidSim(simulation1, canvas, size, 0, Color(0xffC48D3B).withOpacity(.1));
-    _drawLiquidSim(simulation2, canvas, size, 5,  Color(0xff9D7B32).withOpacity(.1));
+    _drawLiquidSim(simulation1, canvas, size, 0, Color(0xffC48D3B).withOpacity(.4));
+    _drawLiquidSim(simulation2, canvas, size, 5,  Color(0xff9D7B32).withOpacity(.4));
 
   }
 

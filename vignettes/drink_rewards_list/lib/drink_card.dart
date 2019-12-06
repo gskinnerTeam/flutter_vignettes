@@ -70,7 +70,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
       _wasOpen = widget.isOpen;
     }
 
-    //Determine the points required text value, using the _textTween
+    //Determine the points required text value, using the _pointsTween
     var pointsRequired = widget.drinkData.requiredPoints;
     var pointsValue = pointsRequired - _pointsTween.value * min(widget.earnedPoints, pointsRequired);
     //Determine current fill level, based on _fillTween
@@ -209,7 +209,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
           minWidth: 200,
           height: 40,
           child: Opacity(
-            opacity: isDisabled ? .4 : 1,
+            opacity: isDisabled ? .6 : 1,
             child: FlatButton(
               //Enable the button if we have enough points. Can do this by assigning a onPressed listener, or not.
               onPressed: isDisabled ? () {} : null,

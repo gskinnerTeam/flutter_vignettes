@@ -29,6 +29,8 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = MediaQuery.of(context).size.aspectRatio > 1;
+    double headerHeight = MediaQuery.of(context).size.height * (isLandscape? .25 : .2);
     return Scaffold(
       backgroundColor: Color(0xff22222b),
       body: Theme(
@@ -36,16 +38,16 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
         child: Stack(
           children: <Widget>[
             ListView.builder(
-              padding: EdgeInsets.only(bottom: 40, top: 250),
+              padding: EdgeInsets.only(bottom: 40, top: headerHeight + 10),
               itemCount: _drinks.length,
               scrollDirection: Axis.vertical,
               controller: _scrollController,
               itemBuilder: (context, index) => _buildListItem(index),
             ),
 
-            _buildTopBg(),
+            _buildTopBg(headerHeight),
 
-            _buildTopContent(),
+            _buildTopContent(headerHeight),
 
           ],
         ),
@@ -65,10 +67,10 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
     );
   }
 
-  Widget _buildTopBg() {
+  Widget _buildTopBg(double height) {
     return Container(
       alignment: Alignment.topCenter,
-      height: 250,
+      height: height,
       child: RoundedShadow(
           topLeftRadius: 0,
           topRightRadius: 0,
@@ -80,22 +82,30 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
     );
   }
 
-  Widget _buildTopContent() {
+  Widget _buildTopContent(double height) {
     return SafeArea(
-      child: Column(
-        children: <Widget>[
-          Text("My Rewards", style: Styles.text(22, Colors.white, true)),
-          SizedBox(height: 18),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          height: height,
+          padding: EdgeInsets.all(height * .1),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Icon(Icons.star, color: AppColors.redAccent, size: 32),
-              SizedBox(width: 8),
-              Text("$_earnedPoints", style: Styles.text(50, Colors.white, true)),
+              Text("My Rewards", style: Styles.text(height * .13, Colors.white, true)),
+              //SizedBox(height: height * .05),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.star, color: AppColors.redAccent, size: height * .2),
+                  SizedBox(width: 8),
+                  Text("$_earnedPoints", style: Styles.text(height * .3, Colors.white, true)),
+                ],
+              ),
+              Text("Your Points Balance", style: Styles.text(height * .1, Colors.white, false))
             ],
           ),
-          Text("Your Points Balance", style: Styles.text(14, Colors.white, false))
-        ],
+        ),
       ),
     );
   }
