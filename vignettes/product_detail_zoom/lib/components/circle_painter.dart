@@ -1,16 +1,15 @@
 import 'package:flutter/widgets.dart';
 
 class CirclePainter extends CustomPainter {
-  Paint _paint;
+  final Paint _paint;
   final Color color;
   final double radius;
 
-  CirclePainter({this.color, this.radius}) {
-    _paint = Paint()
-      ..color = color
-      ..strokeWidth = 10.0
-      ..style = PaintingStyle.fill;
-  }
+  CirclePainter({this.color, this.radius})
+      : _paint = Paint()
+          ..color = color
+          ..strokeWidth = 10.0
+          ..style = PaintingStyle.fill;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -18,7 +17,7 @@ class CirclePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(CirclePainter oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.radius != radius;
   }
 }

@@ -5,7 +5,8 @@ class DelayedFadeIn extends StatefulWidget {
   final Duration duration;
   final Duration delay;
 
-  const DelayedFadeIn({Key key, this.child, @required this.delay, this.duration = const Duration(milliseconds: 700)}) : super(key: key);
+  const DelayedFadeIn({Key key, this.child, @required this.delay, this.duration = const Duration(milliseconds: 700)})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DelayedFadeInState();
@@ -18,6 +19,8 @@ class _DelayedFadeInState extends State<DelayedFadeIn> with SingleTickerProvider
   void initState() {
     super.initState();
     _animationController = AnimationController(vsync: this);
+    _animationController.duration = widget.duration + widget.delay;
+    _animationController.forward(from: 0);
   }
 
   @override
@@ -28,8 +31,7 @@ class _DelayedFadeInState extends State<DelayedFadeIn> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    _animationController.duration = widget.duration + widget.delay;
-    _animationController.forward(from: 0);
-    return FadeTransition(opacity: CurvedAnimation(curve: Interval(.9, 1), parent: _animationController), child: widget.child);
+    return FadeTransition(
+        opacity: CurvedAnimation(curve: Interval(.9, 1), parent: _animationController), child: widget.child);
   }
 }
