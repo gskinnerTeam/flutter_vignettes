@@ -1,9 +1,9 @@
 
-[![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png)](https://flutter.gskinner.com)
+<br/><p align="center"><a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" width="440px"/></a></p><br/>
 
 ## Boarding Pass Cards
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/boarding_pass_edited.gif"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/boarding_pass_edited.gif?"/></a></p>
 
 <br/>
 

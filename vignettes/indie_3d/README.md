@@ -1,9 +1,9 @@
 
-[![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png)](https://flutter.gskinner.com)
+<br/><p align="center"><a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" width="440px"/></a></p><br/>
 
 ## Feature Artist Carousel
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/indie3d_edited_sm.gif" /></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/indie3d_edited_sm.gif?" /></a></p>
 
 <br/>
 

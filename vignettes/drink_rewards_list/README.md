@@ -1,9 +1,9 @@
 
-[![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png)](https://flutter.gskinner.com)
+<br/><p align="center"><a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" width="440px"/></a></p><br/>
 
 ## Liquid Rewards Cards
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/drink_rewards_edited.gif"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/drink_rewards_edited.gif?"/></a></p>
 
 <br/>
 
