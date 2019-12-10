@@ -3,7 +3,7 @@
 
 ## Sparkle Party Particles
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/sparkle_party_edited.gif" /></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/sparkle_party_edited_sm.gif" /></a></p>
 
 <br/>
 
