@@ -1,40 +1,45 @@
-<a href="https://www.gskinner.com/flutter_showcase/"><img src="https://gskinner.com/flutter_showcase/shared/header@2x.png"></a>
-<img src="https://gskinner.com/flutter_showcase/shared/subheader@2x.png">
 
-<h2 align=center> The Flutter Vignettes </h2>
+[![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png)](https://flutter.gskinner.com)
 
-This is one of the vignettes to showcase the power of flutter created by [gskinner](https://gksinner.com). These vignettes are meant to inspire, jumpstart, and empower designed and developers to build with flutter.
+## Guide To the Stars Particles
 
-<p align=center><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p>
-
-<p id="constellation_list" align=center><a href="#constellation_list"><h1 align=center>Constellation List</h1></a></p>
-<p align=center><a href="#"><img src="https://gskinner.com/flutter_showcase/previews/constellation_list_edited.gif" width="480" height="480" /></a></p>
-<p align=left>Example of creating a star field effect and controlling it's speed based on user scrolling. Also shows how to create a persistent animated background, with transparent pages on top.</p>
-<br/>
-<h2 align=center>Vignettes Playground</h2>
-
-Interested in trying some of the Vignettes on device? We've built a Vignettes Playground for you to try all these demos on iOS and Android.
-
-<p align=center><img src="https://gskinner.com/flutter_showcase/shared/appstore-Apple.png"/>  <img src="https://gskinner.com/flutter_showcase/shared/appstore-Google.png"/></p>
-<br/>
-
-<h2 id="license" align=center>License</h2>
-
-
-The _Flutter Vignettes_ is released under the MIT license. 
-
-
-<p align=center><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/constellations_list_edited.gif"/></a></p>
 
 <br/>
-<h2 align=center>Hire gskinner</h2>
 
+Learn about different constellations in the night sky. Tap on the names to travel through space and see what a constellation looks like. 
 
-Looking for a digital studio to help you with your next Flutter app of digital experience? We're always looking for our next big challenge and great parters to go on a journey with.
+Shows how to use an animated Canvas as the primary background for your app. In this case, a starfield effect that controls its animation speed based on user scrolling and page transitions. 
 
+<br />
 
-<p align=center>
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-HireUs.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Follow.png"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/button-Website.png"/></a>
-</p><br /><br />
+### The Flutter Vignettes
+
+This vignette is part of a collection of explorations into the exciting user experience possibilities enabled by the Flutter platform. Built by [gskinner](https://gskinner.com) in partnership with Google, these vignettes range from practical to novel. They aim to inspire both developers and designers to build delightful and beautiful experiences with Flutter. You can view all of the vignettes in the main [GitHub repo](https://github.com/gskinnerTeam/flutter_vignettes). 
+
+In addition to reviewing and forking the [MIT-licensed](LICENSE.md) code available here, you can also check out more information on the [Vignette Showcase Website](https://flutter.gskinner.com). 
+
+<br />
+
+### Installation
+
+If you're new to Flutter the first thing you'll need is to follow the [setup instructions](https://flutter.dev/docs/get-started/install). Once you're set up and can compile the sample Flutter app, you're ready to run some vignettes!
+
+Each vignette is stored in its own folder in the repository. Using your IDE of choice, open the vignette directory you'd like to run. Then, using the terminal inside youre IDE, run `flutter get` to fetch any dependencies, and `flutter run` to deploy to your connected device or simulator.
+
+If you would like to try these for Flutter for web, you can use `flutter run -d chrome`. Note that Flutter for web is currently a technical preview and not all of the vignettes will work correctly. For more information on enabling Flutter for web follow the [setup instructions](https://flutter.dev/docs/get-started/web).
+
+<br/>
+
+### License
+
+These vignettes are released under the [MIT license](LICENSE.md). You can use the code for any purpose, including commercial projects.
+
+[![license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+<br />
+
+### About gskinner
+
+We exist to build inovative digital experiences for smart clients, and we love how easy Flutter makes that. Don't hesitate to [stop by our site](https://gskinner.com) to learn more about what we do. We'd love to hear from you!
+
