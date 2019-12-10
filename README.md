@@ -34,7 +34,7 @@ We exist to build inovative digital experiences for smart clients, and we love h
 <br/><br/><br/><br/><br/><br/>
 
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><img align="left" hspace=68 src="https://flutter.gskinner.com/previews/boarding_pass_edited_sm.gif?" width="237" /></a>
-<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><h3>Drink Rewards Card</h3></a>
+<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><h3>Boarding Pass Cards</h3></a>
 <p>Uses the Transform widget to create a folding card effect. In this case a boarding pass with multiple folds, each fold containing a child widget.</p>
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold">View Code</a>
 <br/><br/><br/><br/><br/><br/>
