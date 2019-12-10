@@ -1,5 +1,5 @@
 
-[![header](https://gskinner.com/flutter_showcase/shared/Header@2x.png?)](https://flutter.gskinner.com)
+<a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" maxWidth="800px"/></a>
 
 ### The Flutter Vignettes
 
