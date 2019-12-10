@@ -111,14 +111,22 @@ We exist to build inovative digital experiences for smart clients, and we love h
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/sparkle_party">View Code</a>
 <br/><br/><br/><br/><br/><br/>
 
+<br/>
+
 ### Installation
+
+<br/>
 If you're new to Flutter the first thing you'll need is to follow the setup instructions. Once you're set up and can compile the sample Flutter app, you're ready to run some vignettes!
 
 Each vignette is stored in its own folder in the repository. Using your IDE of choice, open the vignette directory you'd like to run. Then, using the terminal inside youre IDE, run flutter get to fetch any dependencies, and flutter run to deploy to your connected device or simulator.
 
 If you would like to try these for Flutter for web, you can use flutter run -d chrome. Note that Flutter for web is currently a technical preview and not all of the vignettes will work correctly. For more information on enabling Flutter for web follow the setup instructions.
 
+<br/>
+
 ### License
+
+<br/>
 
 These vignettes are released under the [MIT license](LICENSE.md). You can use the code for any purpose, including commercial projects.
 
