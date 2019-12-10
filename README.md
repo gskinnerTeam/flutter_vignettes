@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" width="400px" vspace="20"/></a></p>
+<p align="center"><a href="https://flutter.gskinner.com"><img src="https://gskinner.com/flutter_showcase/shared/Header@2x.png?" width="400px" vspace="100"/></a></p>
 
 ### The Flutter Vignettes
 
