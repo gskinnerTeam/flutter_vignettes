@@ -34,7 +34,7 @@ We exist to build inovative digital experiences for smart clients, and we love h
 <br/><br/><br/><br/><br/><br/>
 
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><img align="left" hspace=68 src="https://flutter.gskinner.com/previews/boarding_pass_edited_sm.gif?" width="237" /></a>
-<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><h3>Drink Rewards Card</h3></a>
+<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold"><h3>Boarding Pass Cards</h3></a>
 <p>Uses the Transform widget to create a folding card effect. In this case a boarding pass with multiple folds, each fold containing a child widget.</p>
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/ticket_fold">View Code</a>
 <br/><br/><br/><br/><br/><br/>
@@ -111,7 +111,21 @@ We exist to build inovative digital experiences for smart clients, and we love h
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/sparkle_party">View Code</a>
 <br/><br/><br/><br/><br/><br/>
 
+<br/>
+
+### Installation
+
+If you're new to Flutter the first thing you'll need is to follow the [setup instructions](https://flutter.dev/docs/get-started/install). Once you're set up and can compile the sample Flutter app, you're ready to run some vignettes!
+
+Each vignette is stored in its own folder in the repository. Using your IDE of choice, open the vignette directory you'd like to run. Then, using the terminal inside youre IDE, run `flutter get` to fetch any dependencies, and `flutter run` to deploy to your connected device or simulator.
+
+If you would like to try these for Flutter for web, you can use `flutter run -d chrome`. Note that Flutter for web is currently a technical preview and not all of the vignettes will work correctly. For more information on enabling Flutter for web follow the [setup instructions](https://flutter.dev/docs/get-started/web).
+
+<br/>
+
 ### License
+
+<br/>
 
 These vignettes are released under the [MIT license](LICENSE.md). You can use the code for any purpose, including commercial projects.
 
