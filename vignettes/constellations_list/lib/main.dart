@@ -13,6 +13,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays(const []);
+
     return MaterialApp(
       home: ConstellationsListDemo(),
     );
