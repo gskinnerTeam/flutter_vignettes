@@ -1,0 +1,44 @@
+name: plant_forms
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.3.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  flutter_masked_text: ^0.8.0
+  font_awesome_flutter: ^8.5.0
+
+  shared:
+    path: ../_shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+   - images/
+  fonts:
+    - family: Barlow
+      fonts:
+        - asset: fonts/Barlow-Regular.otf
+        - asset: fonts/Barlow-Medium.otf
+          weight: 500
+        - asset: fonts/Barlow-MediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: fonts/Barlow-SemiBold.otf
+          weight: 600
+        - asset: fonts/Barlow-Bold.otf
+          weight: 700
+        - asset: fonts/Barlow-ExtraBold.ttf
+          weight: 800
+    - family: Baloo
+      fonts:
+        - asset: fonts/Baloo-Regular.ttf

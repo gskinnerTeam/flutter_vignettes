@@ -1,0 +1,45 @@
+name: indie_3d
+description:
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+
+  shared:
+      path: ../_shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+      - images/noise.png
+      - images/artist_1.png
+      - images/artist_2.png
+      - images/artist_3.png
+      - packages/indie_3d/assets/torus.obj
+      - packages/indie_3d/assets/torus.mtl
+      - packages/indie_3d/assets/star.obj
+      - packages/indie_3d/assets/star.mtl
+      - packages/indie_3d/assets/cube.obj
+      - packages/indie_3d/assets/cube.mtl
+
+  fonts:
+      - family: Roboto
+        fonts:
+          - asset: fonts/Roboto-Bold.ttf
+            weight: 600
+      - family: Staatliches
+        fonts:
+          - asset: fonts/Staatliches-Regular.ttf
+

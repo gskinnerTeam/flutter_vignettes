@@ -1,0 +1,40 @@
+name: constellations_list
+description:
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared:
+    path: ../_shared/
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+    - packages/constellations_list/assets/glow.png
+
+  fonts:
+    - family: DMSerif
+      fonts:
+        - asset: fonts/DMSerifDisplay-Regular.ttf
+
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+
+    - family: Playfair
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf

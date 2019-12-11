@@ -1,0 +1,55 @@
+name: gooey_edge
+description:
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared:
+      path: ../_shared/
+
+  cupertino_icons: ^0.1.2
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - images/
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/Open-Sans/OpenSans-Regular.ttf
+        - asset: fonts/Open-Sans/OpenSans-Italic.ttf
+          style: italic
+        - asset: fonts/Open-Sans/OpenSans-Light.ttf
+          weight: 300
+        - asset: fonts/Open-Sans/OpenSans-LightItalic.ttf
+          style: italic
+          weight: 300
+        - asset: fonts/Open-Sans/OpenSans-Bold.ttf
+          weight: 700
+        - asset: fonts/Open-Sans/OpenSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/Open-Sans/OpenSans-Semibold.ttf
+          weight: 600
+        - asset: fonts/Open-Sans/OpenSans-SemiboldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/Open-Sans/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Open-Sans/OpenSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+    - family: DMSerifDisplay
+      fonts:
+        - asset: fonts/DM-Serif-Display/DMSerifDisplay-Regular.ttf
+        - asset: fonts/DM-Serif-Display/DMSerifDisplay-Italic.ttf
+          style: italic

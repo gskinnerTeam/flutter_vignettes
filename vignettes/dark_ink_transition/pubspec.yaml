@@ -1,0 +1,37 @@
+name: dark_ink_transition
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  shared:
+    path: ../_shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/ink_mask.png
+    - assets/images/wipe_mask.png
+    - assets/images/tendril_mask.png
+    - assets/images/icon-moon.png
+    - assets/images/icon-sun.png
+    - assets/images/icon-r.png
+
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather-Bold.otf
+        - asset: assets/fonts/Merriweather-Black.otf
+

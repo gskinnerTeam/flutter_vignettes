@@ -1,0 +1,48 @@
+name: dog_slider
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared:
+    path: ../_shared/
+
+  flare_flutter: 1.7.3
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - packages/dog_slider/assets/DogAnimation.flr
+    - images/
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Medium.ttf
+    - family: Raleway
+      fonts:
+        - asset: fonts/Raleway-Bold.ttf
+          weight: 700
+        - asset: fonts/Raleway-SemiBold.ttf
+          weight: 600
+    - family: Quicksand
+      fonts:
+        - asset: fonts/Quicksand-Regular.ttf
+          weight: 400
+        - asset: fonts/Quicksand-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Quicksand-Bold.ttf
+          weight: 700

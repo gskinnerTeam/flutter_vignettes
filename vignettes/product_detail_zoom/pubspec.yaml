@@ -1,0 +1,34 @@
+name: product_detail_zoom
+description: 3D Product Detail Zoom.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  shared:
+    path: ../_shared/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+   - images/
+
+  fonts:
+      - family: WorkSans
+        fonts:
+          - asset: fonts/WorkSans-Regular.otf
+          - asset: fonts/WorkSans-Bold.otf
+            weight: 700
+          - asset: fonts/WorkSans-Black.otf
+            weight: 900

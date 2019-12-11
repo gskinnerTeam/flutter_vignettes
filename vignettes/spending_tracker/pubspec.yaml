@@ -1,0 +1,37 @@
+name: spending_tracker
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+
+  shared:
+    path: ../_shared
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/headshot.png
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Bold.ttf
+          weight: 600
+        - asset: fonts/Lato-Light.ttf
+          weight: 200
+        - asset: fonts/Lato-Regular.ttf
+    - family: TitilliumWeb
+      fonts:
+        - asset: fonts/TitilliumWeb-SemiBold.ttf
+          weight: 500
+
+
