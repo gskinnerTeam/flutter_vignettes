@@ -14,12 +14,7 @@ class FormKeys {
   static String phone = "phone";
   static String ccCode = "ccCode";
   static String ccNumber = "ccNumber";
-
   static String ccName = "ccName";
-
-
-
-
 }
 
 class CountryData {

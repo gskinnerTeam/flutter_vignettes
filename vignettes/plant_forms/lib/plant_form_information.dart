@@ -43,6 +43,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     _countries = CountryData.getCountries();
     formState = Provider.of<SharedFormState>(context, listen: false);
     if (!values.containsKey(FormKeys.country)) {
+      // if not value, set default country
       values[FormKeys.country] = _countries[2];
     }
     _updateCountrySubdivision(_selectedCountry);
@@ -140,6 +141,8 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
 
   TextInput _buildText(String key, {String title, bool required = false, InputType type = InputType.text}) {
     title = title ?? _snakeToTitleCase(key);
+    // Register the input validity
+    if (!validInputsMap.containsKey(key)) validInputsMap[key] = !required;
     return TextInput(
       key: ValueKey(key),
       helper: title,
@@ -153,6 +156,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
 
   @override
   void onItemValidate(String key, bool isValid, {String value}) {
+    // update the input validity
     validInputsMap[key] = isValid;
     bool hasChanged = values[key] != value;
     values[key] = value;

@@ -38,7 +38,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
       isValid = true;
     }
     var items = _buildMenuItems();
-    items.forEach((i)=>print("----> ${i.value}"));
+    //items.forEach((i)=>print("----> ${i.value}"));
 
     return Stack(
       alignment: Alignment.topCenter,
