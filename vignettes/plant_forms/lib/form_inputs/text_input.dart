@@ -31,17 +31,17 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-  String _name;
   bool _isAutoValidating = false;
   bool _isValid;
 
   String _value = '';
   String _errorText = '';
 
+  String get _keyValue => (widget.key as ValueKey).value as String;
+
   @override
   initState() {
     super.initState();
-    _name = widget.label.isNotEmpty ? widget.label : widget.helper;
   }
 
   @override
@@ -50,19 +50,20 @@ class _TextInputState extends State<TextInput> {
   }
 
   set isValid(bool isValid) {
-    if (isValid != _isValid || !widget.isRequired) {
+    if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_name, _isValid, value: _value);
+      widget.onValidate(_keyValue, _isValid, value: _value);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // set isValid
-    if (!widget.isRequired)
-      isValid = true;
-    else
-      isValid = false;
+    //Validate based on initial value, only do this once. We do it here instead of initState as it may trigger rebuilds up the tree
+    if(_isValid == null){
+      if(widget.initialValue.isNotEmpty){
+        _validateField(widget.initialValue);
+      }
+    }
 
     //build input
     return Container(
@@ -113,7 +114,7 @@ class _TextInputState extends State<TextInput> {
   void _handleChange(String value) {
     // save value status
     _value = value;
-    widget.onChange(_name, value);
+    widget.onChange(_keyValue, value);
 
     // activate validation
     Future.delayed(Duration(milliseconds: 100), () => setState(() {}));
@@ -144,12 +145,13 @@ class _TextInputState extends State<TextInput> {
   }
 
   String _validateField(String value) {
+    _value = value;
     // if the value is required
     if (widget.isRequired && value.isEmpty) {
       isValid = false;
       _errorText = 'Required';
-      // Update error label
-      Future.delayed(Duration(milliseconds: 150), () => setState(() {}));
+      // Update error label, wait a frame because this was causing markAsBuild errors
+      Future.delayed(Duration(milliseconds: 17), () => setState(() {}));
       return _errorText;
     }
     // if it is optional
@@ -159,7 +161,7 @@ class _TextInputState extends State<TextInput> {
       return null;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty && InputValidator().validateInput(widget.type, value)) {
+    else if (value.isNotEmpty && InputValidator.validate(widget.type, value)) {
       isValid = true;
       _errorText = '';
       return null;

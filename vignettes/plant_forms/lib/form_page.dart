@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'styles.dart';
 
 class FormPage extends StatelessWidget {
+
+  static Map<String, String> formState = {};
+
   final List<Widget> children;
   final double pageSizeProportion;
   final GlobalKey<FormState> formKey;
@@ -66,10 +70,7 @@ class FormPage extends StatelessWidget {
                             physics: BouncingScrollPhysics(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //SizedBox(height: topListPadding)
-                                for (Widget child in children) child,
-                              ],
+                              children: children,
                             ),
                           ),
                         ),
@@ -84,7 +85,9 @@ class FormPage extends StatelessWidget {
   }
 
   _handleTap(BuildContext context) {
+    //To improve user experience, we'll unfocus any textfields when the users taps oon the background of the form
     if (MediaQuery.of(context).viewInsets.bottom > 0) SystemChannels.textInput.invokeMethod('TextInput.hide');
+    WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
   }
 
   _handleBackGesture(BuildContext context) {
