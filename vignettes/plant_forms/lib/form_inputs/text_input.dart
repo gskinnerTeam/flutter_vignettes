@@ -13,6 +13,7 @@ class TextInput extends StatefulWidget {
   final Function onValidate;
   final Function onChange;
   final bool isActive;
+  final ValueNotifier valueNotifier;
 
   const TextInput({
     Key key,
@@ -24,6 +25,7 @@ class TextInput extends StatefulWidget {
     this.label = '',
     this.isActive = true,
     this.onChange,
+    this.valueNotifier,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,9 @@ class _TextInputState extends State<TextInput> {
   @override
   initState() {
     super.initState();
+    widget.valueNotifier.addListener((){
+      _isValid = null;
+    });
   }
 
   @override
@@ -59,8 +64,8 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     //Validate based on initial value, only do this once. We do it here instead of initState as it may trigger rebuilds up the tree
-    if(_isValid == null){
-      if(widget.initialValue.isNotEmpty){
+    if (_isValid == null) {
+      if (widget.initialValue.isNotEmpty) {
         _validateField(widget.initialValue);
       }
     }

@@ -59,8 +59,7 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
           inputType: CreditCardInputType.number,
         ),
         TextInput(
-          key: ValueKey(FormKeys.ccName),
-            label: 'Card Name', helper: 'Cardholder Name', onValidate: onItemValidate),
+            key: ValueKey(FormKeys.ccName), label: 'Card Name', helper: 'Cardholder Name', onValidate: onItemValidate),
         Row(
           children: <Widget>[
             Expanded(
@@ -73,7 +72,7 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
             SizedBox(width: 24),
             Expanded(
               child: CreditCardInfoInput(
-                key: ValueKey(FormKeys.ccCode),
+                  key: ValueKey(FormKeys.ccCode),
                   cardNetwork: _cardNetwork,
                   label: 'Security Code',
                   helper: '000',
@@ -136,12 +135,11 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   }
 
   String _getShippingAddress() {
-
     String aptNumber = values[FormKeys.apt].isNotEmpty ? '#${values[FormKeys.apt]} ' : '';
     String address = values[FormKeys.address];
     String country = values[FormKeys.country];
     String city = values[FormKeys.city];
-    String countrySubdivision = values[CountryData.getSubdivisionTitle(country)];
+    String countrySubdivision = values[CountryData.getSubdivisionTitle(country)] ?? '';
     String postalCode = values[FormKeys.postal];
     return '$aptNumber$address\n$city, $countrySubdivision ${postalCode.toUpperCase()}\n${country.toUpperCase()}';
   }

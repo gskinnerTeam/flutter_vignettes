@@ -28,12 +28,11 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   final _formKey = GlobalKey<FormState>();
 
   SharedFormState formState;
-
   Map<String, String> get values => formState.valuesByName;
-
   String get _selectedCountry => _getFormValue(FormKeys.country);
 
   //String _country;
+  ValueNotifier<String> _country;
   String _countrySubdivisionKey;
   List<String> _countries;
 
@@ -44,7 +43,8 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     formState = Provider.of<SharedFormState>(context, listen: false);
     if (!values.containsKey(FormKeys.country)) {
       // if not value, set default country
-      values[FormKeys.country] = _countries[2];
+      _country = ValueNotifier(_countries[2]);
+      values[FormKeys.country] = _country.value;
     }
     _updateCountrySubdivision(_selectedCountry);
   }
@@ -151,6 +151,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
       onValidate: onItemValidate,
       onChange: onItemChange,
       isRequired: required,
+      valueNotifier: _country,
     );
   }
 
@@ -162,6 +163,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     values[key] = value;
     // on country updated
     if (key == FormKeys.country && hasChanged) {
+      _country.value = value;
       validInputsMap.clear();
       _updateCountrySubdivision(value);
       onItemChange(key, value);

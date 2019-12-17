@@ -53,7 +53,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(keyValue, _isValid);
+      widget.onValidate(keyValue, _isValid, value: _value);
     }
   }
 
@@ -134,8 +134,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
       return _errorText;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty &&
-        InputValidator.validate(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
+    else if (value.isNotEmpty && InputValidator.validate(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
       isValid = true;
       _errorText = '';
       return null;
