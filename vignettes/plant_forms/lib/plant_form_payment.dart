@@ -91,19 +91,19 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
 
   @override
   void onItemValidate(String key, bool isValid, {String value}) {
-    // validInputsMap[key] = isValid;
-    // values[key] = value;
+    validInputsMap[key] = isValid;
+    values[key] = value;
 
-    // Future.delayed(
-    //   Duration(milliseconds: 500),
-    //   () {
-    //     if (this.mounted)
-    //       setState(() {
-    //         formCompletion = super.countValidItems() / validInputsMap.length;
-    //         if (formCompletion == 1) isFormErrorVisible = false;
-    //       });
-    //   },
-    // );
+    Future.delayed(
+      Duration(milliseconds: 500),
+      () {
+        if (this.mounted)
+          setState(() {
+            formCompletion = super.countValidItems() / validInputsMap.length;
+            if (formCompletion == 1) isFormErrorVisible = false;
+          });
+      },
+    );
   }
 
   Widget _buildShippingSection() {
