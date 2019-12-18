@@ -173,6 +173,9 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
         break;
       case CreditCardInputType.expirationDate:
         _textController.updateMask('00/00');
+        _textController.beforeChange = (String previous, String next) {
+          return next.length < 5;
+        };
         break;
       case CreditCardInputType.securityCode:
         if (widget.cardNetwork == CreditCardNetwork.amex)
