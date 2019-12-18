@@ -82,8 +82,8 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
             ),
           ],
         ),
-        FormSectionTitle('Billing Address'),
-        CheckBoxInput(label: 'Same as Shipping'),
+        FormSectionTitle('Shipping Notifications'),
+        CheckBoxInput(label: 'Send shipping updates via email'),
         _buildSubmitButton()
       ],
     );
