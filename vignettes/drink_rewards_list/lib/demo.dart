@@ -87,13 +87,12 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          height: height,
-          padding: EdgeInsets.all(height * .1),
+          padding: EdgeInsets.all(height * .08),
+          constraints: BoxConstraints(maxHeight: height),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("My Rewards", style: Styles.text(height * .13, Colors.white, true)),
-              //SizedBox(height: height * .05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -102,7 +101,7 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
                   Text("$_earnedPoints", style: Styles.text(height * .3, Colors.white, true)),
                 ],
               ),
-              Text("Your Points Balance", style: Styles.text(height * .1, Colors.white, false))
+              Text("Your Points Balance", style: Styles.text(height * .1, Colors.white, false)),
             ],
           ),
         ),
