@@ -46,7 +46,7 @@ class _TextInputState extends State<TextInput> {
     super.initState();
     // Reset the valid state on notifier change
     if (widget.valueNotifier != null) {
-      widget.valueNotifier.addListener(_resetValidState);
+      widget.valueNotifier.addListener(()=>_isValid = false);
     }
   }
 
@@ -115,10 +115,6 @@ class _TextInputState extends State<TextInput> {
     // initial value established from parent
     if (widget.initialValue != null && widget.initialValue.isNotEmpty) return widget.initialValue;
     return '';
-  }
-
-  void _resetValidState() {
-    _isValid = null;
   }
 
   void _handleChange(String value) {
