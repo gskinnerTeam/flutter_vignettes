@@ -37,6 +37,8 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   String _value = '';
   String _errorText = '';
 
+  String get keyValue => (widget.key as ValueKey).value as String;
+
   @override
   initState() {
     _textController = MaskedTextController(mask: '00');
@@ -51,8 +53,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      String name = widget.label.isNotEmpty ? widget.label : widget.helper;
-      widget.onValidate(name, _isValid);
+      widget.onValidate(keyValue, _isValid, value: _value);
     }
   }
 
@@ -133,8 +134,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
       return _errorText;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty &&
-        InputValidator().validateInput(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
+    else if (value.isNotEmpty && InputValidator.validate(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
       isValid = true;
       _errorText = '';
       return null;
@@ -173,6 +173,9 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
         break;
       case CreditCardInputType.expirationDate:
         _textController.updateMask('00/00');
+        _textController.beforeChange = (String previous, String next) {
+          return next.length <= 5;
+        };
         break;
       case CreditCardInputType.securityCode:
         if (widget.cardNetwork == CreditCardNetwork.amex)

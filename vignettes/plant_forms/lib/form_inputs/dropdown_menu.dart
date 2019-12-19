@@ -19,21 +19,27 @@ class DropdownMenu extends StatefulWidget {
 class _DropdownMenuState extends State<DropdownMenu> {
   String _selectedOption;
   bool _isValid;
+  String get _keyValue => (widget.key as ValueKey).value as String;
 
   set isValid(bool isValid) {
     _isValid = isValid;
-    widget.onValidate(widget.label, _isValid, value: _selectedOption);
+    widget.onValidate(_keyValue, _isValid, value: _selectedOption);
   }
 
   @override
   initState() {
     super.initState();
-    _selectedOption = widget.defaultOption;
+    _selectedOption = widget.defaultOption ?? "";
   }
 
   @override
   Widget build(BuildContext context) {
-    isValid = _selectedOption != null && _selectedOption.isNotEmpty;
+    if(_isValid == null && _selectedOption.isNotEmpty){
+      isValid = true;
+    }
+    var items = _buildMenuItems();
+    //items.forEach((i)=>print("----> ${i.value}"));
+
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
@@ -41,7 +47,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
           key: UniqueKey(),
           onChanged: (val){},
           value: _selectedOption,
-          items: _buildFakeItems(),
+          items: items,
           validator: _validate,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -72,14 +78,14 @@ class _DropdownMenuState extends State<DropdownMenu> {
     );
   }
 
-  List<DropdownMenuItem> _buildFakeItems() {
-    return [
-      for (String option in widget.options)
-        DropdownMenuItem(
-          value: option,
-          child: Text(option, style: Styles.orderTotalLabel),
-        )
-    ];
+  List<DropdownMenuItem> _buildMenuItems() {
+    var items = widget.options.map((o){
+      return DropdownMenuItem(
+        value: o,
+        child: Text(o, style: Styles.orderTotalLabel),
+      );
+    }).toList();
+    return items;
   }
 
   String _validate(value) {
@@ -99,7 +105,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
             options: widget.options,
           ),
         ));
-    if (_selectedOption.isNotEmpty) isValid = true;
+    if (_selectedOption != null &&_selectedOption.isNotEmpty) isValid = true;
     setState(() {});
   }
 }

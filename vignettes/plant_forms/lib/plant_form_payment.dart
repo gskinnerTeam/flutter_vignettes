@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plant_forms/demo.dart';
+import 'package:provider/provider.dart';
 
 import 'demo_data.dart';
 import 'form_inputs/checkbox_input.dart';
@@ -11,18 +13,26 @@ import 'styles.dart';
 import 'components/submit_button.dart';
 import 'form_inputs/text_input.dart';
 
-class PaymentFormPage extends StatefulWidget {
-  final Map<String, String> formValues;
+class PlantFormPayment extends StatefulWidget {
   final double pageSize;
 
-  const PaymentFormPage({Key key, this.pageSize, @required this.formValues}) : super(key: key);
+  const PlantFormPayment({Key key, this.pageSize}) : super(key: key);
   @override
-  _PaymentFormPageState createState() => _PaymentFormPageState();
+  _PlantFormPaymentState createState() => _PlantFormPaymentState();
 }
 
-class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
+class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   final _formKey = GlobalKey<FormState>();
   CreditCardNetwork _cardNetwork;
+
+  SharedFormState sharedState;
+  Map<String, String> get values => sharedState.valuesByName;
+
+  @override
+  void initState() {
+    sharedState = Provider.of<SharedFormState>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +50,7 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
         _buildInputWithButton(),
         FormSectionTitle('Payment', padding: EdgeInsets.only(bottom: 16)),
         CreditCardInfoInput(
+          key: ValueKey(FormKeys.ccNumber),
           label: 'Card Number',
           helper: '4111 2222 3333 4440',
           cardNetwork: _cardNetwork,
@@ -47,11 +58,13 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
           onChange: _handleItemChange,
           inputType: CreditCardInputType.number,
         ),
-        TextInput(label: 'Card Name', helper: 'Cardholder Name', onValidate: onItemValidate),
+        TextInput(
+            key: ValueKey(FormKeys.ccName), label: 'Card Name', helper: 'Cardholder Name', onValidate: onItemValidate),
         Row(
           children: <Widget>[
             Expanded(
                 child: CreditCardInfoInput(
+              key: ValueKey(FormKeys.ccExpDate),
               label: 'Expiration',
               helper: 'MM/YY',
               onValidate: onItemValidate,
@@ -60,6 +73,7 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
             SizedBox(width: 24),
             Expanded(
               child: CreditCardInfoInput(
+                  key: ValueKey(FormKeys.ccCode),
                   cardNetwork: _cardNetwork,
                   label: 'Security Code',
                   helper: '000',
@@ -68,17 +82,17 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
             ),
           ],
         ),
-        FormSectionTitle('Billing Address'),
-        CheckBoxInput(label: 'Same as Shipping'),
+        FormSectionTitle('Shipping Notifications'),
+        CheckBoxInput(label: 'Send shipping updates via email'),
         _buildSubmitButton()
       ],
     );
   }
 
   @override
-  void onItemValidate(String name, bool isValid, {String value}) {
-    validInputsMap[name] = isValid;
-    widget.formValues[name] = value;
+  void onItemValidate(String key, bool isValid, {String value}) {
+    validInputsMap[key] = isValid;
+    values[key] = value;
 
     Future.delayed(
       Duration(milliseconds: 500),
@@ -93,13 +107,12 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
   }
 
   Widget _buildShippingSection() {
-    var details = widget.formValues;
     return Column(children: <Widget>[
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(constraints: BoxConstraints(minWidth: 85), child: Text('Contact', style: Styles.orderLabel)),
-          Text(details['Email'], overflow: TextOverflow.clip, style: Styles.orderPrice),
+          Text(values[FormKeys.email], overflow: TextOverflow.clip, style: Styles.orderPrice),
         ],
       ),
       Padding(
@@ -123,14 +136,12 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
   }
 
   String _getShippingAddress() {
-    Map<String, String> details = widget.formValues;
-
-    String aptNumber = details['Apartment, suite, etc.'].isNotEmpty ? '#${details['Apartment, suite, etc.']} ' : '';
-    String address = details['Address'];
-    String country = details['Country / Region'];
-    String city = details['City'];
-    String countrySubdivision = details[DemoData().getSubdivisionTitle(country)];
-    String postalCode = details['Postal Code'] ?? details['Zip Code'];
+    String aptNumber = values[FormKeys.apt].isNotEmpty ? '#${values[FormKeys.apt]} ' : '';
+    String address = values[FormKeys.address];
+    String country = values[FormKeys.country];
+    String city = values[FormKeys.city];
+    String countrySubdivision = values[CountryData.getSubdivisionTitle(country)] ?? '';
+    String postalCode = values[FormKeys.postal];
     return '$aptNumber$address\n$city, $countrySubdivision ${postalCode.toUpperCase()}\n${country.toUpperCase()}';
   }
 
@@ -193,5 +204,5 @@ class _PaymentFormPageState extends State<PaymentFormPage> with FormMixin {
   }
 
   @override
-  void onItemChange(String name, String value) => widget.formValues[name] = value;
+  void onItemChange(String name, String value) => values[name] = value;
 }

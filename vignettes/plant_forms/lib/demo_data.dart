@@ -1,7 +1,25 @@
-class DemoData {
-  static Map<String, String> formValues = {};
-  List<String> _countries = ['Canada', 'France', 'United States', 'Japan'];
-  List<String> _canadaProvinces = [
+
+class FormKeys {
+  static String instructions = "instructions";
+  static String firstName = "first_name";
+  static String lastName = "last_name";
+  static String country = "country";
+  static String address = "address";
+  static String apt = "apt";
+  static String city = "city";
+  static String postal = "postal";
+  static String company = "company";
+  static String email = "email";
+  static String phone = "phone";
+  static String ccNumber = "ccNumber";
+  static String ccName = "ccName";
+  static String ccCode = "ccCode";
+  static String ccExpDate = "ccExpDate";
+}
+
+class CountryData {
+  static List<String> _countries = ['Canada', 'France', 'United States', 'Japan'];
+  static List<String> _canadaProvinces = [
     'Alberta',
     'British Columbia',
     'Manitoba',
@@ -17,7 +35,7 @@ class DemoData {
     'Yukon',
   ];
 
-  List<String> _japanPrefectures = [
+  static List<String> _japanPrefectures = [
     'Hokkaido',
     'Aomori',
     'Iwate',
@@ -67,7 +85,7 @@ class DemoData {
     'Okinawa',
   ];
 
-  List<String> _usaStates = [
+  static List<String> _usaStates = [
     'Alabama',
     'Alaska',
     'Arizona',
@@ -103,7 +121,8 @@ class DemoData {
     'Ohio',
     'Oklahoma',
     'Oregon',
-    'PennsylvaniaRhode Island',
+    'Pennsylvania',
+    'Rhode Island',
     'South Carolina',
     'South Dakota',
     'Tennessee',
@@ -117,7 +136,7 @@ class DemoData {
     'Wyoming'
   ];
 
-  String getSubdivisionTitle(String country) {
+  static String getSubdivisionTitle(String country) {
     String subdivision = '';
     switch (country) {
       case 'Canada':
@@ -135,8 +154,8 @@ class DemoData {
     return subdivision;
   }
 
-  List<String> getCountries() => _countries;
-  List<String> getSubdivisionList(String subdivision) {
+  static List<String> getCountries() => _countries;
+  static List<String> getSubdivisionList(String subdivision) {
     switch (subdivision) {
       case 'Province':
         return _canadaProvinces;

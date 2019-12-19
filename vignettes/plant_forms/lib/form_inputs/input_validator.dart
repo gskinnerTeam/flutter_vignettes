@@ -4,7 +4,7 @@ import 'package:plant_forms/demo_data.dart';
 class InputValidator {
   const InputValidator();
 
-  bool validateInput(type, String value, {CreditCardNetwork cardNetwork}) {
+  static bool validate(type, String value, {CreditCardNetwork cardNetwork}) {
     if (type.runtimeType == InputType) {
       switch (type as InputType) {
         case InputType.email:
@@ -29,17 +29,17 @@ class InputValidator {
     return false;
   }
 
-  bool _validateEmail(String value) {
+  static bool _validateEmail(String value) {
     RegExp emailRegExp = RegExp(r"(^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$)");
     return emailRegExp.hasMatch(value);
   }
 
-  bool _validatePhoneNumber(String value) {
+  static bool _validatePhoneNumber(String value) {
     RegExp telRegExp = RegExp(r"(^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$)");
     return telRegExp.hasMatch(value);
   }
 
-  bool _validateCreditCardNumber(String value, CreditCardNetwork cardNetwork) {
+  static bool _validateCreditCardNumber(String value, CreditCardNetwork cardNetwork) {
     // remove empty spaces
     String cardNumber = value.replaceAll(' ', '');
     if (cardNetwork == CreditCardNetwork.amex) {
@@ -49,7 +49,7 @@ class InputValidator {
     }
   }
 
-  bool _validateCreditCardSecurityCode(String value, CreditCardNetwork cardNetwork) {
+  static bool _validateCreditCardSecurityCode(String value, CreditCardNetwork cardNetwork) {
     if (cardNetwork == CreditCardNetwork.amex) {
       return value.length == 4;
     } else {
@@ -57,7 +57,7 @@ class InputValidator {
     }
   }
 
-  bool _validateCreditCardExpirationDate(String value) {
+  static bool _validateCreditCardExpirationDate(String value) {
     if (value.length > 3) {
       int month = int.parse(value.split('/').first);
       int year = int.parse(value.split('/').last);

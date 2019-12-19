@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_masked_text: ^0.8.0
   font_awesome_flutter: ^8.5.0
+  provider:
 
   shared:
     path: ../_shared

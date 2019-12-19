@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:plant_forms/demo_data.dart';
+import 'package:provider/provider.dart';
 
-import 'form_page.dart';
 import 'components/section_separator.dart';
+import 'components/stack_pages_route.dart';
+import 'components/submit_button.dart';
+import 'demo.dart';
+import 'form_page.dart';
+import 'plant_form_information.dart';
 import 'main.dart';
 import 'styles.dart';
 
-class OrderSummaryForm extends StatelessWidget {
+class PlantFormSummary extends StatelessWidget {
   final double pageSize;
   final bool isHidden;
-  final Map<String, String> formValues;
 
-  const OrderSummaryForm({Key key, this.pageSize, this.isHidden = false, this.formValues}) : super(key: key);
+  const PlantFormSummary({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +30,23 @@ class OrderSummaryForm extends StatelessWidget {
         _buildOrderInfo(),
         Separator(),
         _buildOrderTotal(),
-        _buildOrderSpecialInstructions(),
+        _buildOrderSpecialInstructions(context),
+        SubmitButton(
+          padding: EdgeInsets.symmetric(horizontal: Styles.hzPadding),
+          child: Text('Next', style: Styles.submitButtonText),
+          onPressed: () => _handleSubmit(context),
+        ),
       ],
+    );
+  }
+
+  void _handleSubmit(BuildContext context) {
+    Navigator.push(
+      context,
+      StackPagesRoute(
+        previousPages: [PlantFormSummary(pageSize: .85, isHidden: true)],
+        enterPage: PlantFormInformation(),
+      ),
     );
   }
 
@@ -106,12 +126,18 @@ class OrderSummaryForm extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderSpecialInstructions() {
+  Widget _buildOrderSpecialInstructions(BuildContext context) {
+    String  name = 'Special Instructions';
+    SharedFormState sharedState = Provider.of<SharedFormState>(context, listen: false);
+    var values = sharedState.valuesByName;
     return TextFormField(
+      onChanged: (value)=>values[FormKeys.instructions] = value,
+      initialValue: values.containsKey(FormKeys.instructions)? values[FormKeys.instructions] : "",
       style: Styles.inputLabel,
-      decoration: Styles.getInputDecoration(helper: 'Special Instructions'),
+      decoration: Styles.getInputDecoration(helper: name),
       minLines: 4,
       maxLines: 6,
     );
   }
+
 }
