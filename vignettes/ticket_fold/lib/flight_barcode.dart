@@ -10,6 +10,10 @@ class FlightBarcode extends StatelessWidget {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: Colors.white),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 14.0),
-        child: Image.asset('images/barcode.png', package: App.pkg),
+        child: MaterialButton(
+            child: Image.asset('images/barcode.png', package: App.pkg),
+            onPressed: () {
+              print('Button was pressed');
+            }),
       ));
 }
