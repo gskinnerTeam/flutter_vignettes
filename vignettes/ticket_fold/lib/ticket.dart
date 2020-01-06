@@ -39,13 +39,7 @@ class _TicketState extends State<Ticket> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleOnTap,
-      child: FoldingTicket(
-        entries: _getEntries(),
-        isOpen: _isOpen,
-      ),
-    );
+    return FoldingTicket(entries: _getEntries(), isOpen: _isOpen, onClick: _handleOnTap);
   }
 
   List<FoldEntry> _getEntries() {
