@@ -60,7 +60,7 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
     );
   }
 
-  Widget _buildEntry(int index, [double offset = 0.0]) {
+  Widget _buildEntry(int index) {
     FoldEntry entry = _entries[index];
     int count = _entries.length - 1;
     double ratio = max(0.0, min(1.0, _ratio * count + 1.0 - index * 1.0));
@@ -68,7 +68,6 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
     Matrix4 mtx = Matrix4.identity()
       ..setEntry(3, 2, 0.001)
       ..setEntry(1, 2, 0.2)
-      //  ..translate(0.0, offset)
       ..rotateX(pi * (ratio - 1.0));
 
     Widget card = SizedBox(height: entry.height, child: ratio < 0.5 ? entry.back : entry.front);
@@ -81,13 +80,12 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
           child: SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
             // Note: Container supports a transform property, but not alignment for it.
-            //foregroundDecoration: BoxDecoration(color: Colors.black.withOpacity((0.5 - (0.5 - ratio).abs()) * 0.5)),
             child: (index == count || ratio <= 0.5)
                 ? card
                 : // Don't build a stack if it isn't needed.
                 Column(children: [
                     card,
-                    _buildEntry(index + 1, 0),
+                    _buildEntry(index + 1),
                   ]),
           ),
         ));
