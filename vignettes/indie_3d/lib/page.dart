@@ -52,53 +52,68 @@ class Indie3dPage extends StatelessWidget {
   @override
   Widget build(context) {
     final appSize = MediaQuery.of(context).size;
-    var textScale = appSize.aspectRatio > 1? 1.15 : .8;
+    final textScale = appSize.aspectRatio > 1? 1.15 : .8;
     return Container(
       color: backgroundColor,
       child: Stack(
         children: [
-          BlendMask(
-            blendMode: BlendMode.hardLight,
-            opacity: backgroundShapeOpacity,
-            child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 0),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: appSize.height * (appSize.aspectRatio > 1? 1 : .80),
-              child: Image(fit: BoxFit.fitHeight, image: image),
+          if (controller.initialized) ... {
+            BlendMask(
+              blendMode: BlendMode.hardLight,
+              opacity: backgroundShapeOpacity,
+              child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 0),
             ),
-          ),
-          BlendMask(
-            blendMode: BlendMode.exclusion,
-            child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 1),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: BlendMask(
-              blendMode: BlendMode.difference,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 60, 8, 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildClippedText(topTitle, topTitleClipProgress, 72 * textScale, 0, 6, 1),
-                    _buildClippedText(bottomTitle, bottomTitleClipProgress, 120 * textScale * bottomTitleScale, -10, 8, .9),
-                  ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: appSize.height * (appSize.aspectRatio > 1? 1 : .80),
+                child: Image(fit: BoxFit.fitHeight, image: image),
+              ),
+            ),
+            BlendMask(
+              blendMode: BlendMode.exclusion,
+              child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 1),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: BlendMask(
+                blendMode: BlendMode.difference,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 60, 8, 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildClippedText(topTitle, topTitleClipProgress, 72 * textScale, 0, 6, 1),
+                      _buildClippedText(bottomTitle, bottomTitleClipProgress, 120 * textScale * bottomTitleScale, -10, 8, .9),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          BlendMask(
-            opacity: 0.24,
-            blendMode: BlendMode.colorDodge,
-            child: Image(
-              width: appSize.width,
-              fit: BoxFit.none,
-              image: AssetImage('images/noise.png', package: App.pkg),
+            BlendMask(
+              opacity: 0.24,
+              blendMode: BlendMode.colorDodge,
+              child: Image(
+                width: appSize.width,
+                fit: BoxFit.none,
+                image: AssetImage('images/noise.png', package: App.pkg),
+              ),
             ),
-          ),
+          } else ... {
+            Center(
+              child: Text(
+                'Loading assets...',
+                style: TextStyle(
+                  package: App.pkg,
+                  letterSpacing: 1.1,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          },
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(

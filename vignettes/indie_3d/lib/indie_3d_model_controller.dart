@@ -61,7 +61,7 @@ class Indie3dModelController extends ChangeNotifier {
     _ticker.start();
   }
 
-  void _initInstances() async {
+  void _initInstances() {
     _meshInstances = List<VertexMeshInstance>();
     _positions = List<vec32.Vector3>();
     _rotations = List<vec32.Quaternion>();

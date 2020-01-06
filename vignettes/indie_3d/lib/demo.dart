@@ -68,7 +68,12 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
 
   @override
   Widget build(context) {
-    if (!_controller.initialized){
+    if (!_controller.initialized) {
+      precacheImage(AssetImage('images/artist_1.png', package: App.pkg), context);
+      precacheImage(AssetImage('images/artist_2.png', package: App.pkg), context);
+      precacheImage(AssetImage('images/artist_3.png', package: App.pkg), context);
+      precacheImage(AssetImage('images/noise.png', package: App.pkg), context);
+
       _controller.init(context);
     }
     _controller.setView(MediaQuery.of(context).size);
