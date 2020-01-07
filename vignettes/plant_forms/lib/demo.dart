@@ -29,7 +29,7 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
         Header(),
         //Use provider to pass down a FormState to each of the form views, this way they can easily share and update the same state object
         Provider<SharedFormState>(
-          create: (_) => SharedFormState(),
+          builder: (_) => SharedFormState(),
           //Use WillPopScope to intercept hardware back taps, and instead pop the nested navigator
           child: WillPopScope(
             onWillPop: _handleBackPop,
