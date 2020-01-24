@@ -44,6 +44,16 @@ class Indie3dModelController extends ChangeNotifier {
     _rng = math.Random.secure();
 
     _loadMeshs(context);
+
+    _ticker = Ticker(_handleTick);
+    _ticker.start();
+  }
+
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
   }
 
   bool get initialized => _ticker != null;
@@ -56,9 +66,6 @@ class Indie3dModelController extends ChangeNotifier {
     _meshCube = await loadVertexMeshFromOBJAsset(context, "${App.bundle}/assets", 'cube.obj');
 
     _initInstances();
-
-    _ticker = Ticker(_handleTick);
-    _ticker.start();
   }
 
   void _initInstances() {

@@ -115,53 +115,46 @@ class _DarkInkBarState extends State<DarkInkBar>
         HSVColor.fromColor(darkColor),
         _foregroundColorAnimation.value).toColor();
     // Build a simple bar with 3 animated buttons and a bottom border
-    return Positioned(
-      left: 0,
-      top: 0,
-      width: appSize.width,
-      child: Column(
-        children: [
-          Container(
-            color: backgroundColor,
-            child: SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // Use flat buttons so we don't have to deal with the drop shadows
-                children: [
-                  FlatButton(
-                    onPressed: () => {},
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
-                    child: Icon(Icons.arrow_back_ios),
-                  ),
-                  FlatButton(
-                    onPressed: () => {},
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
-                    child: ImageIcon(AssetImage('assets/images/icon-r.png', package: App.pkg)),
-                  ),
-                  FlatButton(
-                    onPressed: () => _darkModeValue?.value = !(_darkModeValue?.value ?? true),
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
-                    child: Opacity(
-                      opacity: _iconOpacityAnimation.value,
-                      child: ImageIcon(_darkModeToggleIconImage),
-                    ),
-                  ),
-                ]
+    return Column(
+      children: [
+        Container(
+          color: backgroundColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // Use flat buttons so we don't have to deal with the drop shadows
+            children: [
+              FlatButton(
+                onPressed: () => {},
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                textColor: foregroundColor,
+                child: Icon(Icons.arrow_back_ios),
               ),
-            ),
+              FlatButton(
+                onPressed: () => {},
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                textColor: foregroundColor,
+                child: ImageIcon(AssetImage('assets/images/icon-r.png', package: App.pkg)),
+              ),
+              FlatButton(
+                onPressed: () => _darkModeValue?.value = !(_darkModeValue?.value ?? true),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                textColor: foregroundColor,
+                child: Opacity(
+                  opacity: _iconOpacityAnimation.value,
+                  child: ImageIcon(_darkModeToggleIconImage),
+                ),
+              ),
+            ]
           ),
-          Container(
-            height: 2,
-            color: _darkModeValue.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
-          ),
-        ]
-      ),
+        ),
+        Container(
+          height: 2,
+          color: _darkModeValue.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
+        ),
+      ]
     );
   }
 

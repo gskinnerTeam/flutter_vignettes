@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'main.dart';
 import 'syles.dart';
@@ -84,6 +85,8 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
 
   Widget _buildTopContent(double height) {
     return SafeArea(
+      top: !Env.isGalleryActive,
+      bottom: !Env.isGalleryActive,
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(

@@ -6,7 +6,7 @@ class FadeColorPageRoute extends PageRouteBuilder {
 
   FadeColorPageRoute({this.enterPage, @required this.color})
       : super(
-          transitionDuration: Duration(seconds: 3),
+          transitionDuration: Duration(seconds: 2),
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,

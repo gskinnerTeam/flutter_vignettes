@@ -1,3 +1,5 @@
+import 'package:shared/env.dart';
+
 import 'dog_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +29,8 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
+      top: !Env.isGalleryActive,
+      bottom: !Env.isGalleryActive,
       child: Scaffold(
         body: Container(
           //padding: const EdgeInsets.all(8.0),

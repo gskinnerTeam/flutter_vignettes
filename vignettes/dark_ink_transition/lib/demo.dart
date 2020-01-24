@@ -48,15 +48,21 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
     // Build a simple scaffold that shows the top bar and controls over the content
       child: Stack(
         children: [
-          TransitionContainer(
-            darkModeValue: _darkModeValue,
-            child: DarkInkContent(
-                darkMode: _darkModeValue.value,
-                scrollController: _scrollController
+          Padding(
+            padding: EdgeInsets.only(top: 24),
+            child: TransitionContainer(
+              darkModeValue: _darkModeValue,
+              child: DarkInkContent(
+                  darkMode: _darkModeValue.value,
+                  scrollController: _scrollController
+              ),
             ),
           ),
           DarkInkBar(darkModeValue: _darkModeValue),
-          DarkInkControls(darkModeValue: _darkModeValue),
+          Container(
+            margin: EdgeInsets.only(bottom: 10),
+              alignment: Alignment(0, 1),
+              child: DarkInkControls(darkModeValue: _darkModeValue)),
         ],
       ),
     );

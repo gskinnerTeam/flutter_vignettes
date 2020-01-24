@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 import './indie_3d_model_controller.dart';
 import './navigation.dart';
 import './indie_app_bar.dart';
@@ -78,6 +79,8 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
     }
     _controller.setView(MediaQuery.of(context).size);
     return SafeArea(
+      top: !Env.isGalleryActive,
+      bottom: !Env.isGalleryActive,
       child: Scaffold(
         body: Stack(
           children: [

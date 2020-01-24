@@ -1,3 +1,5 @@
+import 'package:shared/env.dart';
+
 import 'demo_data.dart';
 import 'constellation_detail_view.dart';
 import 'star_field/star_field.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 import 'package:shared/ui/animated_sprite.dart';
 
 import 'main.dart';
@@ -19,13 +20,14 @@ class ProductDetailsHeroFlight extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: <Widget>[
         Container(
+          margin: EdgeInsets.only(top: Env.isGalleryActive? 0 : 30),
           width: framwWidth,
           height: framwHeight,
           child: AnimatedSprite(
             image: AssetImage("images/speaker_sprite.png", package: App.pkg),
             frameWidth: 360,
             frameHeight: 500,
-            animation: Tween(begin: 0.0, end: 59.0).animate(CurvedAnimation(curve: Interval(0, .8), parent: animation)),
+            animation: Tween(begin: 8.0, end: 59.0).animate(CurvedAnimation(curve: Interval(0, 1, curve: Curves.easeOut), parent: animation)),
           ),
         ),
         Container(

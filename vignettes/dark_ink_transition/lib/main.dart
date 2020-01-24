@@ -14,7 +14,9 @@ class App extends StatelessWidget {
   @override
   Widget build(context) {
     return MaterialApp(
-      home: DarkInkDemo(),
+      home: SafeArea(
+          top: !Env.isGalleryActive,
+          child: DarkInkDemo()),
     );
   }
 }

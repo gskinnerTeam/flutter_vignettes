@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'city_scenery.dart';
 import 'city_details_page.dart';
@@ -32,6 +33,7 @@ class HeroCardDemo extends StatelessWidget {
 
   Widget _buildAppBar() {
     return AppBar(
+      primary: !Env.isGalleryActive,
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),
       backgroundColor: Colors.white,

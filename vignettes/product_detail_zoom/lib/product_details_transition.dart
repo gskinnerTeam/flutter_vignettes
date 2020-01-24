@@ -51,7 +51,7 @@ class ProductDetailsTransition extends StatelessWidget {
         ScaleTransition(
           scale: Tween<double>(begin: .6, end: 1).animate(_curvedAnimation),
           child: SlideTransition(
-            position: Tween<Offset>(begin: Offset(.6, .7), end: Offset(.1, .95)).animate(_curvedAnimation),
+            position: Tween<Offset>(begin: Offset(.6, .7), end: Offset(.1, .85)).animate(_curvedAnimation),
             child: FadeTransition(
                 opacity: Tween<double>(begin: 0, end: 1).animate(_getCurvedAnimWithInterval(.2, 1)),
                 child: Transform(

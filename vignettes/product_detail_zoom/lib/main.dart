@@ -16,6 +16,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: title,
       themeMode: ThemeMode.dark,
+      builder: (context, child) {
+        return Container(margin: EdgeInsets.only(top: 0), child: child);
+      },
       home: ProductDetailZoomDemo(),
     );
   }

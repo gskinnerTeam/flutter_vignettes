@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'demo_data.dart';
 import 'main.dart';
@@ -70,6 +71,8 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
   Widget _buildAppBar() {
     Color appBarIconsColor = Color(0xFF212121);
     return AppBar(
+      //Disable top padding if this is wrapped in the "Gallery" app
+      primary: !Env.isGalleryActive,
       leading: Icon(Icons.arrow_back, color: appBarIconsColor),
       actions: <Widget>[
         Padding(

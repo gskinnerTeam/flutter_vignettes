@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'demo_data.dart';
 import 'hotel_list.dart';
@@ -33,7 +34,6 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: SizedBox()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
               child: Text(
@@ -47,8 +47,7 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
               cities: _cityList,
               onCityChange: _handleCityChange,
             ),
-            HotelList(_currentCity.hotels),
-            Expanded(child: SizedBox()),
+            Flexible(child: SingleChildScrollView(child: HotelList(_currentCity.hotels))),
           ],
         ),
       ),
@@ -63,6 +62,7 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
 
   Widget _buildAppBar() {
     return AppBar(
+      primary: !Env.isGalleryActive,
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),
       backgroundColor: Colors.white,

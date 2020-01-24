@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_detail_zoom/pulsing_button.dart';
+import 'package:shared/env.dart';
 import 'package:shared/ui/sprite.dart';
 
 import 'components/delayed_fade_in.dart';
@@ -25,6 +26,7 @@ class ProductDetailView extends StatelessWidget {
               child: Hero(
                 tag: 'hero-speaker',
                 child: Container(
+                    margin: EdgeInsets.only(top: Env.isGalleryActive? 0 : 30),
                     width: frameWidth,
                     height: frameHeight,
                     child: Sprite(
@@ -33,7 +35,8 @@ class ProductDetailView extends StatelessWidget {
             ),
             Align(
                 alignment: Alignment.topCenter,
-                child: Container(width: frameWidth, height: frameHeight, child: ProductDetailsTransition())),
+                child: Container(
+                    width: frameWidth, height: frameHeight, child: ProductDetailsTransition())),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

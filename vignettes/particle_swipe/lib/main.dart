@@ -29,12 +29,10 @@ class App extends StatelessWidget {
         iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
       ),
       home: Scaffold(
-        body: SafeArea(
-          child: Column(children: [
-            ParticleAppBar(),
-            Flexible(child: ParticleSwipeDemo()),
-          ]),
-        ),
+        body: Column(children: [
+          ParticleAppBar(),
+          Flexible(child: ParticleSwipeDemo()),
+        ]),
       ),
     );
   }

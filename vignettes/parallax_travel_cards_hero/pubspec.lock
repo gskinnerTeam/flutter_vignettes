@@ -30,7 +30,7 @@ packages:
   shared:
     dependency: "direct main"
     description:
-      path: "../_shared"
+      path: "..\\_shared"
       relative: true
     source: path
     version: "1.0.0+1"

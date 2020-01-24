@@ -127,13 +127,8 @@ class _TransitionContainerState extends State<TransitionContainer>
       );
     }
 
-    return Positioned(
-      left: 0,
-      width: width,
-      height: height,
-      child: Stack(
-        children: children,
-      ),
+    return Stack(
+      children: children,
     );
   }
 
