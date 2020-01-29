@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'app_colors.dart';
 import 'components/header_row.dart';
@@ -13,6 +14,7 @@ class SpendingAppBar extends StatelessWidget with PreferredSizeWidget {
       height: preferredSize.height,
       color: AppColors.colorBg1,
       child: SafeArea(
+        top: !Env.isGalleryActive,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

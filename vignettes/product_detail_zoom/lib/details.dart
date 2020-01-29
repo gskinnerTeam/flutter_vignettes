@@ -19,6 +19,7 @@ class ProductDetailView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
+        top: !Env.isGalleryActive,
         child: Stack(
           children: <Widget>[
             Align(

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:shared/env.dart';
 
 import 'content/gallery_page.dart';
 import 'content/home_page.dart';
@@ -59,6 +60,7 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
     return Scaffold(
       backgroundColor: Color(0xffE6E6E6),
       body: SafeArea(
+        top: !Env.isGalleryActive,
         child: Container(
           width: double.infinity,
           //Wrap the current page in an AnimatedSwitcher for an easy cross-fade effect

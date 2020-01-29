@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import './content/home.dart';
 import './content/account.dart';
@@ -28,7 +29,9 @@ class _FluidNavBarDemoState extends State {
       home: Scaffold(
         backgroundColor: Color(0xFF75B7E1),
         extendBody: true,
-        body: _child,
+        body: SafeArea(
+            top: !Env.isGalleryActive,
+            child: _child),
         bottomNavigationBar: FluidNavBar(onChange: _handleNavigationChange),
       ),
     );
