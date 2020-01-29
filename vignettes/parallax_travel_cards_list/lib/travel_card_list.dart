@@ -32,7 +32,7 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    _cardHeight = (size.height * .48).clamp(300.0, 400.0);
+    _cardHeight = (size.height * .48).clamp(200.0, 400.0);
     _cardWidth = _cardHeight * .8;
     //Calculate the viewPort fraction for this aspect ratio, since PageController does not accept pixel based size values
     _pageController = PageController(initialPage: 1, viewportFraction: _cardWidth / size.width);

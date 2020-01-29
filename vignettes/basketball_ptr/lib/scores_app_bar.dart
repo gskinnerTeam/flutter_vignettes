@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/env.dart';
 
 import 'main.dart';
 
@@ -21,7 +22,7 @@ class ScoresAppBar extends StatelessWidget {
       ),
       // Avoid cutting off the buttons with safe area
       child: SafeArea(
-        top: true,
+        top: !Env.isGalleryActive,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
           child: Row(
