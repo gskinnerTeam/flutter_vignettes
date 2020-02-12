@@ -234,32 +234,34 @@ class Indie3dModelController extends ChangeNotifier {
 
     const kDrag = 0.2;
 
-    for (int i = 0; i < _meshInstances.length; ++i) {
-      // Apply drag (for a correct interaction we would
-      // also multiply by the area of the object tangent to the velocity direction
-      // but thats hard to calculate for arbitrary 3D shapes and we don't care that much here)
-      final lvLength  = _linearVelocities[i].length;
-      if (lvLength.compareTo(0.0) != 0) {
-        _linearVelocities[i]
-            -= _linearVelocities[i].normalized() * 0.5 * kDrag * lvLength;
-      }
-      final avLength = _angularVelocities[i].length;
-      if (avLength.compareTo(0.0) != 0) {
-        _angularVelocities[i]
-            -= _angularVelocities[i].normalized() * 0.5 * kDrag * avLength;
-      }
-      // Integrate velocity factors
-      _positions[i].y += 1.0 * dt;
-      _positions[i] += _linearVelocities[i] * dt;
-      // Integrate the angular velocity using the quaternion integration equation
-      _rotations[i] = quaternionExponent(vec32.Quaternion(
+    if(_meshInstances != null) {
+      for (int i = 0; i < _meshInstances.length; ++i) {
+        // Apply drag (for a correct interaction we would
+        // also multiply by the area of the object tangent to the velocity direction
+        // but thats hard to calculate for arbitrary 3D shapes and we don't care that much here)
+        final lvLength = _linearVelocities[i].length;
+        if (lvLength.compareTo(0.0) != 0) {
+          _linearVelocities[i]
+          -= _linearVelocities[i].normalized() * 0.5 * kDrag * lvLength;
+        }
+        final avLength = _angularVelocities[i].length;
+        if (avLength.compareTo(0.0) != 0) {
+          _angularVelocities[i]
+          -= _angularVelocities[i].normalized() * 0.5 * kDrag * avLength;
+        }
+        // Integrate velocity factors
+        _positions[i].y += 1.0 * dt;
+        _positions[i] += _linearVelocities[i] * dt;
+        // Integrate the angular velocity using the quaternion integration equation
+        _rotations[i] = quaternionExponent(vec32.Quaternion(
           (_angularVelocities[i].x + _constantAngularVelocities[i].x) * 0.5 * dt,
           (_angularVelocities[i].y + _constantAngularVelocities[i].y) * 0.5 * dt,
           (_angularVelocities[i].z + _constantAngularVelocities[i].z) * 0.5 * dt,
           0.0,
         )) * _rotations[i];
-      if (_positions[i].y >= 16.0) {
-        _positions[i].y = -16.0;
+        if (_positions[i].y >= 16.0) {
+          _positions[i].y = -16.0;
+        }
       }
     }
 

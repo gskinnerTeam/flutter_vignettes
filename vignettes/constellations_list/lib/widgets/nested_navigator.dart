@@ -19,8 +19,9 @@ class _NestedNavigatorState extends State<NestedNavigator> {
       onWillPop: () async {
         var navigator = widget.navKey.currentState;
         if (navigator.canPop()) {
-          if(widget.onBackPop != null) widget.onBackPop();
-          return !navigator.pop();
+          if (widget.onBackPop != null) widget.onBackPop();
+          navigator.pop();
+          return false;
         }
         return true;
       },
@@ -30,10 +31,10 @@ class _NestedNavigatorState extends State<NestedNavigator> {
         onGenerateRoute: (routeSettings) => widget.routeBuilder(routeSettings),
         //In order for the nested-navigator to handle hero animations, we must pass it an Observer of type HeroController
         observers: [
-      HeroController(
-        //Optional: Use a nice arc'd tween instead of the default linear
-        createRectTween: (begin, end) => MaterialRectArcTween(begin: begin, end: end),
-      )
+          HeroController(
+            //Optional: Use a nice arc'd tween instead of the default linear
+            createRectTween: (begin, end) => MaterialRectArcTween(begin: begin, end: end),
+          )
         ],
       ),
     );

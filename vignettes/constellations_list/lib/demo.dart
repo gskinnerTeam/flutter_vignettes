@@ -89,7 +89,7 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
               navKey: _navigationStackKey,
               routeBuilder: _buildPageRoute,
               //When nested navigator has been popped, reverse the star anim back to start
-              onBackPop: _reverseStarAnim,
+              onBackPop: ()=>_reverseStarAnim(),
             ),
           ),
         ],

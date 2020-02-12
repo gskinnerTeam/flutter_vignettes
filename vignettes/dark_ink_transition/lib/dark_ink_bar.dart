@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'main.dart';
@@ -32,6 +33,7 @@ class _DarkInkBarState extends State<DarkInkBar>
 
   _DarkInkBarState(this._darkModeValue) {
     _darkModeValue.addListener(_handleDarkModeChange);
+
   }
 
   @override

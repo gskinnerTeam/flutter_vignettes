@@ -16,7 +16,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     //Set to fullscreen for increased immersion, but disable if we're wrapped in the 'gallery' app
     if(!Env.isGalleryActive){
-      SystemChrome.setEnabledSystemUIOverlays(const []);
+      //SystemChrome.setEnabledSystemUIOverlays(const []);
     }
 
     return MaterialApp(
