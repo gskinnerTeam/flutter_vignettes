@@ -39,7 +39,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   String _value = '';
   String _errorText = '';
 
-  String get keyValue => (widget.key as ValueKey).value as String;
+  String get _keyValue => (widget.key as ValueKey).value as String;
 
   @override
   initState() {
@@ -55,14 +55,14 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(keyValue, _isValid, value: _value);
+      widget.onValidate(_keyValue, _isValid, value: _value);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     // set isValid
-    isValid = false;
+    // isValid = false;
     if (_isValid == null) {
       if (widget.initialValue.isNotEmpty) {
         _validateField(widget.initialValue);
