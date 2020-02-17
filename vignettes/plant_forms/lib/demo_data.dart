@@ -15,6 +15,7 @@ class FormKeys {
   static String ccName = "ccName";
   static String ccCode = "ccCode";
   static String ccExpDate = "ccExpDate";
+  static String coupon = "coupon";
 }
 
 class CountryData {
