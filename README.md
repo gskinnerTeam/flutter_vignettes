@@ -28,7 +28,7 @@ We exist to build inovative digital experiences for smart clients, and we love h
 <br/><br/><br/><br/><br/><br/>
 
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/gooey_edge"><img align="left" hspace=68 src="https://flutter.gskinner.com/vignettes/previews/gooey_edge_edited_sm.gif?" width="237" /></a>
-<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/gooey_edge"><h3>Mindfullness Gooey Transition</h3></a>
+<a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/gooey_edge"><h3>Mindfulness Gooey Transition</h3></a>
 <p>Draw curved vector paths and use them to mask content. Utilizes a small physics simulation to calculate tension between a set of points.</p>
 <a href="https://github.com/gskinnerTeam/flutter_vignettes/tree/master/vignettes/gooey_edge">View Code</a>
 <br/><br/><br/><br/><br/><br/>
