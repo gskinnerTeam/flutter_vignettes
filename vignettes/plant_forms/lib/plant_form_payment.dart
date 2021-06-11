@@ -151,6 +151,7 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
         Expanded(
             flex: 4,
             child: TextInput(
+              key: ValueKey(FormKeys.coupon),
               helper: '000 000 000 XX',
               type: InputType.number,
               onValidate: onItemValidate,
