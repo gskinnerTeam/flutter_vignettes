@@ -3,7 +3,7 @@
 
 ## BudgetTracker Graphs
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/spending_tracker_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/spending_tracker_edited.gif?"/></a></p>
 
 <br/>
 
