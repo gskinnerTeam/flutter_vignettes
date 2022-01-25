@@ -3,7 +3,7 @@
 
 ## Inbox Swipe Particles
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/particle_swipe_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/particle_swipe_edited.gif?"/></a></p>
 
 <br/>
 

@@ -3,7 +3,7 @@
 
 ## Product Zoom Transition
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/product_detail_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/product_detail_edited.gif?"/></a></p>
 
 <br/>
 

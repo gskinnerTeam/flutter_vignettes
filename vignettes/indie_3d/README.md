@@ -3,7 +3,7 @@
 
 ## Feature Artist Carousel
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/indie3d_edited_sm.gif?" /></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/indie3d_edited_sm.gif?" /></a></p>
 
 <br/>
 

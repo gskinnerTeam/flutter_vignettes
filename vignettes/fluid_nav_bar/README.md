@@ -3,7 +3,7 @@
 
 ## Fluid Button Bar
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/liquid_nav_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/liquid_nav_edited.gif?"/></a></p>
 
 <br/>
 

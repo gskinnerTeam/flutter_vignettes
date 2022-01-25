@@ -3,7 +3,7 @@
 
 ## Icon Flip Button Bar
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/bubble_tab_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/bubble_tab_edited.gif?"/></a></p>
 
 <br/>
 

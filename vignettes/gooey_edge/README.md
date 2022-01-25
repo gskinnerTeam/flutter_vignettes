@@ -3,7 +3,7 @@
 
 ## Mindfulness Onboarding Transition
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/gooey_edge_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/gooey_edge_edited.gif?"/></a></p>
 
 <br/>
 

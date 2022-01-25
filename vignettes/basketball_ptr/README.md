@@ -3,7 +3,7 @@
 
 ## Sports App Pull To Refresh
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/basketball_ptr_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/basketball_ptr_edited.gif?"/></a></p>
 
 <br/>
 

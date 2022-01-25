@@ -3,7 +3,7 @@
 
 ## Dog Toy Slider
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/dog_slider_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/dog_slider_edited.gif?"/></a></p>
 
 <br/>
 

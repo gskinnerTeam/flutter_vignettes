@@ -3,7 +3,7 @@
 
 ## Article Dark Mode
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/darkmode_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/darkmode_edited.gif?"/></a></p>
 
 <br/>
 

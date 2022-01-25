@@ -3,7 +3,7 @@
 
 ## Plant Shopping Cart
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/plant_form_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/plant_form_edited.gif?"/></a></p>
 
 <br/>
 

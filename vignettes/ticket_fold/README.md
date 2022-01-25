@@ -3,7 +3,7 @@
 
 ## Boarding Pass Cards
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/boarding_pass_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/boarding_pass_edited.gif?"/></a></p>
 
 <br/>
 

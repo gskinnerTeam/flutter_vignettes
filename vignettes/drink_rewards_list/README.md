@@ -3,7 +3,7 @@
 
 ## Liquid Rewards Cards
 
-<p align=center><a href=#><img src="https://flutter.gskinner.com/previews/drink_rewards_edited.gif?"/></a></p>
+<p align=center><a href=#><img src="https://flutter.gskinner.com/vignettes/previews/drink_rewards_edited.gif?"/></a></p>
 
 <br/>
 
