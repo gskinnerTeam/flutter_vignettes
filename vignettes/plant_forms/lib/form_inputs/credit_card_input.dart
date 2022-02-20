@@ -13,16 +13,18 @@ class CreditCardInfoInput extends StatefulWidget {
   final CreditCardNetwork cardNetwork;
   final Function onValidate;
   final Function onChange;
+  final String initialValue;
 
-  const CreditCardInfoInput(
-      {Key key,
-      this.label = '',
-      this.helper = '',
-      this.cardNetwork,
-      @required this.inputType,
-      @required this.onValidate,
-      this.onChange})
-      : super(key: key);
+  const CreditCardInfoInput({
+    Key key,
+    this.label = '',
+    this.helper = '',
+    this.cardNetwork,
+    @required this.inputType,
+    @required this.onValidate,
+    this.onChange,
+    this.initialValue = '',
+  }) : super(key: key);
 
   @override
   _CreditCardInfoInputState createState() => _CreditCardInfoInputState();
@@ -37,7 +39,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   String _value = '';
   String _errorText = '';
 
-  String get keyValue => (widget.key as ValueKey).value as String;
+  String get _keyValue => (widget.key as ValueKey).value as String;
 
   @override
   initState() {
@@ -53,22 +55,28 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(keyValue, _isValid, value: _value);
+      widget.onValidate(_keyValue, _isValid, value: _value);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     // set isValid
-    isValid = false;
-
+    // isValid = false;
+    if (_isValid == null) {
+      if (widget.initialValue.isNotEmpty) {
+        _validateField(widget.initialValue);
+      }
+    }
     //build input
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          if (widget.label.isNotEmpty) Positioned(top: -24, child: Text(widget.label, style: Styles.inputLabel)),
+          if (widget.label.isNotEmpty)
+            Positioned(
+                top: -24, child: Text(widget.label, style: Styles.inputLabel)),
           TextFormField(
             controller: _textController,
             style: Styles.orderTotalLabel,
@@ -87,10 +95,15 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
             Positioned(
               top: 8,
               right: 14,
-              child: Text(_errorText.toUpperCase(), style: Styles.labelNotValid),
+              child:
+                  Text(_errorText.toUpperCase(), style: Styles.labelNotValid),
             ),
           if (widget.inputType == CreditCardInputType.number)
-            Positioned(top: 15, right: 18, child: Icon(_getCreditCardIcon(), size: 28, color: Styles.darkGrayColor))
+            Positioned(
+                top: 15,
+                right: 18,
+                child: Icon(_getCreditCardIcon(),
+                    size: 28, color: Styles.darkGrayColor))
         ],
       ),
     );
@@ -134,7 +147,9 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
       return _errorText;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty && InputValidator.validate(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
+    else if (value.isNotEmpty &&
+        InputValidator.validate(widget.inputType, value,
+            cardNetwork: widget.cardNetwork)) {
       isValid = true;
       _errorText = '';
       return null;
@@ -156,7 +171,8 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
           _textController.updateMask('0000 0000 0000 0000');
         }
         // AMEX
-        else if (_value.substring(0, 2) == '34' || _value.substring(0, 2) == '37') {
+        else if (_value.substring(0, 2) == '34' ||
+            _value.substring(0, 2) == '37') {
           _creditCardType = CreditCardNetwork.amex;
           _textController.updateMask('0000 000000 00000');
         }
