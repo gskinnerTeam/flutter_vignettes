@@ -88,7 +88,7 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
         //width: 320 * ScalingInfo.scaleX,
         height: 160 * ScalingInfo.scaleY,
         child: Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: [
             Container(
               width: appSize.width,
