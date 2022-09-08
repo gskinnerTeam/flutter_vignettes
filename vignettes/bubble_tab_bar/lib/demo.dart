@@ -66,7 +66,7 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
             duration: Duration(milliseconds: 350),
             //Pass the current accent color down as a theme, so our overscroll indicator matches the btn color
             child: Theme(
-              data: ThemeData(accentColor: accentColor),
+              data: ThemeData(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: accentColor)),
               child: contentView,
             ),
           ),
