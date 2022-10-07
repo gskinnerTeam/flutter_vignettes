@@ -72,7 +72,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
-        overflow: Overflow.visible,
+        //overflow: Overflow.visible,
         children: <Widget>[
           if (widget.label.isNotEmpty)
             Positioned(
@@ -82,7 +82,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
             style: Styles.orderTotalLabel,
             onChanged: _handleChange,
             keyboardType: TextInputType.number,
-            autovalidate: _isAutoValidating,
+            // autovalidate: _isAutoValidating,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),

@@ -17,7 +17,7 @@ class TravelCardRenderer extends StatelessWidget {
       width: cardWidth,
       margin: EdgeInsets.only(top: 8),
       child: Stack(
-        overflow: Overflow.visible,
+        // overflow: Overflow.visible,
         alignment: Alignment.center,
         children: <Widget>[
           // Card background color & decoration
@@ -75,9 +75,9 @@ class TravelCardRenderer extends StatelessWidget {
           child: Text(city.description, style: Styles.cardSubtitle, textAlign: TextAlign.center),
         ),
         Expanded(child: SizedBox(),),
-        FlatButton(
-          disabledColor: Colors.transparent,
-          color: Colors.transparent,
+        TextButton(
+          // disabledColor: Colors.transparent,
+          // color: Colors.transparent,
           child: Text('Learn More'.toUpperCase(), style: Styles.cardAction),
           onPressed: null,
         ),

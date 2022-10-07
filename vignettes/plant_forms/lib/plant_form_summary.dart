@@ -55,7 +55,7 @@ class PlantFormSummary extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Stack(
-          overflow: Overflow.visible,
+          //overflow: Overflow.visible,
           children: <Widget>[
             Container(
               width: 135,

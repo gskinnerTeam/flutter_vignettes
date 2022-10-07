@@ -29,7 +29,7 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
         Header(),
         //Use provider to pass down a FormState to each of the form views, this way they can easily share and update the same state object
         Provider<SharedFormState>(
-          builder: (_) => SharedFormState(),
+          create: (_) => SharedFormState(),
           //Use WillPopScope to intercept hardware back taps, and instead pop the nested navigator
           child: WillPopScope(
             onWillPop: _handleBackPop,
@@ -49,7 +49,8 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
   Future<bool> _handleBackPop() async {
     if (navKey.currentState.canPop()) {
       //If the pop worked, return false, preventing any pops in the MaterialApp's navigator
-      return !navKey.currentState.pop();
+      // return !navKey.currentState.pop(); // ??
+      return false;
     }
     return true;
   }

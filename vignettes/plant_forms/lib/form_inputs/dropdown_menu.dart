@@ -139,7 +139,7 @@ class _DropdownOptionsState extends State<DropdownOptions> {
         elevation: 0,
         brightness: Brightness.light,
         title: Center(child: Text(widget.title, style: Styles.optionsTitle)),
-        actions: <Widget>[FlatButton(child: Text('Done', style: Styles.textButton), onPressed: _sendSelectedOption)],
+        actions: <Widget>[ElevatedButton(child: Text('Done', style: Styles.textButton), onPressed: _sendSelectedOption)],
       ),
       backgroundColor: Color(0xfff4f4f4),
       body: Container(
@@ -180,7 +180,7 @@ class _DropdownOptionsState extends State<DropdownOptions> {
     if (_selectedOption.isNotEmpty)
       Navigator.pop(context, _selectedOption);
     else
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Select one of the options')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select one of the options')));
   }
 
   void _selectOption(String option) {

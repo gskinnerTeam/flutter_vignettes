@@ -25,7 +25,10 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion flutter.compileSdkVersion
+    // ndk required ?
+    ndkVersion flutter.ndkVersion
+
 
     lintOptions {
         disable 'InvalidPackage'

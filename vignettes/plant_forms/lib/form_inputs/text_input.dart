@@ -75,7 +75,7 @@ class _TextInputState extends State<TextInput> {
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
-        overflow: Overflow.visible,
+        //overflow: Overflow.visible,
         children: <Widget>[
           if (widget.label.isNotEmpty) Positioned(top: -24, child: Text(widget.label, style: Styles.inputLabel)),
           TextFormField(
@@ -84,7 +84,7 @@ class _TextInputState extends State<TextInput> {
             enabled: widget.isActive,
             onChanged: _handleChange,
             keyboardType: _setKeyboardType(),
-            autovalidate: _isAutoValidating,
+            // autovalidate: _isAutoValidating,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),

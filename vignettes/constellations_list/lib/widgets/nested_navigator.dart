@@ -20,7 +20,8 @@ class _NestedNavigatorState extends State<NestedNavigator> {
         var navigator = widget.navKey.currentState;
         if (navigator.canPop()) {
           if(widget.onBackPop != null) widget.onBackPop();
-          return !navigator.pop();
+          navigator.pop();
+          return true;
         }
         return true;
       },

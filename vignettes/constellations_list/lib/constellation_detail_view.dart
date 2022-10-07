@@ -71,15 +71,21 @@ class _ConstellationDetailViewState extends State<ConstellationDetailView> with 
                 ),
               ),
             ),
-            RaisedButton(
-              padding: EdgeInsets.symmetric(horizontal: 48, vertical: 12),
-              splashColor: Colors.white24,
-              color: Colors.black,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40), side: BorderSide(color: Color(0xffc9c9c9))),
-              //Dispatch our tap event to the parent of this widget, and let them handle it.
-              onPressed: () => widget.onBackTap(),
-              child: Text("Return to List", style: TextStyle(fontFamily: Fonts.Content, color: Colors.white, package: App.pkg)),
-            ),
+	    ElevatedButton(
+             //Dispatch our tap event to the parent of this widget, and let them handle it.
+             onPressed: () => widget.onBackTap(),
+             child: Text("Return to List", style: TextStyle(fontFamily: Fonts.Content, color: Colors.white, package: App.pkg)),
+	   ),
+		
+            // RaisedButton(
+            //   padding: EdgeInsets.symmetric(horizontal: 48, vertical: 12),
+            //   splashColor: Colors.white24,
+            //   color: Colors.black,
+            //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40), side: BorderSide(color: Color(0xffc9c9c9))),
+            //   //Dispatch our tap event to the parent of this widget, and let them handle it.
+            //   onPressed: () => widget.onBackTap(),
+            //   child: Text("Return to List", style: TextStyle(fontFamily: Fonts.Content, color: Colors.white, package: App.pkg)),
+            // ),
             SizedBox(
               height: 36,
             )

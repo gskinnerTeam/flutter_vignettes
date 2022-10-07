@@ -128,25 +128,25 @@ class _DarkInkBarState extends State<DarkInkBar>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 // Use flat buttons so we don't have to deal with the drop shadows
                 children: [
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: () => {},
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
+                     // splashColor: Colors.transparent,
+                     // highlightColor: Colors.transparent,
+                     // textColor: foregroundColor,
                     child: Icon(Icons.arrow_back_ios),
                   ),
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: () => {},
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
+                     // splashColor: Colors.transparent,
+                     // highlightColor: Colors.transparent,
+                     // textColor: foregroundColor,
                     child: ImageIcon(AssetImage('assets/images/icon-r.png', package: App.pkg)),
                   ),
-                  FlatButton(
+                  ElevatedButton(
                     onPressed: () => _darkModeValue?.value = !(_darkModeValue?.value ?? true),
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    textColor: foregroundColor,
+                     // splashColor: Colors.transparent,
+                     // highlightColor: Colors.transparent,
+                     // textColor: foregroundColor,
                     child: Opacity(
                       opacity: _iconOpacityAnimation.value,
                       child: ImageIcon(_darkModeToggleIconImage),

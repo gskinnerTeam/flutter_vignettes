@@ -20,7 +20,7 @@ class StackPagesRoute extends PageRouteBuilder {
             Widget child,
           ) {
             return Stack(
-              overflow: Overflow.clip,
+              // overflow: Overflow.clip,
               fit: StackFit.expand,
               children: <Widget>[
                 Header(),

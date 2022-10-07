@@ -135,11 +135,11 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
     );
   }
 
-  FlatButton _buildAddToCartBtn() {
-    return FlatButton(
-      color: Color(0xff2cb5b5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+  TextButton _buildAddToCartBtn() {
+    return TextButton(
+      // color: Color(0xff2cb5b5),
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      // padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       child: Text("ADD TO CART", style: baseStyle.copyWith(fontSize: 16, color: Colors.white)),
       onPressed: () {},
     );

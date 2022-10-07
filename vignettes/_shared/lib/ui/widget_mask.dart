@@ -12,16 +12,18 @@ class RenderWidgetMask extends RenderStack {
       AlignmentGeometry alignment,
       TextDirection textDirection,
       StackFit fit,
-      Overflow overflow})
+      //Overflow overflow
+      })
       : super(
             children: children,
             alignment: alignment,
             textDirection: textDirection,
             fit: fit,
-            overflow: overflow);
+            //soverflow: overflow
+  );
 
   @override
-  void paintStack(context, offset) {
+  void paintStack(context, offset) { 
     // Early exit on no children
     if (firstChild == null) return;
 
@@ -59,7 +61,7 @@ class WidgetMask extends Stack {
       AlignmentGeometry alignment = AlignmentDirectional.topStart,
       TextDirection textDirection,
       StackFit fit = StackFit.loose,
-      Overflow overflow = Overflow.clip,
+      //Overflow overflow = Overflow.clip,
       @required Widget maskChild,
       @required Widget child})
       : super(
@@ -67,7 +69,7 @@ class WidgetMask extends Stack {
           alignment: alignment,
           textDirection: textDirection,
           fit: fit,
-          overflow: overflow,
+          // overflow: overflow,
           children: [maskChild, child],
         );
 
@@ -77,7 +79,7 @@ class WidgetMask extends Stack {
       alignment: alignment,
       textDirection: textDirection ?? Directionality.of(context),
       fit: fit,
-      overflow: overflow,
+      //overflow: overflow,
     );
   }
 
@@ -86,7 +88,7 @@ class WidgetMask extends Stack {
     renderObject
       ..alignment = alignment
       ..textDirection = textDirection ?? Directionality.of(context)
-      ..fit = fit
-      ..overflow = overflow;
+      ..fit = fit;
+      //..overflow = overflow;
   }
 }

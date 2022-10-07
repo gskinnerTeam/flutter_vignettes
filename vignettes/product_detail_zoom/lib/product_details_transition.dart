@@ -19,7 +19,7 @@ class ProductDetailsTransition extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
-      overflow: Overflow.visible,
+      // overflow: Overflow.visible,
       children: [
         Positioned(
           top: 25,
@@ -105,7 +105,7 @@ class _SpeakerAttribute extends StatelessWidget {
   Widget build(BuildContext context) {
     double lineHeight = Tween<double>(begin: 0, end: this.lineHeight).transform(Curves.easeInOutQuad.transform(animation.value));
     return Stack(
-      overflow: Overflow.visible,
+      // overflow: Overflow.visible,
       children: <Widget>[
         SlideTransition(
           position: Tween<Offset>(begin: Offset(0, -.5), end: Offset.zero).animate(_getAnimationWithInterval(.2, 1)),

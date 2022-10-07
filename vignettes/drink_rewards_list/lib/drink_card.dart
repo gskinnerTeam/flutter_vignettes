@@ -210,12 +210,12 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
           height: 40,
           child: Opacity(
             opacity: isDisabled ? .6 : 1,
-            child: FlatButton(
+            child: TextButton(
               //Enable the button if we have enough points. Can do this by assigning a onPressed listener, or not.
               onPressed: isDisabled ? () {} : null,
-              color: AppColors.orangeAccent,
-              disabledColor: AppColors.orangeAccent,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              // color: AppColors.orangeAccent,
+              // disabledColor: AppColors.orangeAccent,
+              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               child: Text("REDEEM", style: Styles.text(16, Colors.white, true)),
             ),
           ),

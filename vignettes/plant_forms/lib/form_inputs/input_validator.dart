@@ -1,5 +1,4 @@
 import 'package:plant_forms/demo_data.dart';
-import 'package:plant_forms/demo_data.dart';
 
 class InputValidator {
   const InputValidator();

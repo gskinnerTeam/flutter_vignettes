@@ -68,7 +68,7 @@ class CityScenery extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [gradientStart.value, gradientEnd],
+            //colors: [gradientStart.value, gradientEnd],
           )),
     );
   }
