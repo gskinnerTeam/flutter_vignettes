@@ -13,17 +13,17 @@ class Ticket extends StatefulWidget {
   final BoardingPassData boardingPass;
   final Function onClick;
 
-  const Ticket({Key key, @required this.boardingPass, @required this.onClick}) : super(key: key);
+  const Ticket({Key? key, required this.boardingPass, required this.onClick}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _TicketState();
 }
 
 class _TicketState extends State<Ticket> {
-  FlightSummary frontCard;
-  FlightSummary topCard;
-  FlightDetails middleCard;
-  FlightBarcode bottomCard;
-  bool _isOpen;
+  late FlightSummary frontCard;
+  FlightSummary? topCard;
+  late FlightDetails middleCard;
+  late FlightBarcode bottomCard;
+  bool _isOpen = false;
 
   Widget get backCard =>
       Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: Color(0xffdce6ef)));
@@ -31,7 +31,6 @@ class _TicketState extends State<Ticket> {
   @override
   void initState() {
     super.initState();
-    _isOpen = false;
     frontCard = FlightSummary(boardingPass: widget.boardingPass);
     middleCard = FlightDetails(widget.boardingPass);
     bottomCard = FlightBarcode();

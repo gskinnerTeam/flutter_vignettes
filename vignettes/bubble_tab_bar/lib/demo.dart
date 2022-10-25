@@ -16,10 +16,10 @@ class BubbleTabBarDemo extends StatefulWidget {
 }
 
 class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
-  List<NavBarItemData> _navBarItems;
+  late List<NavBarItemData> _navBarItems;
   int _selectedNavIndex = 0;
 
-  List<Widget> _viewsByIndex;
+  List<Widget> _viewsByIndex = [];
 
   @override
   void initState() {

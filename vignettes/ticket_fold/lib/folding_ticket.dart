@@ -6,19 +6,19 @@ class FoldingTicket extends StatefulWidget {
   static const double padding = 16.0;
   final bool isOpen;
   final List<FoldEntry> entries;
-  final Function onClick;
-  final Duration duration;
+  final Function? onClick;
+  final Duration? duration;
 
-  FoldingTicket({this.duration, @required this.entries, this.isOpen = false, this.onClick});
+  FoldingTicket({this.duration, required this.entries, this.isOpen = false, this.onClick});
 
   @override
   _FoldingTicketState createState() => _FoldingTicketState();
 }
 
 class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProviderStateMixin {
-  List<FoldEntry> _entries;
+  late List<FoldEntry> _entries;
   double _ratio = 0.0;
-  AnimationController _controller;
+  late AnimationController _controller;
 
   double get openHeight => _entries.fold(0.0, (val, o) => val + o.height) + FoldingTicket.padding * 2;
 
@@ -76,7 +76,7 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
         alignment: Alignment.topCenter,
         transform: mtx,
         child: GestureDetector(
-          onTap: widget.onClick,
+          onTap: widget.onClick as void Function(),
           child: SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
             // Note: Container supports a transform property, but not alignment for it.
@@ -105,11 +105,11 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
 }
 
 class FoldEntry {
-  final Widget front;
-  Widget back;
+  final Widget? front;
+  Widget? back;
   final double height;
 
-  FoldEntry({@required this.front, @required this.height, Widget back}) {
+  FoldEntry({this.front, required this.height, Widget? back}) {
     this.back = Transform(
         alignment: FractionalOffset.center,
         transform: Matrix4.identity()

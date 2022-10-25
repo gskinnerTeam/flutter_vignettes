@@ -11,26 +11,29 @@ class FlightSummary extends StatelessWidget {
   final SummaryTheme theme;
   final bool isOpen;
 
-  const FlightSummary({Key key, this.boardingPass, this.theme = SummaryTheme.light, this.isOpen = false}) : super(key: key);
+  const FlightSummary({Key? key, required this.boardingPass, this.theme = SummaryTheme.light, this.isOpen = false}) : super(key: key);
 
   Color get mainTextColor {
     Color textColor;
     if (theme == SummaryTheme.dark) textColor = Colors.white;
-    if (theme == SummaryTheme.light) textColor = Color(0xFF083e64);
+    else if (theme == SummaryTheme.light) textColor = Color(0xFF083e64);
+    else throw "TODO";
     return textColor;
   }
 
   Color get secondaryTextColor {
     Color textColor;
     if (theme == SummaryTheme.dark) textColor = Color(0xff61849c);
-    if (theme == SummaryTheme.light) textColor = Color(0xFF838383);
+    else if (theme == SummaryTheme.light) textColor = Color(0xFF838383);
+    else throw "TODO";
     return textColor;
   }
 
   Color get separatorColor {
     Color color;
     if (theme == SummaryTheme.light) color = Color(0xffeaeaea);
-    if (theme == SummaryTheme.dark) color = Color(0xff396583);
+    else if (theme == SummaryTheme.dark) color = Color(0xff396583);
+    else color = Color(0xff396583);
     return color;
   }
 
@@ -141,7 +144,8 @@ class FlightSummary extends StatelessWidget {
   Widget _buildTicketDuration() {
     String planeRoutePath;
     if (theme == SummaryTheme.light) planeRoutePath = 'images/planeroute_blue.png';
-    if (theme == SummaryTheme.dark) planeRoutePath = 'images/planeroute_white.png';
+    else if (theme == SummaryTheme.dark) planeRoutePath = 'images/planeroute_white.png';
+    else throw "TODO";
 
     return Container(
       child: Column(
@@ -189,7 +193,9 @@ class FlightSummary extends StatelessWidget {
   Widget _buildBottomIcon() {
     IconData icon;
     if (theme == SummaryTheme.light) icon = Icons.keyboard_arrow_down;
-    if (theme == SummaryTheme.dark) icon = Icons.keyboard_arrow_up;
+    else if (theme == SummaryTheme.dark) icon = Icons.keyboard_arrow_up;
+    else throw "bad theme";
+
     return Icon(
       icon,
       color: mainTextColor,
@@ -202,14 +208,14 @@ class _AnimatedSlideToRight extends StatefulWidget {
   final Widget child;
   final bool isOpen;
 
-  const _AnimatedSlideToRight({Key key, this.child, @required this.isOpen}) : super(key: key);
+  const _AnimatedSlideToRight({Key? key, required this.child, required this.isOpen}) : super(key: key);
 
   @override
   _AnimatedSlideToRightState createState() => _AnimatedSlideToRightState();
 }
 
 class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {

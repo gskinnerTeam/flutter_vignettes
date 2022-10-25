@@ -8,7 +8,7 @@ void main() => runApp(App());
 class App extends StatelessWidget {
 
   static String _pkg = "ticket_fold";
-  static String get pkg => Env.getPackage(_pkg);
+  static String? get pkg => Env.getPackage(_pkg);
 
   @override
   Widget build(BuildContext context) {

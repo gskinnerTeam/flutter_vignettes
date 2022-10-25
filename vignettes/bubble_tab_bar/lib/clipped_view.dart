@@ -5,7 +5,7 @@ class ClippedView extends StatelessWidget {
   final Widget child;
   final Axis clipDirection;
 
-  const ClippedView({Key key, this.child, this.clipDirection = Axis.horizontal}) : super(key: key);
+  const ClippedView({Key? key, required this.child, this.clipDirection = Axis.horizontal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

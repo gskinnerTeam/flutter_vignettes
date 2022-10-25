@@ -12,7 +12,7 @@ class Rotation3d extends StatelessWidget {
   final double rotationY;
   final double rotationZ;
 
-  const Rotation3d({Key key, @required this.child, this.rotationX=0, this.rotationY=0, this.rotationZ=0}) : super(key: key);
+  const Rotation3d({Key? key, required this.child, this.rotationX=0, this.rotationY=0, this.rotationZ=0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

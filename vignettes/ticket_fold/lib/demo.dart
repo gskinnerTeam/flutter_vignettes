@@ -67,7 +67,7 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
     return _openTickets.where((int index) => index < ticketIndex).length;
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     Color appBarIconsColor = Color(0xFF212121);
     return AppBar(
       leading: Icon(Icons.arrow_back, color: appBarIconsColor),

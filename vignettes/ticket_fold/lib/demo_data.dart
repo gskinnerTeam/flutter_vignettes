@@ -15,18 +15,18 @@ class BoardingPassData {
   String flightNumber;
 
   BoardingPassData({
-    this.passengerName,
-    this.origin,
-    this.destination,
-    this.duration,
-    this.boardingTime,
-    this.departs,
-    this.arrives,
-    this.gate,
-    this.zone,
-    this.seat,
-    this.flightClass,
-    this.flightNumber,
+   required this.passengerName,
+   required this.origin,
+   required this.destination,
+   required this.duration,
+   required this.boardingTime,
+   required this.departs,
+   required this.arrives,
+   required this.gate,
+   required this.zone,
+   required this.seat,
+   required this.flightClass,
+   required this.flightNumber,
   });
 }
 
@@ -34,14 +34,14 @@ class _Airport {
   String code;
   String city;
 
-  _Airport({this.city, this.code});
+  _Airport({required this.city, required this.code});
 }
 
 class _Duration {
   int hours;
   int minutes;
 
-  _Duration({this.hours, this.minutes});
+  _Duration({required this.hours, required this.minutes});
 
   @override
   String toString() {

@@ -4,7 +4,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
   flutter:
@@ -13,8 +13,8 @@ dependencies:
   shared:
       path: ../_shared
 
-  provider: ^2.0.1
-  intl: ^0.15.8
+  provider: ^6.0.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

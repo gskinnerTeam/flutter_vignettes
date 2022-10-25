@@ -5,10 +5,10 @@ class PlaceholderImage extends StatelessWidget {
   final double width;
   final double height;
   final double cornerRadius;
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
 
-  const PlaceholderImage({Key key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 100, this.height = 100})
+  const PlaceholderImage({Key? key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 100, this.height = 100})
       : super(key: key);
 
   @override

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class PlaceholderCardTall extends StatelessWidget {
 
   final double width;
-  final double height;
+  final double? height;
   final double cornerRadius;
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
 
-  const PlaceholderCardTall({Key key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 400, this.height}) : super(key: key);
+  const PlaceholderCardTall({Key? key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 400, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
