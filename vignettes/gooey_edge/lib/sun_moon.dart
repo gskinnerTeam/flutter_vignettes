@@ -5,12 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'main.dart';
 
 class SunAndMoon extends StatefulWidget {
-  final bool isDragComplete;
+  final bool? isDragComplete;
   final List<String> assetPaths;
-  final int index;
+  final int? index;
 
   SunAndMoon(
-      {Key key,
+      {Key? key,
       this.isDragComplete = false,
       this.assetPaths = const ['images/Sun-Yellow.png', 'images/Sun-Red.png', 'images/Moon-Crescent.png'],
       this.index})
@@ -21,10 +21,10 @@ class SunAndMoon extends StatefulWidget {
 }
 
 class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _rotationAnimation;
-  int _rotationRadius = 300;
-  int _currentIndex;
+  late AnimationController _animationController;
+  late Animation<double> _rotationAnimation;
+  late int _rotationRadius = 300;
+  int? _currentIndex;
 
   @override
   void initState() {
@@ -45,8 +45,8 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
     bool isDragComplete = widget.isDragComplete ?? false;
     //Rotate 1/3 turn, each time index changes
     if (isDragComplete && widget.index != _currentIndex) {
-      _currentIndex = widget.index;
-      double nextAnimState = widget.index / 3;
+      _currentIndex = widget.index!;
+      double nextAnimState = widget.index! / 3;
       _animationController.animateTo(nextAnimState, duration: Duration(milliseconds: 350), curve: Curves.easeOut);
     }
     return Container(

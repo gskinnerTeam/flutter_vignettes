@@ -7,10 +7,10 @@ import 'product_details_transition.dart';
 class ProductDetailsHeroFlight extends StatelessWidget {
   final Animation<double> animation;
   final BuildContext toHeroContext;
-  final double framwWidth;
-  final double framwHeight;
+  final double? framwWidth;
+  final double? framwHeight;
 
-  const ProductDetailsHeroFlight({Key key, @required this.animation, @required this.toHeroContext, this.framwWidth, this.framwHeight})
+  const ProductDetailsHeroFlight({Key? key, required this.animation, required this.toHeroContext, this.framwWidth, this.framwHeight})
       : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class ProductDetailsHeroFlight extends StatelessWidget {
           height: framwHeight,
           child: AnimatedBuilder(
             animation: animation,
-            builder: (BuildContext context, Widget child) {
+            builder: (BuildContext context, Widget? child) {
               return DefaultTextStyle(
                 style: DefaultTextStyle.of(toHeroContext).style,
                 child: ProductDetailsTransition(animationValue: animation.value),

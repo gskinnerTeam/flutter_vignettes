@@ -9,7 +9,7 @@ void main() => runApp(App());
 class App extends StatelessWidget {
 
   static String _pkg = "parallax_travel_cards_hero";
-  static String get pkg => Env.getPackage(_pkg);
+  static String? get pkg => Env.getPackage(_pkg);
 
   @override
   Widget build(BuildContext context) {

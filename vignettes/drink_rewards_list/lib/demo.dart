@@ -14,10 +14,10 @@ class DrinkRewardsListDemo extends StatefulWidget {
 
 class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
   double _listPadding = 20;
-  DrinkData _selectedDrink;
+  DrinkData? _selectedDrink;
   ScrollController _scrollController = ScrollController();
-  List<DrinkData>_drinks;
-  int _earnedPoints;
+  late List<DrinkData>_drinks;
+  late int _earnedPoints;
 
   @override
   void initState() {
@@ -118,7 +118,7 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
       //Open tapped drink card and scroll to it
       else {
         _selectedDrink = data;
-        var selectedIndex = _drinks.indexOf(_selectedDrink);
+        var selectedIndex = _selectedDrink == null ? -1 :_drinks.indexOf(_selectedDrink!);
         var closedHeight = DrinkListCard.nominalHeightClosed;
         //Calculate scrollTo offset, subtract a bit so we don't end up perfectly at the top
         var offset = selectedIndex * (closedHeight + _listPadding) - closedHeight * .35;

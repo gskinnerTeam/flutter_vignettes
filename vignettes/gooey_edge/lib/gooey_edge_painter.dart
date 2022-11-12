@@ -5,12 +5,12 @@ import 'gooey_edge.dart';
 class GooeyEdgePainter extends CustomPainter {
   GooeyEdge edge;
 
-  GooeyEdgePainter({@required this.edge});
+  GooeyEdgePainter({required this.edge});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint fill = new Paint()..color = Colors.blue;
-    canvas.drawPath(edge.buildPath(size), fill);
+    canvas.drawPath(edge.buildPath(size)!, fill);
   }
 
   @override

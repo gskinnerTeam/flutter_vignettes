@@ -11,7 +11,7 @@ enum BasketballGameQuarter {
 
 class BasketballGameData {
   final BasketballGameQuarter quarter;
-  final Duration time;
+  final Duration? time;
 
   final int homeTeamScore;
   final int awayTeamScore;
@@ -26,16 +26,16 @@ class BasketballGameData {
   final String awayTeamLogoPath;
 
   BasketballGameData({
-    this.quarter,
+    required this.quarter,
     this.time,
-    this.homeTeamScore,
-    this.awayTeamScore,
-    this.homeTeamName,
-    this.awayTeamName,
-    this.homeTeamCity,
-    this.awayTeamCity,
-    this.homeTeamLogoPath,
-    this.awayTeamLogoPath,
+    required this.homeTeamScore,
+    required this.awayTeamScore,
+    required this.homeTeamName,
+    required this.awayTeamName,
+    required this.homeTeamCity,
+    required this.awayTeamCity,
+    required this.homeTeamLogoPath,
+    required this.awayTeamLogoPath,
   });
 }
 

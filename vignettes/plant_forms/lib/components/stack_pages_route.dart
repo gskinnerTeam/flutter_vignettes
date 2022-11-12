@@ -5,7 +5,7 @@ import 'header.dart';
 class StackPagesRoute extends PageRouteBuilder {
   final Widget enterPage;
   final List<Widget> previousPages;
-  StackPagesRoute({this.previousPages, this.enterPage})
+  StackPagesRoute({required this.previousPages, required this.enterPage})
       : super(
           pageBuilder: (
             BuildContext context,

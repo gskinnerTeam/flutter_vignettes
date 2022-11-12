@@ -32,10 +32,10 @@ class SwipeItem extends StatefulWidget {
   }
 
   final Email data;
-  final bool isEven;
-  final Function(GlobalKey, {SwipeAction action}) onSwipe; // called when a row is swiped left.
+  late final bool isEven;
+  final Function(GlobalKey, {required SwipeAction action})? onSwipe; // called when a row is swiped left.
 
-  SwipeItem({@required this.data, this.onSwipe, @required this.isEven});
+  SwipeItem({required this.data, this.onSwipe, required this.isEven});
 
   @override
   State<SwipeItem> createState() {
@@ -44,9 +44,9 @@ class SwipeItem extends StatefulWidget {
 }
 
 class SwipeItemState extends State<SwipeItem> {
-  ScrollController _scrollController;
+  ScrollController? _scrollController;
   double _swipeDistance = 0.0;
-  Key _key = GlobalKey();
+  GlobalKey _key = GlobalKey();
   bool _isPerformingAction = false;
 
   SwipeItemState();
@@ -132,13 +132,14 @@ class SwipeItemState extends State<SwipeItem> {
 
   void _resetScrollController() {
     // _scrollController is attached to the horizontal scroll view, and notifies _handleSwipe of changes.
-    _scrollController?.dispose();
+    if (_scrollController != null)
+      _scrollController!.dispose();
     _scrollController = new ScrollController();
-    _scrollController.addListener(_handleSwipe);
+    _scrollController!.addListener(_handleSwipe);
   }
 
   void _handleSwipe() {
-    double d = _scrollController.position.pixels;
+    double d = _scrollController!.position.pixels;
     if (d > SwipeItem.swipeDistance && !_isPerformingAction) {
       // Completed a left swipe. Call onRemove, and reset the scroll controller to release the swipe.
       widget.onSwipe?.call(_key, action: SwipeAction.remove);
@@ -147,7 +148,7 @@ class SwipeItemState extends State<SwipeItem> {
       _isPerformingAction = true;
       // Right swipe.
       widget.onSwipe?.call(_key, action: SwipeAction.favorite);
-      _scrollController
+      _scrollController!
           .animateTo(0, duration: Duration(milliseconds: 800), curve: Interval(.25, 1, curve: Curves.easeOutQuad))
           .whenComplete(() => _isPerformingAction = false);
     }

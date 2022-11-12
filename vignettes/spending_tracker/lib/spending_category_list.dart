@@ -7,7 +7,7 @@ import 'app_colors.dart';
 import 'components/circle_percentage_widget.dart';
 
 class SpendingCategoryList extends StatefulWidget {
-  final Listenable updateNotifier;
+  final Listenable? updateNotifier;
 
   SpendingCategoryList({this.updateNotifier});
 

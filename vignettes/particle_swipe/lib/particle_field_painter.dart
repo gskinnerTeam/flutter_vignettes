@@ -7,14 +7,14 @@ import 'components/sprite_sheet.dart';
 // Renders a ParticleField.
 class ParticleFieldPainter extends CustomPainter {
   ParticleField field;
-  SpriteSheet spriteSheet;
+  SpriteSheet? spriteSheet;
 
   // ParticleField is a ChangeNotifier, so we can use it as the repaint notifier.
-  ParticleFieldPainter({@required this.field, this.spriteSheet}) : super(repaint: field);
+  ParticleFieldPainter({required this.field, this.spriteSheet}) : super(repaint: field);
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (spriteSheet.image == null) {
+    if (spriteSheet!.image == null) {
       return;
     } // image hasn't loaded
 
@@ -22,21 +22,21 @@ class ParticleFieldPainter extends CustomPainter {
     List<RSTransform> transforms = [];
     List<Rect> rects = [];
     List<Color> colors = [];
-    int frameCount = spriteSheet.length;
+    int frameCount = spriteSheet!.length;
 
     field.particles.forEach((o) {
       // Each particle has a transformation entry, which tells drawAtlas where to draw it.
       transforms.add(RSTransform.fromComponents(
           translateX: o.x, translateY: o.y, rotation: 0, scale: o.life, anchorX: 0, anchorY: 0));
       // And a rect entry, which describes the portion (frame) of the sprite sheet image to use as the source.
-      rects.add(spriteSheet.getFrame((frameCount * o.life * 2 % frameCount).floor()));
+      rects.add(spriteSheet!.getFrame((frameCount * o.life * 2 % frameCount).floor())!);
       // And a color entry, which is composited with the frame via the blend mode.
       colors.add(o.color);
     });
 
     // Draw all of the particles based on the data entries.
     canvas.drawAtlas(
-      spriteSheet.image,
+      spriteSheet!.image!,
       transforms,
       rects,
       colors,

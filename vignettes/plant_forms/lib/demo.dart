@@ -47,8 +47,8 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
   }
 
   Future<bool> _handleBackPop() async {
-    if (navKey.currentState.canPop()) {
-      //If the pop worked, return false, preventing any pops in the MaterialApp's navigator
+    if (navKey.currentState!.canPop()) {
+      //If the pop worked, return fals!e, preventing any pops in the MaterialApp's navigator
       // return !navKey.currentState.pop(); // ??
       return false;
     }

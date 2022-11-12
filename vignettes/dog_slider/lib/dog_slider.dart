@@ -18,7 +18,7 @@ class DogSlider extends StatefulWidget {
   final double hzPadding;
   final double startValue;
 
-  const DogSlider({Key key, @required this.onChanged, this.width = 100, this.arcRadius = 15, this.hzPadding = 40, this.startValue = .5})
+  const DogSlider({Key? key, required this.onChanged, this.width = 100, this.arcRadius = 15, this.hzPadding = 40, this.startValue = .5})
       : super(key: key);
 
   @override
@@ -29,13 +29,13 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
   static const double _offscreenX = -50;
   static const double _bottomPadding = 15;
 
-  AnimationController _ballAnim;
+  late AnimationController _ballAnim;
   double _slidePosX = 230;
   double _sliderValue = 0;
   double _dogWidth = 100;
-  Ticker _dogTicker;
-  MovingCharacterPhysics2d _dogPhysics;
-  DogFlareControls _dogController;
+  late Ticker _dogTicker;
+  late MovingCharacterPhysics2d _dogPhysics;
+  late DogFlareControls _dogController;
 
   @override
   void initState() {

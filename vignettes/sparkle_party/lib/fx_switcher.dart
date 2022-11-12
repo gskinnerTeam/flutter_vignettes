@@ -10,9 +10,9 @@ class FXSwitcher extends StatelessWidget {
   static final List<String> paths = ['waterfall-idle', 'fireworks-idle', 'comet-idle', 'pinwheel-idle'];
 
   final int activeEffect;
-  final FXChangeCallback callback;
+  final FXChangeCallback? callback;
 
-  FXSwitcher({this.activeEffect, this.callback});
+  FXSwitcher({required this.activeEffect, this.callback});
 
   @override
   Widget build(context) {
@@ -46,7 +46,7 @@ class _FXSwitcherButton extends StatelessWidget {
   final ImageProvider image;
   final VoidCallback handleTap;
 
-  _FXSwitcherButton({this.name, this.image, this.handleTap});
+  _FXSwitcherButton({required this.name, required this.image, required this.handleTap});
 
   @override
   Widget build(context) {

@@ -10,18 +10,18 @@ import 'particle_fx.dart';
 // Animated particle effects. Note that this just manages the data, ParticleFieldPainter renders the effect.
 class Comet extends ParticleFX {
   double _hue = 0.0;
-  Offset _prevPoint;
+  Offset? _prevPoint;
   double _power = 0.0;
-  Offset _point;
+  late Offset _point;
 
-  Comet({@required SpriteSheet spriteSheet, @required Size size}) :
+  Comet({required SpriteSheet spriteSheet, required Size size}) :
   super(spriteSheet: spriteSheet, size: size) {
     center = Offset(width * 0.5, 30);
     _point = Offset(width * 0.5, height + 50);
   }
 
   void _activateParticle(int i, Offset pt, double m) {
-    Particle o = particles[i];
+    Particle o = particles![i];
 
     o.x = pt.dx;
     o.y = pt.dy;
@@ -44,7 +44,7 @@ class Comet extends ParticleFX {
   @override
   void tick(Duration duration) {
     if (spriteSheet.image == null) { return; }
-    if (particles[0] == null) { fillInitialData(); }
+    fillInitialData();
 
     _point += ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
 
@@ -55,7 +55,7 @@ class Comet extends ParticleFX {
     int addCount = (180 * m).toInt();
 
     for (int i=0; i<count; i++) {
-      Particle o = particles[i];
+      Particle o = particles![i];
       if (o.life == 0 && --addCount > 0) { _activateParticle(i, _point, m); }
       else if (o.life == 0) { continue; }
 
@@ -84,8 +84,8 @@ class Comet extends ParticleFX {
   double _updatePower() {
     double m = 0.25;
     if (touchPoint != null && _prevPoint != null) {
-      double dx = touchPoint.dx - _prevPoint.dx;
-      double dy = touchPoint.dy - _prevPoint.dy;
+      double dx = touchPoint!.dx - _prevPoint!.dx;
+      double dy = touchPoint!.dy - _prevPoint!.dy;
       m = min(1, sqrt(dx*dx + dy*dy)/20 + m);
     }
     _power += (m - _power) * 0.05;

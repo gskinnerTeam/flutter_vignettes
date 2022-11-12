@@ -5,7 +5,7 @@ class DelayedFadeIn extends StatefulWidget {
   final Duration duration;
   final Duration delay;
 
-  const DelayedFadeIn({Key key, this.child, @required this.delay, this.duration = const Duration(milliseconds: 700)})
+  const DelayedFadeIn({Key? key, required this.child, required this.delay, this.duration = const Duration(milliseconds: 700)})
       : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class DelayedFadeIn extends StatefulWidget {
 }
 
 class _DelayedFadeInState extends State<DelayedFadeIn> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {

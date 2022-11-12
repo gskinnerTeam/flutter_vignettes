@@ -8,11 +8,11 @@ import './main.dart';
 class GameTime extends StatelessWidget {
   final BasketballGameData data;
 
-  GameTime({@required this.data});
+  GameTime({required this.data});
 
   @override
   Widget build(context) {
-    String quarterString;
+    late String quarterString;
     switch (data.quarter) {
       case BasketballGameQuarter.Q1:
         quarterString = 'Q1';
@@ -56,7 +56,7 @@ class GameTime extends StatelessWidget {
         Container(
           color: ThemeInfo.accent3,
           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 14),
-          child: Text('${data.time.inMinutes}:${(data.time.inSeconds - (data.time.inMinutes * 60)).toString().padLeft(2, '0')}',
+          child: Text('${data.time!.inMinutes}:${(data.time!.inSeconds - (data.time!.inMinutes * 60)).toString().padLeft(2, '0')}',
               style: TextStyle(color: Colors.black, fontSize: 8, fontWeight: FontWeight.w600, fontFamily: 'OpenSans', package: App.pkg)),
         ),
       }

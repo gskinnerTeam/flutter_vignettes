@@ -6,7 +6,7 @@ class DarkInkBar extends StatefulWidget {
 
   final ValueNotifier<bool> darkModeValue;
 
-  DarkInkBar({ this.darkModeValue });
+  DarkInkBar({ required this.darkModeValue });
 
   @override
   State createState() {
@@ -21,17 +21,16 @@ class _DarkInkBarState extends State<DarkInkBar>
   static final Color darkColor = Color(0xFF171137);
   static final Color lightColor = Color(0xFF67ECDC);
 
-  ValueNotifier<bool> _darkModeValue;
+  ValueNotifier<bool>? _darkModeValue;
 
-  AnimationController _controller;
-  Animation<double> _iconOpacityAnimation;
-  Animation<double> _backgroundColorAnimation;
-  Animation<double> _foregroundColorAnimation;
-
-  ImageProvider _darkModeToggleIconImage;
+  late AnimationController _controller;
+  late Animation<double> _iconOpacityAnimation;
+  late Animation<double> _backgroundColorAnimation;
+  late Animation<double> _foregroundColorAnimation;
+  late ImageProvider _darkModeToggleIconImage;
 
   _DarkInkBarState(this._darkModeValue) {
-    _darkModeValue.addListener(_handleDarkModeChange);
+    _darkModeValue!.addListener(_handleDarkModeChange);
   }
 
   @override
@@ -109,11 +108,11 @@ class _DarkInkBarState extends State<DarkInkBar>
     final backgroundColor = HSVColor.lerp(
         HSVColor.fromColor(lightColor),
         HSVColor.fromColor(darkColor),
-        _backgroundColorAnimation.value).toColor();
+        _backgroundColorAnimation.value)!.toColor();
     final foregroundColor = HSVColor.lerp(
         HSVColor.fromColor(lightColor),
         HSVColor.fromColor(darkColor),
-        _foregroundColorAnimation.value).toColor();
+        _foregroundColorAnimation.value)!.toColor();
     // Build a simple bar with 3 animated buttons and a bottom border
     return Positioned(
       left: 0,
@@ -158,7 +157,7 @@ class _DarkInkBarState extends State<DarkInkBar>
           ),
           Container(
             height: 2,
-            color: _darkModeValue.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
+            color: _darkModeValue!.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
           ),
         ]
       ),
@@ -167,7 +166,7 @@ class _DarkInkBarState extends State<DarkInkBar>
 
 
   void _handleDarkModeChange() {
-    if (_darkModeValue.value) {
+    if (_darkModeValue!.value) {
       _controller.forward(from: 0.0);
     } else {
       _controller.reverse(from: 1.0);

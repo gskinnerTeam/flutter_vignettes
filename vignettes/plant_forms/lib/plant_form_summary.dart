@@ -12,10 +12,10 @@ import 'main.dart';
 import 'styles.dart';
 
 class PlantFormSummary extends StatelessWidget {
-  final double pageSize;
+  final double? pageSize;
   final bool isHidden;
 
-  const PlantFormSummary({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
+  const PlantFormSummary({Key? key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

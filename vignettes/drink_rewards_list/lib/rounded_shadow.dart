@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class RoundedShadow extends StatelessWidget {
-  final Widget child;
-  final Color shadowColor;
+  final Widget? child;
+  final Color? shadowColor;
 
   final double topLeftRadius;
   final double topRightRadius;
@@ -12,7 +12,7 @@ class RoundedShadow extends StatelessWidget {
   final double bottomRightRadius;
 
   const RoundedShadow(
-      {Key key,
+      {Key? key,
       this.shadowColor,
       this.topLeftRadius = 48,
       this.topRightRadius = 48,
@@ -21,7 +21,7 @@ class RoundedShadow extends StatelessWidget {
       this.child})
       : super(key: key);
 
-  const RoundedShadow.fromRadius(double radius, {Key key, this.child, this.shadowColor}) :
+  const RoundedShadow.fromRadius(double radius, {Key? key, this.child, this.shadowColor}) :
         topLeftRadius=radius, topRightRadius=radius, bottomLeftRadius=radius, bottomRightRadius=radius;
 
   @override

@@ -4,7 +4,7 @@ class ContentBox extends StatelessWidget {
   final double width;
   final double height;
 
-  const ContentBox({Key key, this.width = 240, this.height = 80}) : super(key: key);
+  const ContentBox({Key? key, this.width = 240, this.height = 80}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

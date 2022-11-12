@@ -14,9 +14,9 @@ class HotelList extends StatefulWidget {
 }
 
 class _HotelListViewState extends State<HotelList> with SingleTickerProviderStateMixin {
-  AnimationController _anim;
+  late AnimationController _anim;
 
-  List<Hotel> _oldHotels;
+  List<Hotel>? _oldHotels;
 
   @override
   void initState() {

@@ -10,8 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_masked_text: ^0.8.0
-  font_awesome_flutter: ^8.5.0
+  flutter_masked_text:
+    git:
+      url: https://github.com/FTKhanFT/flutter-masked-text
+      ref: 0.8.2
+  font_awesome_flutter: ^10.2.1
   provider:
 
   shared:

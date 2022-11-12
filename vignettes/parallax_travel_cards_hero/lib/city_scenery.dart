@@ -12,7 +12,7 @@ class CityScenery extends StatelessWidget {
   final double animationValue;
   final CityData city;
 
-  const CityScenery({Key key, this.animationValue = 0, @required this.city}) : super(key: key);
+  const CityScenery({Key? key, this.animationValue = 0, required this.city}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildCardInfo(Animation animation, Size screenSize) {
+  Widget _buildCardInfo(Animation<double> animation, Size screenSize) {
     return FadeTransition(
       opacity: Tween<double>(begin: 1.0, end: 0).animate(CurvedAnimation(curve: Interval(0, .22), parent: animation)),
       child: Container(
@@ -56,7 +56,7 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildBackgroundTransition(Animation animation) {
+  Widget _buildBackgroundTransition(Animation<double> animation) {
     var gradientStart =
         ColorTween(begin: city.color, end: Color(0xFFfde9c8)).animate(CurvedAnimation(curve: Curves.easeOut, parent: animation));
     var gradientEnd = ColorTween(begin: city.color, end: Color(0xFFfdf8f1)).evaluate(animation);
@@ -68,12 +68,12 @@ class CityScenery extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            //colors: [gradientStart.value, gradientEnd],
+            colors: [gradientStart.value!, gradientEnd!],
           )),
     );
   }
 
-  Widget _buildRoadTransition(Animation animation, Size screenSize) {
+  Widget _buildRoadTransition(Animation<double> animation, Size screenSize) {
     double scale = .55 * .2;
     return FadeTransition(
       opacity: Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(.7, 1, curve: Curves.easeIn), parent: animation)),
@@ -100,14 +100,14 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildCloudsAnimation(Animation animation) {
+  Widget _buildCloudsAnimation(Animation<double> animation) {
     return FadeTransition(
       opacity: animation,
       child: _Clouds(),
     );
   }
 
-  Widget _buildCityAndTreesTransition(Animation animation, Size screenSize) {
+  Widget _buildCityAndTreesTransition(Animation<double> animation, Size screenSize) {
     // City Image Animation
     var sizeStart = Size(screenSize.width * .55, screenSize.height * .24);
     var sizeEnd = Size(screenSize.width, screenSize.height * .35);
@@ -138,7 +138,7 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildLeavesAnimation(Animation animation) {
+  Widget _buildLeavesAnimation(Animation<double> animation) {
     return FadeTransition(
       opacity: animation,
       child: _Leaves(),
@@ -157,8 +157,8 @@ class _Clouds extends StatefulWidget {
 
 class _CloudsState extends State<_Clouds> with SingleTickerProviderStateMixin {
   static Map<String, _CloudsState> _cachedState = {};
-  Ticker _ticker;
-  double _animationValue;
+  late Ticker _ticker;
+  late double _animationValue;
 
   @override
   void initState() {
@@ -229,8 +229,8 @@ class _Leaves extends StatefulWidget {
 
 class _LeavesState extends State<_Leaves> with SingleTickerProviderStateMixin {
   static Map<String, _LeavesState> _cachedState = {};
-  Ticker _ticker;
-  double _animationValue;
+  late Ticker _ticker;
+  late double _animationValue;
 
   @override
   initState() {
@@ -294,7 +294,7 @@ class _Leaf extends StatelessWidget {
   final Function getCurvePath;
   final Curve curve;
 
-  _Leaf({@required this.animationValue, @required this.getCurvePath, this.curve = Curves.linear, this.rotationScale = 1});
+  _Leaf({required this.animationValue, required this.getCurvePath, this.curve = Curves.linear, this.rotationScale = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -363,7 +363,7 @@ class _CityImage extends StatelessWidget {
   final Size size;
   final CityData city;
 
-  const _CityImage({Key key, this.size, this.city}) : super(key: key);
+  const _CityImage({Key? key, required this.size, required this.city}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

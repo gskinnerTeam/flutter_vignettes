@@ -5,7 +5,7 @@ import 'components/header_row.dart';
 import 'components/profile_icon.dart';
 
 class SpendingAppBar extends StatelessWidget with PreferredSizeWidget {
-  SpendingAppBar({Key key}) : super(key: key);
+  SpendingAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(context) {

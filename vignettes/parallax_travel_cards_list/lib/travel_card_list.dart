@@ -7,7 +7,7 @@ class TravelCardList extends StatefulWidget {
   final List<City> cities;
   final Function onCityChange;
 
-  const TravelCardList({Key key, this.cities, @required this.onCityChange}) : super(key: key);
+  const TravelCardList({Key? key, required this.cities, required this.onCityChange}) : super(key: key);
 
   @override
   TravelCardListState createState() => TravelCardListState();
@@ -16,7 +16,7 @@ class TravelCardList extends StatefulWidget {
 class TravelCardListState extends State<TravelCardList> with SingleTickerProviderStateMixin {
   final double _maxRotation = 20;
 
-  PageController _pageController;
+  late PageController _pageController;
 
   double _cardWidth = 160;
   double _cardHeight = 200;
@@ -25,9 +25,9 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
   bool _isScrolling = false;
   //int _focusedIndex = 0;
 
-  AnimationController _tweenController;
-  Tween<double> _tween;
-  Animation<double> _tweenAnim;
+  AnimationController? _tweenController;
+  Tween<double>? _tween;
+  late Animation<double> _tweenAnim;
 
   @override
   Widget build(BuildContext context) {
@@ -96,14 +96,14 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
       _prevScrollX = notification.metrics.pixels;
       //Calculate the index closest to middle
       //_focusedIndex = (_prevScrollX / (_itemWidth + _listItemPadding)).round();
-      widget.onCityChange(widget.cities.elementAt(_pageController.page.round() % widget.cities.length));
+      widget.onCityChange(widget.cities.elementAt(_pageController.page!.round() % widget.cities.length));
     }
     //Scroll Start
     else if (notification is ScrollStartNotification) {
       _isScrolling = true;
       _prevScrollX = notification.metrics.pixels;
       if (_tween != null) {
-        _tweenController.stop();
+        _tweenController!.stop();
       }
     }
     return true;
@@ -135,16 +135,16 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
       //Create Tween, which defines our begin + end values
       _tween = Tween<double>(begin: -1, end: 0);
       //Create Animation, which allows us to access the current tween value and the onUpdate() callback.
-      _tweenAnim = _tween.animate(new CurvedAnimation(parent: _tweenController, curve: Curves.elasticOut))
+      _tweenAnim = _tween!.animate(new CurvedAnimation(parent: _tweenController!, curve: Curves.elasticOut))
         //Set our offset each time the tween fires, triggering a rebuild
         ..addListener(() {
           _setOffset(_tweenAnim.value);
         });
     }
     //Restart the tweenController and inject a new start value into the tween
-    _tween.begin = _normalizedOffset;
-    _tweenController.reset();
-    _tween.end = 0;
-    _tweenController.forward();
+    _tween!.begin = _normalizedOffset;
+    _tweenController!.reset();
+    _tween!.end = 0;
+    _tweenController!.forward();
   }
 }

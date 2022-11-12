@@ -107,8 +107,9 @@ class OBJLoaderFace {
   List<vec32.Vector2> _uvs;
   String materialName;
 
+  // was List(3) each before null safety
   OBJLoaderFace()
-    : _positions = List<vec32.Vector3>(3), _normals = List<vec32.Vector3>(3), _uvs = List<vec32.Vector2>(3);
+    : _positions = [], _normals = [], _uvs = [];
 
   List<vec32.Vector3> get positions => _positions;
   List<vec32.Vector3> get normals => _normals;
@@ -127,7 +128,7 @@ class OBJLoader {
   String _mtlSource;
 
   List<OBJLoaderFace> _faces;
-  Map<String, OBJLoaderMaterial> _materials;
+  Map<String, OBJLoaderMaterial?> _materials;
 
   OBJLoader(this._bundle, this._basePath, this._objPath) : _faces = <OBJLoaderFace>[], _materials = Map<String, OBJLoaderMaterial>();
 
@@ -147,7 +148,7 @@ class OBJLoader {
     List<vec32.Vector3> positions = <vec32.Vector3>[];
     List<vec32.Vector3> normals = <vec32.Vector3>[];
     List<vec32.Vector2> uvs = <vec32.Vector2>[];
-    String currentMaterialName;
+    String? currentMaterialName = null;
 
     final objLines = _objSource.split('\n');
     for (var line in objLines) {
@@ -196,7 +197,7 @@ class OBJLoader {
           face.uvs[0] = face.uvs[1] = face.uvs[2] = vec32.Vector2.zero();
         }
 
-        face.materialName = currentMaterialName;
+        face.materialName = currentMaterialName!;
         _faces.add(face);
 
       } else if (line.startsWith('o ')) {
@@ -216,14 +217,14 @@ class OBJLoader {
   void _parseMTLFile() {
     final mtlLines = _mtlSource.split('\n');
 
-    OBJLoaderMaterial currentMaterial;
+    OBJLoaderMaterial? currentMaterial;
 
     for (var line in mtlLines) {
       line = line.replaceAll("\r", "");
       if (line.startsWith('newmtl ')) {
 
         if (currentMaterial != null)
-          _materials[currentMaterial.name] = currentMaterial;
+          _materials[currentMaterial!.name] = currentMaterial;
 
         currentMaterial = OBJLoaderMaterial();
         currentMaterial.name = line.split(' ')[1];
@@ -255,7 +256,7 @@ class OBJLoader {
     List<Future<void>> _imageFutures = <Future<void>>[];
 
     for (var mtl in _materials.values) {
-      if (mtl.texturePath != null) {
+      if (mtl!.texturePath != null) {
         print('loading texture: ${mtl.texturePath}');
         final c = Completer<void>();
         _imageFutures.add(c.future);
@@ -281,7 +282,7 @@ class OBJLoader {
     Uint16List indices = Uint16List(_faces.length * 3);
 
     // TODO: Combine multiple material textures into one and offset uv's accordingly
-    ui.Image texture = _materials.values.first.texture;
+    ui.Image texture = _materials.values.first!.texture;
 
     for (int i = 0; i < _faces.length; ++i) {
       positions[i * 9 + 0] = _faces[i].positions[0].x;
@@ -311,9 +312,9 @@ class OBJLoader {
       uvs[i * 6 + 4] = _faces[i].uvs[2].x;
       uvs[i * 6 + 5] = _faces[i].uvs[2].y;
 
-      colors[i * 3 + 0] = _materials[_faces[i].materialName].diffuseColor.value;
-      colors[i * 3 + 1] = _materials[_faces[i].materialName].diffuseColor.value;
-      colors[i * 3 + 2] = _materials[_faces[i].materialName].diffuseColor.value;
+      colors[i * 3 + 0] = _materials[_faces[i].materialName]!.diffuseColor.value;
+      colors[i * 3 + 1] = _materials[_faces[i].materialName]!.diffuseColor.value;
+      colors[i * 3 + 2] = _materials[_faces[i].materialName]!.diffuseColor.value;
 
       indices[i * 3 + 0] = i * 3 + 0;
       indices[i * 3 + 1] = i * 3 + 1;

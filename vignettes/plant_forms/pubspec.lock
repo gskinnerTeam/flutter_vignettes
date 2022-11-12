@@ -42,7 +42,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "1.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -58,10 +58,12 @@ packages:
   flutter_masked_text:
     dependency: "direct main"
     description:
-      name: flutter_masked_text
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
+      path: "."
+      ref: "0.8.2"
+      resolved-ref: c54ff6f4866ddef235bd8178a76513c4b45bdd0c
+      url: "https://github.com/FTKhanFT/flutter-masked-text"
+    source: git
+    version: "0.8.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -73,7 +75,7 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.12.0"
+    version: "10.2.1"
   matcher:
     dependency: transitive
     description:
@@ -115,7 +117,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.4"
   shared:
     dependency: "direct main"
     description:
@@ -178,5 +180,5 @@ packages:
     source: hosted
     version: "2.1.2"
 sdks:
-  dart: ">=2.17.0-0 <3.0.0"
+  dart: ">=2.18.2 <3.0.0"
   flutter: ">=1.16.0"

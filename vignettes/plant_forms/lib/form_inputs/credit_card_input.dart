@@ -10,18 +10,18 @@ class CreditCardInfoInput extends StatefulWidget {
   final String label;
   final String helper;
   final CreditCardInputType inputType;
-  final CreditCardNetwork cardNetwork;
-  final Function onValidate;
-  final Function onChange;
-  final String initialValue;
+  final CreditCardNetwork? cardNetwork;
+  final Function? onValidate;
+  final Function? onChange;
+  final String? initialValue;
 
   const CreditCardInfoInput({
-    Key key,
+    Key? key,
     this.label = '',
     this.helper = '',
     this.cardNetwork,
-    @required this.inputType,
-    @required this.onValidate,
+    required this.inputType,
+    required this.onValidate,
     this.onChange,
     this.initialValue = '',
   }) : super(key: key);
@@ -31,10 +31,10 @@ class CreditCardInfoInput extends StatefulWidget {
 }
 
 class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
-  MaskedTextController _textController;
-  CreditCardNetwork _creditCardType;
+  late MaskedTextController _textController;
+  CreditCardNetwork? _creditCardType;
   bool _isAutoValidating = false;
-  bool _isValid;
+  bool _isValid = false;
 
   String _value = '';
   String _errorText = '';
@@ -55,7 +55,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_keyValue, _isValid, value: _value);
+      widget!.onValidate!(_keyValue, _isValid, value: _value);
     }
   }
 
@@ -64,8 +64,8 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     // set isValid
     // isValid = false;
     if (_isValid == null) {
-      if (widget.initialValue.isNotEmpty) {
-        _validateField(widget.initialValue);
+      if (widget.initialValue!.isNotEmpty) {
+        _validateField(widget.initialValue!);
       }
     }
     //build input
@@ -139,9 +139,9 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     }
   }
 
-  String _validateField(String value) {
+  String? _validateField(String? value) {
     // if is required
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       isValid = false;
       _errorText = 'Required';
       return _errorText;
@@ -149,7 +149,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     // validate when the input has a value
     else if (value.isNotEmpty &&
         InputValidator.validate(widget.inputType, value,
-            cardNetwork: widget.cardNetwork)) {
+            cardNetwork: widget!.cardNetwork!)) {
       isValid = true;
       _errorText = '';
       return null;
@@ -200,6 +200,6 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
           _textController.updateMask('000');
         break;
     }
-    widget.onChange(_creditCardType);
+    widget!.onChange!(_creditCardType);
   }
 }

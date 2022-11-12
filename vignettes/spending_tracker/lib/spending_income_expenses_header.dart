@@ -9,7 +9,7 @@ import 'app_colors.dart';
 class SpendingIncomeExpensesHeader extends StatelessWidget {
   final Chart chart;
 
-  SpendingIncomeExpensesHeader({this.chart});
+  SpendingIncomeExpensesHeader({required this.chart});
 
   @override
   Widget build(context) {
@@ -19,8 +19,8 @@ class SpendingIncomeExpensesHeader extends StatelessWidget {
     final values0 = chart.dataSets[0].values.sublist(start, end);
     final values1 = chart.dataSets[1].values.sublist(start, end);
 
-    final sum0 = values0.fold(0, (a, b) => a + b) * 1000;
-    final sum1 = values1.fold(0, (a, b) => a + b) * 1000;
+    final sum0 = values0.fold(0.0, (a, b) => a + b) * 1000;
+    final sum1 = values1.fold(0.0, (a, b) => a + b) * 1000;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -52,10 +52,10 @@ class SpendingIncomeExpensesHeader extends StatelessWidget {
 class _SummaryColumn extends StatelessWidget {
   final String title;
   final List<Color> colors;
-  final int sum;
-  final int mean;
+  final int? sum;
+  final int? mean;
 
-  _SummaryColumn({this.title, this.colors, this.sum, this.mean});
+  _SummaryColumn({required this.title, required this.colors, this.sum, this.mean});
 
   @override
   Widget build(context) {
@@ -81,7 +81,7 @@ class _SummaryColumn extends StatelessWidget {
       ]),
       Padding(padding: EdgeInsets.all(2)),
       TextTransition(
-        text: '\$${numberToPriceString(sum)}',
+        text: '\$${numberToPriceString(sum!)}',
         textStyle: TextStyle(
           color: AppColors.colorText1,
           fontFamily: 'Lato',
@@ -93,7 +93,7 @@ class _SummaryColumn extends StatelessWidget {
       ),
       Padding(padding: EdgeInsets.all(4)),
       Text(
-        'Monthly Average: \$${numberToPriceString(mean)}',
+        'Monthly Average: \$${numberToPriceString(mean!)}',
         style: TextStyle(
           color: AppColors.colorText1,
           fontFamily: 'Lato',

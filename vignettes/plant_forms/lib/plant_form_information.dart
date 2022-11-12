@@ -15,10 +15,10 @@ import 'plant_form_summary.dart';
 import 'styles.dart';
 
 class PlantFormInformation extends StatefulWidget {
-  final double pageSize;
+  final double? pageSize;
   final bool isHidden;
 
-  const PlantFormInformation({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
+  const PlantFormInformation({Key? key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   _PlantFormInformationState createState() => _PlantFormInformationState();
@@ -27,14 +27,14 @@ class PlantFormInformation extends StatefulWidget {
 class _PlantFormInformationState extends State<PlantFormInformation> with FormMixin {
   final _formKey = GlobalKey<FormState>();
 
-  SharedFormState formState;
+  late SharedFormState formState;
   Map<String, String> get values => formState.valuesByName;
-  String get _selectedCountry => _getFormValue(FormKeys.country);
+  String? get _selectedCountry => _getFormValue(FormKeys.country);
 
   //String _country;
-  ValueNotifier<String> _country;
-  String _countrySubdivisionKey;
-  List<String> _countries;
+  ValueNotifier<String>? _country;
+  late String _countrySubdivisionKey;
+  late List<String> _countries;
 
   @override
   void initState() {
@@ -44,9 +44,9 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     if (!values.containsKey(FormKeys.country)) {
       // if not value, set default country
       _country = ValueNotifier(_countries[2]);
-      values[FormKeys.country] = _country.value;
+      values[FormKeys.country] = _country!.value;
     }
-    _updateCountrySubdivision(_selectedCountry);
+    _updateCountrySubdivision(_selectedCountry!);
   }
 
   @override
@@ -139,7 +139,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     return elements;
   }
 
-  TextInput _buildText(String key, {String title, bool required = false, InputType type = InputType.text}) {
+  TextInput _buildText(String key, {String? title, bool required = false, InputType type = InputType.text}) {
     title = title ?? _snakeToTitleCase(key);
     // Register the input validity
     if (!validInputsMap.containsKey(key)) validInputsMap[key] = !required;
@@ -147,7 +147,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
       key: ValueKey(key),
       helper: title,
       type: type,
-      initialValue: _getFormValue(key),
+      initialValue: _getFormValue(key)!,
       onValidate: onItemValidate,
       onChange: onItemChange,
       isRequired: required,
@@ -156,17 +156,17 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   }
 
   @override
-  void onItemValidate(String key, bool isValid, {String value}) {
+  void onItemValidate(String? key, bool? isValid, {String? value}) {
     // update the input validity
-    validInputsMap[key] = isValid;
+    validInputsMap[key!] = isValid!;
     bool hasChanged = values[key] != value;
-    values[key] = value;
+    values[key] = value!;
     // on country updated
     if (key == FormKeys.country && hasChanged) {
-      _country.value = value;
+      _country!.value = value;
       validInputsMap.clear();
       _updateCountrySubdivision(value);
-      onItemChange(key, value);
+      onItemChange(key!, value);
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -190,7 +190,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     return words.join(" ");
   }
 
-  String _getFormValue(String name) {
+  String? _getFormValue(String name) {
     return values.containsKey(name) ? values[name] : "";
   }
 
@@ -206,7 +206,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   }
 
   void _handleSubmit(BuildContext context) {
-    if (_formKey.currentState.validate() && formCompletion == 1) {
+    if (_formKey.currentState!.validate() && formCompletion == 1) {
       Navigator.push(
           context,
           StackPagesRoute(previousPages: [

@@ -12,7 +12,7 @@ class AppColors {
 }
 
 class Styles {
-  static TextStyle text(double size, Color color, bool bold, {double height}) {
+  static TextStyle text(double size, Color? color, bool bold, {double? height}) {
     return TextStyle(
       fontSize: size,
       color: color,

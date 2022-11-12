@@ -9,41 +9,44 @@ import '../utils/vertex_helpers.dart';
 // Abstract particle effects class, extended by specific effects implementations.
 abstract class ParticleFX with ChangeNotifier {
   SpriteSheet spriteSheet;
-  double width;
-  double height;
+  late double width;
+  late double height;
   int count;
 
-  Offset touchPoint;
-  Offset center;
+  Offset? touchPoint;
+  late Offset center;
 
-  List<Particle> particles;
-  Int32List colors;
-  Float32List uv;
-  Float32List xy;
-  ui.Vertices vertices;
+  List<Particle>? particles;
+  late Int32List colors;
+  late Float32List uv;
+  late Float32List xy;
+  ui.Vertices? vertices;
 
-  ParticleFX({@required this.spriteSheet, @required Size size, this.count=10000}) {
+  ParticleFX({required this.spriteSheet, required Size size, this.count=10000}) {
+    print("height");
+    print(size.height);
     width = size.width;
     height = size.height;
     xy = Float32List(12 * count);
     uv = Float32List(12 * count);
     colors = Int32List(6 * count);
-    particles = List<Particle>(count);
     center = Offset(width/2, height/2);
   }
 
   // Fills in the Particle list, and resets each Particle.
   // Override to add more capability if needed.
   void fillInitialData() {
+    if ( particles != null) return;
+    particles = List.filled(count, Particle()); // stupid
     for (int i=0; i<count; i++) {
-      particles[i] = Particle();
+      particles![i] = Particle();
       resetParticle(i);
     }
   }
 
   // resets the basic Particle, and hides it.
   Particle resetParticle(int i) {
-    Particle o = particles[i];
+    Particle o = particles![i];
     o.x = o.y = o.vx = o.vy = o.life = 0;
     o.frame = spriteSheet.length ~/ 2;
     o.animate = false;

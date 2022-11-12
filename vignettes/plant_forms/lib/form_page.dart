@@ -9,17 +9,17 @@ class FormPage extends StatelessWidget {
 
   final List<Widget> children;
   final double pageSizeProportion;
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState>? formKey;
   final String title;
   final bool isHidden;
 
   const FormPage({
-    Key key,
+    Key? key,
     this.title = '',
     this.formKey,
     this.isHidden = false,
-    @required this.pageSizeProportion,
-    @required this.children,
+    required this.pageSizeProportion,
+    required this.children,
   }) : super(key: key);
 
   // Size screenSize;

@@ -8,7 +8,7 @@ void main() => runApp(App());
 class App extends StatelessWidget {
   static final String _pkg = 'spending_tracker';
 
-  static String get pkg => Env.getPackage(_pkg);
+  static String? get pkg => Env.getPackage(_pkg);
 
   static String get bundle => Env.getBundle(_pkg);
 

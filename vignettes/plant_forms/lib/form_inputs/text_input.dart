@@ -11,17 +11,17 @@ class TextInput extends StatefulWidget {
   final bool isRequired;
   final InputType type;
   final Function onValidate;
-  final Function onChange;
+  final Function? onChange;
   final bool isActive;
-  final ValueNotifier valueNotifier;
+  final ValueNotifier? valueNotifier;
 
   const TextInput({
-    Key key,
+    required Key key,
     this.helper = '',
     this.isRequired = true,
     this.initialValue = '',
     this.type = InputType.text,
-    @required this.onValidate,
+    required this.onValidate,
     this.label = '',
     this.isActive = true,
     this.onChange,
@@ -34,7 +34,7 @@ class TextInput extends StatefulWidget {
 
 class _TextInputState extends State<TextInput> {
   bool _isAutoValidating = false;
-  bool _isValid;
+  bool? _isValid;
 
   String _value = '';
   String _errorText = '';
@@ -46,7 +46,7 @@ class _TextInputState extends State<TextInput> {
     super.initState();
     // Reset the valid state on notifier change
     if (widget.valueNotifier != null) {
-      widget.valueNotifier.addListener(()=>_isValid = false);
+      widget.valueNotifier!.addListener(()=>_isValid = false);
     }
   }
 
@@ -120,7 +120,7 @@ class _TextInputState extends State<TextInput> {
   void _handleChange(String value) {
     // save value status
     _value = value;
-    widget.onChange(_keyValue, value);
+    widget.onChange!(_keyValue, value);
 
     // activate validation
     Future.delayed(Duration(milliseconds: 100), () => setState(() {}));
@@ -130,7 +130,7 @@ class _TextInputState extends State<TextInput> {
       });
   }
 
-  TextInputType _setKeyboardType() {
+  TextInputType? _setKeyboardType() {
     TextInputType type;
     switch (widget.type) {
       case InputType.email:
@@ -150,8 +150,8 @@ class _TextInputState extends State<TextInput> {
     return type;
   }
 
-  String _validateField(String value) {
-    _value = value;
+  String? _validateField(String? value) {
+    _value = value!;
     // if the value is required
     if (widget.isRequired && value.isEmpty) {
       isValid = false;

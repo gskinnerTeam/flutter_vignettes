@@ -10,16 +10,16 @@ import 'particle_fx.dart';
 // Animated particle effects. Note that this just manages the data, ParticleFieldPainter renders the effect.
 class Pinwheel extends ParticleFX {
   double _hue = 0.0;
-  Offset _point;
+  late Offset _point;
   int arms = 11;
 
-  Pinwheel({@required SpriteSheet spriteSheet, @required Size size}) :
+  Pinwheel({required SpriteSheet spriteSheet, required Size size}) :
   super(spriteSheet: spriteSheet, size: size) {
     _point = center;
   }
 
   void _activateParticle(int i, Offset pt) {
-    Particle o = particles[i];
+    Particle o = particles![i];
 
     o.x = pt.dx;
     o.y = pt.dy;
@@ -43,7 +43,7 @@ class Pinwheel extends ParticleFX {
   @override
   void tick(Duration duration) {
     if (spriteSheet.image == null) { return; }
-    if (particles[0] == null) { fillInitialData(); }
+    fillInitialData();
 
     _point += ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
 
@@ -53,7 +53,7 @@ class Pinwheel extends ParticleFX {
     int addCount = touchPoint != null ? 200 : 20;
 
     for (int i=0; i<count; i++) {
-      Particle o = particles[i];
+      Particle o = particles![i];
       if (o.life == 0 && --addCount > 0) { _activateParticle(i, _point); }
       else if (o.life == 0) { continue; }
 

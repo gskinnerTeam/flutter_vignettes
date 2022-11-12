@@ -9,10 +9,10 @@ class Sprite extends StatefulWidget {
   final num frame;
 
   Sprite({
-    Key key,
-    @required this.image,
-    @required this.frameWidth,
-    this.frameHeight,
+    Key? key,
+    required this.image,
+    required this.frameWidth,
+    required this.frameHeight,
     this.frame=0
   }): super(key: key);
 
@@ -21,8 +21,8 @@ class Sprite extends StatefulWidget {
 }
 
 class _SpriteState extends State<Sprite> {
-  ImageStream _imageStream;
-  ImageInfo _imageInfo;
+  ImageStream? _imageStream;
+  ImageInfo? _imageInfo;
 
   @override
   void initState() {
@@ -42,12 +42,12 @@ class _SpriteState extends State<Sprite> {
   }
 
   void _getImage() {
-    final ImageStream oldImageStream = _imageStream;
-    _imageStream = widget.image.resolve(createLocalImageConfiguration(context));
-    if (_imageStream.key == oldImageStream?.key) { return; }
+    final ImageStream? oldImageStream = _imageStream;
+    final ImageStream newImageStream = _imageStream = widget.image.resolve(createLocalImageConfiguration(context));
+    if (newImageStream.key == oldImageStream?.key) { return; }
     final ImageStreamListener listener = ImageStreamListener(_updateImage);
     oldImageStream?.removeListener(listener);
-    _imageStream.addListener(listener);
+    newImageStream.addListener(listener);
   }
 
   void _updateImage(ImageInfo imageInfo, bool synchronousCall) {
@@ -63,7 +63,7 @@ class _SpriteState extends State<Sprite> {
 
   @override
   Widget build(BuildContext context) {
-    ui.Image img = _imageInfo?.image;
+    ui.Image? img = _imageInfo?.image;
     if (img == null) { return SizedBox(); }
     int w = img.width, frame = widget.frame.round();
     int frameW = widget.frameWidth, frameH = widget.frameHeight;

@@ -12,21 +12,22 @@ class Fireworks extends ParticleFX {
   double _hue = 120.0;
   int _cooldown = 0; // ticks before another firework is allowed
   int _nextAuto = 10; // ticks before another firework is automatically triggered
-  Offset _touchPoint;
+  Offset? _touchPoint;
 
-  Fireworks({@required SpriteSheet spriteSheet, @required Size size}) :
+  Fireworks({required SpriteSheet spriteSheet, required Size size}) :
     super(spriteSheet: spriteSheet, size: size);
 
   @override
   void fillInitialData() {
+    particles = List.filled(count, _Particle()); // stupid
     for (int i=0; i<count; i++) {
-      particles[i] = _Particle();
+      particles![i] = _Particle();
       resetParticle(i);
     }
   }
 
   @override
-  set touchPoint(Offset pt) {
+  set touchPoint(Offset? pt) {
     // avoid premature clears from fast taps.
     if (pt != null && _cooldown <= 0) {
       _touchPoint = pt;
@@ -35,7 +36,7 @@ class Fireworks extends ParticleFX {
   }
 
   void _activateParticle(int i, Offset pt, double wow) {
-    _Particle o = particles[i];
+    _Particle o = particles![i] as _Particle ;
     o.x = pt.dx;
     o.y = pt.dy;
     double maxv = wow * 18;
@@ -60,7 +61,7 @@ class Fireworks extends ParticleFX {
   @override
   void tick(Duration duration) {
     if (spriteSheet.image == null) { return; }
-    if (particles[0] == null) { fillInitialData(); }
+    if (particles == null) fillInitialData();
 
     int frameCount = spriteSheet.length;
     int addCount = 0;
@@ -73,9 +74,9 @@ class Fireworks extends ParticleFX {
     }
 
     for (int i=0; i<count; i++) {
-      _Particle o = particles[i];
+      _Particle o = particles![i] as _Particle;
 
-      if (o.life == 0 && --addCount > 0) { _activateParticle(i, _touchPoint, wow); }
+      if (o.life == 0 && --addCount > 0) { _activateParticle(i, _touchPoint!, wow); }
       else if (o.life == 0) { continue; }
 
       o.vy += 0.2;

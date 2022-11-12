@@ -17,8 +17,8 @@ class DarkInkDemo extends StatefulWidget {
 
 class _DarkInkDemoState extends State<DarkInkDemo> {
 
-  ValueNotifier<bool> _darkModeValue;
-  ScrollController _scrollController;
+  late ValueNotifier<bool> _darkModeValue;
+  late ScrollController _scrollController;
 
   @override
   void initState() {

@@ -9,7 +9,7 @@ class GooeyEdgeClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    return edge.buildPath(size, margin:margin);
+    return edge.buildPath(size, margin:margin)!;
   }
 
   @override

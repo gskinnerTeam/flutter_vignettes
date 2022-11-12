@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class WhitePageRoute extends PageRouteBuilder {
   final Widget enterPage;
 
-  WhitePageRoute({this.enterPage})
+  WhitePageRoute({required this.enterPage})
       : super(
             transitionDuration: Duration(milliseconds: 1700),
             pageBuilder: (context, animation, secondaryAnimation) => enterPage,

@@ -13,8 +13,8 @@ dependencies:
   shared:
     path: ../_shared/
 
-  flare_flutter: 1.7.3
-  cupertino_icons: ^1.0.2
+  flare_flutter: ^3.0.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:

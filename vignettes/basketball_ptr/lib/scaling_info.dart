@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class ScalingInfo {
 
-  static double _scaleX;
-  static double _scaleY;
-
+  static late double _scaleX;
+  static double? _scaleY; // not used !
 
   static void init(MediaQueryData data) {
     final appSize = data.size;
@@ -12,6 +11,6 @@ class ScalingInfo {
   }
 
   static double get scaleX => _scaleX;
-  static double get scaleY => _scaleY;
+  static double? get scaleY => _scaleY;
 
 }

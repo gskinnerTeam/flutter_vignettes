@@ -16,11 +16,11 @@ class ProductDetailZoomDemo extends StatefulWidget {
 }
 
 class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with SingleTickerProviderStateMixin {
-  AnimationController _transitionAnimController;
-  bool _isFirstInit;
-  Size _screenSize;
-  double _frameHeight;
-  double _frameWidth;
+  late AnimationController _transitionAnimController;
+  late bool _isFirstInit;
+  late Size _screenSize;
+  late double _frameHeight;
+  late double _frameWidth;
   double _buttonAlpha = 0;
 
   TextStyle bodyStyle = TextStyle(fontFamily: 'WorkSans', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 2, package: App.pkg);

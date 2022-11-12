@@ -11,7 +11,7 @@ class ProductDetailsTransition extends StatelessWidget {
   final TextStyle bodyStyle =
       TextStyle(fontFamily: 'WorkSans', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 2, package: App.pkg);
 
-  ProductDetailsTransition({Key key, this.animationValue = 1})
+  ProductDetailsTransition({Key? key, this.animationValue = 1})
       : _curvedAnimation = CurvedAnimation(curve: Interval(0, .8, curve: Curves.easeOut), parent: AlwaysStoppedAnimation(animationValue)),
         super(key: key);
 
@@ -96,10 +96,10 @@ class ProductDetailsTransition extends StatelessWidget {
 
 class _SpeakerAttribute extends StatelessWidget {
   final double lineHeight;
-  final Animation animation;
+  final Animation<double> animation;
   final String attribute;
 
-  const _SpeakerAttribute({Key key, this.lineHeight = 150, this.attribute, this.animation}) : super(key: key);
+  const _SpeakerAttribute({Key? key, this.lineHeight = 150, required this.attribute, required this.animation}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

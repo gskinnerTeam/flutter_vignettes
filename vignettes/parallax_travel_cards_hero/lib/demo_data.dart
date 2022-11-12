@@ -9,22 +9,22 @@ class CityData {
   final List<HotelData> hotels;
 
   CityData({
-    this.title,
-    this.name,
-    this.description,
-    this.information,
-    this.color,
-    this.hotels,
+    required this.title,
+    required this.name,
+    required this.description,
+    required this.information,
+    required this.color,
+    required this.hotels,
   });
 }
 
 class HotelData {
   final String name;
   double rate;
-  final int reviews;
+  final int? reviews;
   final double price;
 
-  HotelData(this.name, {this.reviews, this.price}) : rate = 5.0;
+  HotelData(this.name, {this.reviews, required this.price}) : rate = 5.0;
 }
 
 class DemoData {

@@ -9,7 +9,7 @@ import 'main.dart';
 class GameListItem extends StatelessWidget {
   final BasketballGameData data;
 
-  GameListItem({@required this.data});
+  GameListItem({required this.data});
 
   @override
   Widget build(context) {

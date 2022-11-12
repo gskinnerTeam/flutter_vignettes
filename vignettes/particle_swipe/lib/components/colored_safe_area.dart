@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class ColoredSafeArea extends StatelessWidget {
 
   //Color properties, gradient takes priority
-  final Color color;
-  final Gradient gradient;
+  final Color? color;
+  final Gradient? gradient;
 
   //Passed through to SafeArea
   final bool left;
   final bool top;
   final bool right;
   final bool bottom;
-  final EdgeInsets minimum;
+  final EdgeInsets? minimum;
   final Widget child;
 
-  const ColoredSafeArea({Key key, this.left = true, this.top = true, this.right = true, this.bottom = true, this.minimum, this.child, this.color, this.gradient})
+  const ColoredSafeArea({Key? key, this.left = true, this.top = true, this.right = true, this.bottom = true, this.minimum, required this.child, this.color, this.gradient})
       : super(key: key);
 
   @override

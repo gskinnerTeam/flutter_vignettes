@@ -25,12 +25,12 @@ class _Indie3dTextClipper extends CustomClipper<Rect> {
 class Indie3dPage extends StatelessWidget {
   final String topTitle;
   final String bottomTitle;
-  final Color backgroundColor;
-  final ImageProvider image;
+  final Color? backgroundColor;
+  final ImageProvider? image;
   final int pageIndex;
   final double bottomTitleScale;
 
-  final Indie3dModelController controller;
+  final Indie3dModelController? controller;
 
   final double topTitleClipProgress;
   final double bottomTitleClipProgress;
@@ -57,22 +57,22 @@ class Indie3dPage extends StatelessWidget {
       color: backgroundColor,
       child: Stack(
         children: [
-          if (controller.initialized) ... {
+          if (controller!.initialized) ... {
             BlendMask(
               blendMode: BlendMode.hardLight,
               opacity: backgroundShapeOpacity,
-              child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 0),
+              child: Indie3dModel(controller: controller!, pageIndex: pageIndex * 2 + 0),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: appSize.height * (appSize.aspectRatio > 1? 1 : .80),
-                child: Image(fit: BoxFit.fitHeight, image: image),
+                child: Image(fit: BoxFit.fitHeight, image: image!),
               ),
             ),
             BlendMask(
               blendMode: BlendMode.exclusion,
-              child: Indie3dModel(controller: controller, pageIndex: pageIndex * 2 + 1),
+              child: Indie3dModel(controller: controller!, pageIndex: pageIndex * 2 + 1),
             ),
             Align(
               alignment: Alignment.topRight,

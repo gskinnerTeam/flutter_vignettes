@@ -7,7 +7,7 @@ class StarFieldPainter extends CustomPainter {
   final List<Star> stars;
   final ui.Image glowImage;
 
-  StarFieldPainter(this.stars, {this.glowImage });
+  StarFieldPainter(this.stars, {required this.glowImage });
 
   @override
   void paint(Canvas canvas, Size canvasSize) {

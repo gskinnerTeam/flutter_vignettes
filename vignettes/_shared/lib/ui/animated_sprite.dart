@@ -8,11 +8,11 @@ class AnimatedSprite extends AnimatedWidget {
   final int frameHeight;
 
   AnimatedSprite({
-    Key key,
-    @required this.image,
-    @required this.frameWidth,
-    this.frameHeight,
-    @required Animation<double> animation,
+    Key? key,
+    required this.image,
+    required this.frameWidth,
+    required this.frameHeight,
+    required Animation<double> animation,
   }): super(key: key, listenable: animation);
 
   @override

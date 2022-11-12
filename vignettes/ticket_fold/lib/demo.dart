@@ -84,9 +84,9 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
         width: double.infinity,
         alignment: Alignment.center,
         child: Text('Boarding Passes'.toUpperCase(),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             style:
-                TextStyle(fontSize: 15, letterSpacing: 0.5, color: appBarIconsColor, fontFamily: 'OpenSans', fontWeight: FontWeight.bold, package: App.pkg)),
+                TextStyle(fontSize: 10, letterSpacing: 0.5, color: appBarIconsColor, fontFamily: 'OpenSans', fontWeight: FontWeight.bold, package: App.pkg)),
       ),
     );
   }

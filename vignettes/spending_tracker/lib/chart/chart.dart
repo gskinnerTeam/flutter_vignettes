@@ -4,13 +4,13 @@ import 'chart_data_set.dart';
 
 class Chart extends ChangeNotifier {
   List<ChartDataSet> _dataSets;
-  double _domainStart, _domainEnd, _maxDomain;
-  double _rangeStart, _rangeEnd;
+  late double _domainStart, _domainEnd, _maxDomain;
+  late double _rangeStart, _rangeEnd;
 
   final String xAxisUnit;
   final String yAxisUnit;
 
-  int _selectedDataPoint;
+  late int _selectedDataPoint;
 
   Chart(List<ChartDataSet> dataSets, this.xAxisUnit, this.yAxisUnit)
       : _dataSets = dataSets,

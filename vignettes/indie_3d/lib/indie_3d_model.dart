@@ -9,7 +9,7 @@ class Indie3dModel extends StatelessWidget {
   final Indie3dModelController controller;
   final int pageIndex;
 
-  Indie3dModel({ @required this.controller, this.pageIndex = 0 });
+  Indie3dModel({ required this.controller, this.pageIndex = 0 });
 
   @override
   Widget build(context) {

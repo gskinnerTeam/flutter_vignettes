@@ -6,19 +6,19 @@ import 'package:flutter/scheduler.dart';
 import 'main.dart';
 
 class ContentCard extends StatefulWidget {
-  final String color;
-  final Color altColor;
+  final String? color;
+  final Color? altColor;
   final String title;
   final String subtitle;
 
-  ContentCard({this.color, this.title = "", this.subtitle, this.altColor}) : super();
+  ContentCard({this.color, this.title = "", required this.subtitle, this.altColor}) : super();
 
   @override
   _ContentCardState createState() => _ContentCardState();
 }
 
 class _ContentCardState extends State<ContentCard> {
-  Ticker _ticker;
+  late Ticker _ticker;
 
   @override
   void initState() {

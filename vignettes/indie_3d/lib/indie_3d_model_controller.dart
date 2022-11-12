@@ -11,30 +11,30 @@ import 'main.dart';
 
 
 class Indie3dModelController extends ChangeNotifier {
-  VertexMesh _meshTorus;
-  VertexMesh _meshStar;
-  VertexMesh _meshCube;
+  late VertexMesh _meshTorus;
+  late VertexMesh _meshStar;
+  late VertexMesh _meshCube;
 
-  List<vec32.Vector3> _positions;
-  List<vec32.Quaternion> _rotations;
-  List<vec32.Vector3> _scales;
+  late List<vec32.Vector3> _positions;
+  late List<vec32.Quaternion> _rotations;
+  late List<vec32.Vector3> _scales;
 
-  List<vec32.Vector3> _linearVelocities;
-  List<vec32.Vector3> _angularVelocities;
-  List<vec32.Vector3> _constantAngularVelocities;
+  late List<vec32.Vector3> _linearVelocities;
+  late List<vec32.Vector3> _angularVelocities;
+  late List<vec32.Vector3> _constantAngularVelocities;
 
-  List<VertexMeshInstance> _meshInstances;
+  late List<VertexMeshInstance> _meshInstances;
 
-  vec32.Matrix4 matProj;
-  vec32.Matrix4 matView;
+  late vec32.Matrix4 matProj;
+  late vec32.Matrix4 matView;
 
   double _cameraOffset = 0.0;
   double _targetCameraOffset = 0.0;
 
-  double _lastTime;
-  Ticker _ticker;
+  late double _lastTime;
+  late Ticker _ticker;
 
-  math.Random _rng;
+  late math.Random _rng;
 
   void init(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
@@ -62,14 +62,14 @@ class Indie3dModelController extends ChangeNotifier {
   }
 
   void _initInstances() {
-    _meshInstances = List<VertexMeshInstance>();
-    _positions = List<vec32.Vector3>();
-    _rotations = List<vec32.Quaternion>();
-    _scales = List<vec32.Vector3>();
+    _meshInstances = [];
+    _positions = [];
+    _rotations = [];
+    _scales = [];
 
-    _linearVelocities = List<vec32.Vector3>();
-    _angularVelocities = List<vec32.Vector3>();
-    _constantAngularVelocities = List<vec32.Vector3>();
+    _linearVelocities = [];
+    _angularVelocities = [];
+    _constantAngularVelocities = [];
     for (int i = 0; i < 36; ++i) {
       VertexMesh mesh;
       if (i < 12) {

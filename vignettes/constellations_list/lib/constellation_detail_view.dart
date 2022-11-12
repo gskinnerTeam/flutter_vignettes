@@ -13,16 +13,16 @@ class ConstellationDetailView extends StatefulWidget {
   final int contentDelay;
   final Function onBackTap;
 
-  const ConstellationDetailView({Key key, this.data, this.redMode, this.contentDelay = 1000, @required this.onBackTap}) : super(key: key);
+  const ConstellationDetailView({Key? key, required this.data, required this.redMode, this.contentDelay = 1000, required this.onBackTap}) : super(key: key);
 
   @override
   _ConstellationDetailViewState createState() => _ConstellationDetailViewState();
 }
 
 class _ConstellationDetailViewState extends State<ConstellationDetailView> with SingleTickerProviderStateMixin {
-  AnimationController _animController;
-  Animation<double> _contentScaleTween;
-  Animation<double> _textAlphaTween;
+  late AnimationController _animController;
+  late Animation<double> _contentScaleTween;
+  late Animation<double> _textAlphaTween;
 
   @override
   void initState() {

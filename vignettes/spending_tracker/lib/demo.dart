@@ -17,8 +17,8 @@ class SpendingTrackerDemo extends StatefulWidget {
 }
 
 class _SpendingTrackerDemoState extends State<SpendingTrackerDemo> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Chart _chart;
+  late AnimationController _controller;
+  late Chart _chart;
 
   @override
   void initState() {

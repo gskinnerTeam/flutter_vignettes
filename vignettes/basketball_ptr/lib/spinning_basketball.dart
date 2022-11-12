@@ -22,7 +22,7 @@ class SpinningBasketball extends StatefulWidget {
   final AnimationController controller;
   final double maxHeight;
 
-  SpinningBasketball({this.controller, this.maxHeight}) : super(key: ValueKey(controller));
+  SpinningBasketball({required this.controller, required this.maxHeight}) : super(key: ValueKey(controller));
 
   @override
   State createState() {
@@ -35,11 +35,11 @@ class _SpinningBasketballState extends State<SpinningBasketball> with SingleTick
 
   AnimationController _controller;
 
-  Animation<double> _spriteAnimation;
+  late Animation<double> _spriteAnimation;
 
-  Animation<double> _xAnimation;
-  Animation<double> _yAnimation;
-  Animation<double> _scaleAnimation;
+  late Animation<double> _xAnimation;
+  late Animation<double> _yAnimation;
+  late Animation<double> _scaleAnimation;
 
   _SpinningBasketballState(this._controller, this._maxHeight);
 

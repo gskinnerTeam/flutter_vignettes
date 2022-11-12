@@ -28,8 +28,8 @@ class MovingCharacterPhysics2d {
   MovingCharacterPhysics2d(
       {startX,
       this.targetX = 100,
-      this.onDestinationReached,
-      this.onMoveStarted,
+      required this.onDestinationReached,
+      required this.onMoveStarted,
       this.acc = .3,
       this.maxSpeed = 3.5,
       this.friction = .11,

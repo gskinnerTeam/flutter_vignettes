@@ -5,7 +5,7 @@ import 'content_card.dart';
 import 'gooey_carousel.dart';
 
 class GooeyEdgeDemo extends StatefulWidget {
-  GooeyEdgeDemo({Key key, this.title}) : super(key: key);
+  GooeyEdgeDemo({Key? key, required this.title}) : super(key: key);
 
   final String title;
 

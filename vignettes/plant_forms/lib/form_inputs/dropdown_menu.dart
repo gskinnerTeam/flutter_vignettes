@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../styles.dart';
 
 class DropdownMenu extends StatefulWidget {
-  final Function onValidate;
+  final Function? onValidate;
   final String label;
-  final String defaultOption;
+  final String? defaultOption;
   final List<String> options;
 
   const DropdownMenu(
-      {Key key, @required this.options, this.label, this.onValidate, this.defaultOption})
+      {Key? key, required this.options, required this.label, this.onValidate, this.defaultOption})
       : super(key: key);
 
   @override
@@ -17,13 +17,13 @@ class DropdownMenu extends StatefulWidget {
 }
 
 class _DropdownMenuState extends State<DropdownMenu> {
-  String _selectedOption;
-  bool _isValid;
+  String? _selectedOption;
+  bool? _isValid;
   String get _keyValue => (widget.key as ValueKey).value as String;
 
   set isValid(bool isValid) {
     _isValid = isValid;
-    widget.onValidate(_keyValue, _isValid, value: _selectedOption);
+    widget!.onValidate!(_keyValue, _isValid, value: _selectedOption);
   }
 
   @override
@@ -34,7 +34,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
 
   @override
   Widget build(BuildContext context) {
-    if(_isValid == null && _selectedOption.isNotEmpty){
+    if(_isValid == null && _selectedOption!.isNotEmpty){
       isValid = true;
     }
     var items = _buildMenuItems();
@@ -88,7 +88,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
     return items;
   }
 
-  String _validate(value) {
+  String? _validate(value) {
     if (value == null)
       return 'there is an error';
     else
@@ -105,7 +105,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
             options: widget.options,
           ),
         ));
-    if (_selectedOption != null &&_selectedOption.isNotEmpty) isValid = true;
+    if (_selectedOption != null &&_selectedOption!.isNotEmpty) isValid = true;
     setState(() {});
   }
 }
@@ -113,9 +113,9 @@ class _DropdownMenuState extends State<DropdownMenu> {
 class DropdownOptions extends StatefulWidget {
   final String title;
   final List<String> options;
-  final String selectedOption;
+  final String? selectedOption;
 
-  const DropdownOptions({Key key, @required this.title, @required this.options, this.selectedOption}) : super(key: key);
+  const DropdownOptions({Key? key, required this.title, required this.options, this.selectedOption}) : super(key: key);
 
   @override
   _DropdownOptionsState createState() => _DropdownOptionsState();
@@ -123,7 +123,7 @@ class DropdownOptions extends StatefulWidget {
 
 class _DropdownOptionsState extends State<DropdownOptions> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String _selectedOption;
+  late String _selectedOption;
   @override
   void initState() {
     _selectedOption = widget.selectedOption ?? '';

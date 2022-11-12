@@ -18,7 +18,7 @@ class CirclePercentageWidget extends StatefulWidget {
 }
 
 class _CirclePercentageWidgetState extends State<CirclePercentageWidget> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {

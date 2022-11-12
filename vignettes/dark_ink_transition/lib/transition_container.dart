@@ -10,7 +10,7 @@ class TransitionContainer extends StatefulWidget {
   final ValueNotifier<bool> darkModeValue;
   final Widget child;
 
-  TransitionContainer({ this.darkModeValue, this.child });
+  TransitionContainer({ required this.darkModeValue, required this.child });
 
   @override
   State createState() {
@@ -21,14 +21,14 @@ class TransitionContainer extends StatefulWidget {
 class _TransitionContainerState extends State<TransitionContainer>
     with SingleTickerProviderStateMixin {
 
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
-  List<ImageProvider> _images;
+  late List<ImageProvider> _images;
   int _currentImageIndex = 0;
 
-  Widget _childForeground;
-  Widget _childBackground;
+  Widget? _childForeground;
+  late Widget _childBackground;
 
   _TransitionContainerState(ValueNotifier<bool> darkModeValue, this._childBackground) {
     darkModeValue?.addListener(() { _handleDarkModeChange(darkModeValue.value); });
@@ -62,7 +62,7 @@ class _TransitionContainerState extends State<TransitionContainer>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          _childBackground = _childForeground;
+          _childBackground = _childForeground!;
           _childForeground = null;
         });
           _controller.reset();

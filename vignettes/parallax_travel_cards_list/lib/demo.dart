@@ -11,8 +11,8 @@ class TravelCardDemo extends StatefulWidget {
 }
 
 class _TravelCardDemoState extends State<TravelCardDemo> {
-  List<City> _cityList;
-  City _currentCity;
+  late List<City> _cityList;
+  late City _currentCity;
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
     });
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),

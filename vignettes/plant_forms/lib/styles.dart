@@ -84,7 +84,7 @@ class Styles {
 
   static TextStyle inputLabel = barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w600);
 
-  static InputDecoration getInputDecoration({String helper}) {
+  static InputDecoration getInputDecoration({String? helper}) {
     return InputDecoration(
       helperStyle: Styles.helperStyle,
       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Styles.secondaryColor)),

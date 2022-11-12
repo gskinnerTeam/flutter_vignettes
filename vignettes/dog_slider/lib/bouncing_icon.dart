@@ -5,7 +5,7 @@ class BouncingWidget extends StatefulWidget {
   final Widget child;
   final double maxBounce;
 
-  const BouncingWidget({Key key, this.isVisible, this.child, this.maxBounce = 20}) : super(key: key);
+  const BouncingWidget({Key? key, required this.isVisible, required this.child, this.maxBounce = 20}) : super(key: key);
 
   @override
   _BouncingWidgetState createState() => _BouncingWidgetState();

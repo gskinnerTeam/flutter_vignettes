@@ -9,7 +9,7 @@ import 'gooey_edge_clipper.dart';
 class GooeyCarousel extends StatefulWidget {
   final List<Widget> children;
 
-  GooeyCarousel({@required this.children}) : super();
+  GooeyCarousel({required this.children}) : super();
 
   @override
   GooeyCarouselState createState () => GooeyCarouselState();
@@ -17,14 +17,14 @@ class GooeyCarousel extends StatefulWidget {
 
 class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderStateMixin {
   int _index = 0; // index of the base (bottom) child
-  int _dragIndex; // index of the top child
-  Offset _dragOffset; // starting offset of the drag
-  double _dragDirection; // +1 when dragging left to right, -1 for right to left
-  bool _dragCompleted; // has the drag successfully resulted in a swipe
-  
-  GooeyEdge _edge;
-  Ticker _ticker;
-  GlobalKey _key = GlobalKey();
+  int? _dragIndex; // index of the top child
+  late Offset _dragOffset; // starting offset of the drag
+  late double _dragDirection; // +1 when dragging left to right, -1 for right to left
+   bool? _dragCompleted; // has the drag successfully resulted in a swipe
+
+  late GooeyEdge _edge;
+  late Ticker _ticker;
+  late GlobalKey _key = GlobalKey();
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
         widget.children[_index % l],
         
         _dragIndex == null ? SizedBox() : ClipPath(
-          child: widget.children[_dragIndex % l],
+          child: widget.children[_dragIndex! % l],
           clipBehavior: Clip.hardEdge,
           clipper: GooeyEdgeClipper(_edge, margin: 10.0),
         ),
@@ -71,12 +71,12 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
   }
 
   Size _getSize() {
-    final RenderBox box = _key.currentContext.findRenderObject();
+    final RenderBox box = _key.currentContext!.findRenderObject() as RenderBox;
     return box.size;
   }
 
   void _handlePanDown(DragDownDetails details, Size size) {
-    if (_dragIndex != null && _dragCompleted) { _index = _dragIndex; }
+    if (_dragIndex != null && _dragCompleted!) { _index = _dragIndex!; }
     _dragIndex = null;
     _dragOffset = details.localPosition;
     _dragCompleted = false;
@@ -109,7 +109,7 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
 
   bool _isSwipeComplete(double dx, double width) {
     if (_dragDirection == 0.0) { return false; } // haven't started
-    if (_dragCompleted) { return true; } // already done
+    if (_dragCompleted!) { return true; } // already done
 
     // check if swipe is just completed:
     double availW = _dragOffset.dx;
@@ -122,7 +122,7 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
       _edge.edgeTension = 0.0;
       _edge.applyTouchOffset();
     }
-    return _dragCompleted;
+    return _dragCompleted!;
   }
 
   void _handlePanEnd(DragEndDetails details, Size size) {

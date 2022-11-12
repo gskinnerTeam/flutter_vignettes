@@ -10,7 +10,7 @@ class ConstellationListRenderer extends StatefulWidget {
   final Function(ConstellationData, bool) onTap;
   final double hzPadding;
 
-  const ConstellationListRenderer({Key key, this.data, this.redMode = false, this.onTap, this.hzPadding = 0}) : super(key: key);
+  const ConstellationListRenderer({Key? key, required this.data, this.redMode = false, required this.onTap, this.hzPadding = 0}) : super(key: key);
 
   @override
   _ConstellationListRendererState createState() => _ConstellationListRendererState();

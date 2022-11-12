@@ -30,7 +30,7 @@ class HeroCardDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),

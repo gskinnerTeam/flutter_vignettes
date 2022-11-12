@@ -11,13 +11,16 @@ import 'particle_fx.dart';
 class Waterfall extends ParticleFX {
   double _hue = 0.0;
 
-  Waterfall({@required SpriteSheet spriteSheet, @required Size size}) :
-    super(spriteSheet: spriteSheet, size: size, count: size.shortestSide > 600 ? 40000 : 20000);
+  Waterfall({required SpriteSheet spriteSheet, required Size size}) :
+    super(spriteSheet: spriteSheet, size: size, count: size.shortestSide > 600 ? 40000 : 20000
+      );
 
   @override
   void fillInitialData() {
+    if (particles != null) return;
+    particles = List.filled(count, _Particle()); // stupid
     for (int i=0; i<count; i++) {
-      particles[i] = _Particle();
+      particles![i] = _Particle();
       resetParticle(i);
     }
   }
@@ -30,7 +33,7 @@ class Waterfall extends ParticleFX {
   }
 
   void _activateParticle(int i) {
-    _Particle o = particles[i];
+    _Particle o = particles![i] as _Particle;
 
     o.x = Rnd.ratio * width;
     o.y = 0.0;
@@ -48,7 +51,7 @@ class Waterfall extends ParticleFX {
   @override
   void tick(Duration duration) {
     if (spriteSheet.image == null) { return; }
-    if (particles[0] == null) { fillInitialData(); }
+    fillInitialData();
 
     _hue -= 1;
 
@@ -56,12 +59,12 @@ class Waterfall extends ParticleFX {
     const double maxD = 100.0;
 
     for (int i=0; i<count; i++) {
-      _Particle o = particles[i];
+      _Particle o = particles![i] as _Particle;
       double dx, dy, d;
 
       if (touchPoint != null &&
-        (dy = touchPoint.dy - o.y) < maxD &&
-        (dx = touchPoint.dx - o.x) < maxD &&
+        (dy = touchPoint!.dy - o.y) < maxD &&
+        (dx = touchPoint!.dx - o.x) < maxD &&
         (d = sqrt(dx*dx + dy*dy)) < maxD) {
           double a = atan2(dy, dx);
           double v = (maxD - d)/maxD * -1.0;
@@ -71,6 +74,7 @@ class Waterfall extends ParticleFX {
 
       o.vy += 0.1;
       o.x += o.vx;
+
       o.vx *= 0.99;
       o.y += o.vy;
 

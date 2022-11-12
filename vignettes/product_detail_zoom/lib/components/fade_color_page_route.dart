@@ -4,7 +4,7 @@ class FadeColorPageRoute extends PageRouteBuilder {
   final Widget enterPage;
   final Color color;
 
-  FadeColorPageRoute({this.enterPage, @required this.color})
+  FadeColorPageRoute({required this.enterPage, required this.color})
       : super(
           transitionDuration: Duration(seconds: 3),
           pageBuilder: (
@@ -19,8 +19,8 @@ class FadeColorPageRoute extends PageRouteBuilder {
             Animation<double> secondaryAnimation,
             Widget child,
           ) {
-            Animation fadeOut = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(0, .2), parent: animation));
-            Animation fadeIn = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(.8, 1), parent: animation));
+            Animation<double> fadeOut = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(0, .2), parent: animation));
+            Animation<double> fadeIn = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(.8, 1), parent: animation));
             return Stack(children: <Widget>[
               FadeTransition(
                 opacity: fadeOut,

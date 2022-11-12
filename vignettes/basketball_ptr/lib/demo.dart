@@ -24,19 +24,19 @@ class BasketballPTRHome extends StatefulWidget {
 }
 
 class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTickerProviderStateMixin {
-  BasketballGameModel _model;
+  late BasketballGameModel _model;
 
-  ScrollController _scrollController;
+  late ScrollController _scrollController;
 
-  AnimationController _controller;
-  Animation<double> _pullAnimation;
+  late AnimationController _controller;
+  late Animation<double> _pullAnimation;
 
   double _percentage = 0.0;
   bool _isLoading = false;
 
-  double _maxHeight;
+  double? _maxHeight;
 
-  ValueNotifier<bool> _refreshNotifier;
+  late ValueNotifier<bool> _refreshNotifier;
 
   @override
   void initState() {
@@ -83,8 +83,8 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
         NotificationListener<LoadingNotification>(
           onNotification: _handleLoadingNotification,
           child: PullToRefreshContainer(
-            maxHeight: _maxHeight,
-            height: _percentage * _maxHeight,
+            maxHeight: _maxHeight!,
+            height: _percentage * _maxHeight!,
             refreshNotifier: _refreshNotifier,
           ),
         ),
@@ -122,10 +122,10 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
       if (notification.dragDetails == null && _percentage >= 1.2 && notification.scrollDelta != 0) {
         _scrollController.jumpTo(_scrollController.offset);
       }
-      if (notification.scrollDelta > 0.0) {
-        deltaOffset += notification.scrollDelta;
+      if (notification.scrollDelta! > 0.0) {
+        deltaOffset += notification.scrollDelta!;
       } else if (_scrollController.offset < 0) {
-        deltaOffset += notification.scrollDelta;
+        deltaOffset += notification.scrollDelta!;
       }
     }
 
@@ -151,7 +151,7 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
 
     if (!_isLoading) {
       setState(() {
-        _percentage += (-offset / _maxHeight);
+        _percentage += (-offset / _maxHeight!);
         _percentage = _percentage.clamp(0.0, 1.2);
       });
     }

@@ -7,7 +7,7 @@ class ConstellationTitleCard extends StatelessWidget {
   final ConstellationData data;
   final bool redMode;
 
-  const ConstellationTitleCard({Key key, this.data, this.redMode}) : super(key: key);
+  const ConstellationTitleCard({Key? key, required this.data, required this.redMode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

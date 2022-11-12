@@ -22,10 +22,10 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
 
   ValueNotifier<double> _speedValue = ValueNotifier(idleSpeed);
 
-  AnimationController _starAnimController;
-  Animation<double> _starAnimSequence;
+  late AnimationController _starAnimController;
+  late Animation<double> _starAnimSequence;
 
-  List<ConstellationData> _constellationsData;
+  late List<ConstellationData> _constellationsData;
 
   @override
   void initState() {
@@ -109,7 +109,7 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
         contentDelay: starAnimDurationIn + 1000,
         //When the back button is tapped in the detail view, pop the nested navigator and reverse the animation controller for the stars
         onBackTap: (){
-         _navigationStackKey.currentState.pop();
+         _navigationStackKey.currentState!.pop();
          _reverseStarAnim();
         }
       );
@@ -140,7 +140,7 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
   //When an item in the list is tapped, push a Detail view onto the navigator. Pass along the data as as route argument.
   void _handleListItemTap(ConstellationData data, bool redMode) {
     //Add details page to Navigator
-    _navigationStackKey.currentState.pushNamed(
+    _navigationStackKey.currentState!.pushNamed(
       ConstellationDetailView.route,
       arguments: _DetailViewRouteArguments(data, redMode),
     );

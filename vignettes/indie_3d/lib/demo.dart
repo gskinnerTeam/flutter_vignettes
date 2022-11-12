@@ -13,13 +13,13 @@ class Indie3dHome extends StatefulWidget {
 
 class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin {
 
-  AnimationController _page0TopTitleController;
-  AnimationController _page0BottomTitleController;
-  AnimationController _page1TopTitleController;
-  AnimationController _page1BottomTitleController;
-  AnimationController _page2TopTitleController;
-  AnimationController _page2BottomTitleController;
-  Indie3dModelController _controller;
+  late AnimationController _page0TopTitleController;
+  late AnimationController _page0BottomTitleController;
+  late AnimationController _page1TopTitleController;
+  late AnimationController _page1BottomTitleController;
+  late AnimationController _page2TopTitleController;
+  late AnimationController _page2BottomTitleController;
+  late Indie3dModelController _controller;
 
   int _pageIndex = 0;
 
@@ -115,10 +115,9 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
   }
 
   Widget _buildPageForIndex(int index) {
-    Widget result;
     switch (index) {
       case 0:
-        result = Indie3dPage(
+        return Indie3dPage(
           topTitle: 'MILES',
           bottomTitle: 'MILLER',
           backgroundColor: Color(0xFF0DD479),
@@ -131,7 +130,7 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
         );
         break;
       case 1:
-        result = Indie3dPage(
+        return Indie3dPage(
           topTitle: 'BRET',
           bottomTitle: 'HAMPTON',
           backgroundColor: Color(0xFFECA6C8),
@@ -145,7 +144,7 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
         );
         break;
       case 2:
-        result = Indie3dPage(
+        return Indie3dPage(
           topTitle: 'CINDY',
           bottomTitle: 'GREY',
           backgroundColor: Color(0xFFFFD500),
@@ -157,7 +156,7 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
         );
         break;
     }
-    return result;
+    throw "unexpected case";
   }
 
   bool _handleScroll(ScrollUpdateNotification scrollUpdate) {
@@ -165,7 +164,7 @@ class _Indie3dHomeState extends State<Indie3dHome> with TickerProviderStateMixin
       final appSize = MediaQuery.of(context).size;
       double pageProgress = (1.0 - ((scrollUpdate.metrics.pixels / appSize.width) - _pageIndex)
           .abs().clamp(0.0, 1.0)) * 2.0 - 1.0;
-      _controller.cameraOffset = (1 - pageProgress) * 8.0 * scrollUpdate.scrollDelta.sign;
+      _controller.cameraOffset = (1 - pageProgress) * 8.0 * scrollUpdate.scrollDelta!.sign;
 
       double animValue = 0;
       switch (_pageIndex) {

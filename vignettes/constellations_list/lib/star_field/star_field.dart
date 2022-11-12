@@ -12,19 +12,19 @@ class StarField extends StatefulWidget {
   final double starSpeed;
   final int starCount;
 
-  const StarField({Key key, this.starSpeed = 3, this.starCount = 500 }) : super(key: key);
+  const StarField({Key? key, this.starSpeed = 3, this.starCount = 500 }) : super(key: key);
 
   @override
   _StarFieldState createState() => _StarFieldState();
 }
 
 class _StarFieldState extends State<StarField> {
-  List<Star> _stars;
+  List<Star>? _stars;
   double _maxZ = 500;
   double _minZ = 1;
-  ui.Image _glowImage;
+  late ui.Image _glowImage;
 
-  Ticker _ticker;
+  late Ticker _ticker;
 
   void _initStars(BuildContext context) {
     //Start async image load
@@ -33,7 +33,7 @@ class _StarFieldState extends State<StarField> {
     _stars = [];
     for (var i = widget.starCount; i-- > 0;) {
       var s = _randomizeStar(Star(), true);
-      _stars.add(s);
+      _stars!.add(s);
     }
     _ticker = new Ticker(_handleStarTick)..start();
   }
@@ -55,7 +55,7 @@ class _StarFieldState extends State<StarField> {
       color: Colors.black,
       child: CustomPaint(
         painter: StarFieldPainter(
-          _stars,
+          _stars!,
           glowImage: _glowImage,
         ),
       ),
@@ -69,7 +69,7 @@ class _StarFieldState extends State<StarField> {
   }
 
   void advanceStars(double distance) {
-    _stars.forEach((s) {
+    _stars!.forEach((s) {
       //Move stars on the z, and reset them when they reach the viewport
       s.z -= distance; // * elapsed.inMilliseconds;
       if (s.z < _minZ) {

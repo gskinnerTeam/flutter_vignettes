@@ -3,7 +3,7 @@ import 'package:plant_forms/demo_data.dart';
 class InputValidator {
   const InputValidator();
 
-  static bool validate(type, String value, {CreditCardNetwork cardNetwork}) {
+  static bool validate(type, String value, {CreditCardNetwork? cardNetwork}) {
     if (type.runtimeType == InputType) {
       switch (type as InputType) {
         case InputType.email:
@@ -38,7 +38,7 @@ class InputValidator {
     return telRegExp.hasMatch(value);
   }
 
-  static bool _validateCreditCardNumber(String value, CreditCardNetwork cardNetwork) {
+  static bool _validateCreditCardNumber(String value, CreditCardNetwork? cardNetwork) {
     // remove empty spaces
     String cardNumber = value.replaceAll(' ', '');
     if (cardNetwork == CreditCardNetwork.amex) {
@@ -48,7 +48,7 @@ class InputValidator {
     }
   }
 
-  static bool _validateCreditCardSecurityCode(String value, CreditCardNetwork cardNetwork) {
+  static bool _validateCreditCardSecurityCode(String value, CreditCardNetwork? cardNetwork) {
     if (cardNetwork == CreditCardNetwork.amex) {
       return value.length == 4;
     } else {

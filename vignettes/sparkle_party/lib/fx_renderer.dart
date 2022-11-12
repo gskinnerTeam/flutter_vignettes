@@ -15,16 +15,15 @@ class FxRenderer extends StatefulWidget {
   final FXEntry fx;
   final Size size;
 
-  FxRenderer({this.fx, this.size, key, this.spriteSheet}) : super(key:key);
+  FxRenderer({required this.fx, required this.size, key, required this.spriteSheet}) : super(key:key);
 
   @override
   _FxRendererState createState() => _FxRendererState();
 }
 
 class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateMixin {
-  final GlobalKey _key = GlobalKey();
-  Ticker _ticker;
-  ParticleFX _fxWidget;
+  late Ticker _ticker;
+  ParticleFX? _fxWidget;
 
   @override
   void initState() {
@@ -47,13 +46,13 @@ class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateM
     super.didUpdateWidget(oldWidget);
   }
 
-  void setTouchPoint([Offset pt]) {
+  void setTouchPoint([Offset? pt]) {
     TouchPointChangeNotification()..dispatch(context);
-    if (_fxWidget != null) { _fxWidget.touchPoint = pt; }
+    if (_fxWidget != null && pt != null) { _fxWidget!.touchPoint = pt!; }
   }
 
   void _tick(Duration duration) {
-    if (_fxWidget != null) { _fxWidget.tick(duration); }
+    if (_fxWidget != null) { _fxWidget!.tick(duration); }
   }
 
   @override
@@ -66,7 +65,7 @@ class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateM
       onPanEnd: (_) => setTouchPoint(),
       onPanUpdate: (DragUpdateDetails details) => setTouchPoint(details.localPosition),
       child: CustomPaint(
-        painter: ParticleFXPainter(fx: _fxWidget),
+        painter: ParticleFXPainter(fx: _fxWidget!),
         child: Container(), // force it to fill the available area, and capture touch inputs.
       ),
     );

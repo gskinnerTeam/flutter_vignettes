@@ -26,10 +26,10 @@ class ParticleSwipeDemo extends StatefulWidget {
 class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerProviderStateMixin {
   //static const double headerHeight = 80;
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  ListModel _model;
-  SpriteSheet _spriteSheet;
-  ParticleField _particleField;
-  Ticker _ticker;
+  late ListModel _model;
+  late SpriteSheet _spriteSheet;
+  late ParticleField _particleField;
+  late Ticker _ticker;
 
   @override
   void initState() {
@@ -80,14 +80,14 @@ class ParticleSwipeDemoState extends State<ParticleSwipeDemo> with SingleTickerP
       physics: ClampingScrollPhysics(),
       itemBuilder: (BuildContext context, int index, _) {
         var item = _model[index];
-        return SwipeItem(data: item, isEven: index.isEven, onSwipe: (key, {action}) => _performSwipeAction(item, key, action));
+        return SwipeItem(data: item, isEven: index.isEven, onSwipe: (key, {required action}) => _performSwipeAction(item, key, action));
       },
     );
   }
 
   void _performSwipeAction(Email data, GlobalKey key, SwipeAction action) {
     // Get item's render box, and use it to calculate the position for the particle effect:
-    final RenderBox box = key.currentContext.findRenderObject();
+    final RenderBox box = key.currentContext!.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
     double x = position.dx;
     double y = position.dy;

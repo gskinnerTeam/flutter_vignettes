@@ -15,10 +15,10 @@ import 'utils/sprite_sheet.dart';
 
 class SparklePartyDemo extends StatefulWidget {
   static final List<FXEntry> fxs = [
-    FXEntry("Waterfall", create: ({spriteSheet, size}) => Waterfall(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Fireworks", create: ({spriteSheet, size}) => Fireworks(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Comet", create: ({spriteSheet, size}) => Comet(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Pinwheel", create: ({spriteSheet, size}) => Pinwheel(spriteSheet: spriteSheet, size: size)),
+    FXEntry("Waterfall", create: ({required spriteSheet,required size}) => Waterfall(spriteSheet: spriteSheet, size: size)),
+    FXEntry("Fireworks", create: ({required spriteSheet, required size}) => Fireworks(spriteSheet: spriteSheet, size: size)),
+    FXEntry("Comet", create: ({required spriteSheet, required size}) => Comet(spriteSheet: spriteSheet, size: size)),
+    FXEntry("Pinwheel", create: ({required spriteSheet, required size}) => Pinwheel(spriteSheet: spriteSheet, size: size)),
   ];
 
   static final List<String> instructions = [
@@ -36,8 +36,8 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
   int _fxIndex = 0;
   int _buttonIndex = 0;
 
-  AnimationController _transitionController;
-  AnimationController _textController;
+  late AnimationController _transitionController;
+  late AnimationController _textController;
 
   @override
   void initState() {

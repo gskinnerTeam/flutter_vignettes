@@ -7,7 +7,7 @@ class RenderCustomPaintMask extends RenderProxyBox {
 
   CustomPainter _painter;
 
-  RenderCustomPaintMask({ @required CustomPainter painter }) : _painter = painter;
+  RenderCustomPaintMask({ required CustomPainter painter }) : _painter = painter;
 
   @override
   void paint(context, offset) {
@@ -45,7 +45,7 @@ class CustomPaintMask extends SingleChildRenderObjectWidget {
 
   final CustomPainter _painter;
 
-  CustomPaintMask({@required CustomPainter painter, Key key, Widget child })
+  CustomPaintMask({required CustomPainter painter, Key key, Widget child })
       : _painter = painter, super(key: key, child: child);
 
   @override

@@ -8,19 +8,19 @@ class City {
   final List<Hotel> hotels;
 
   City({
-    this.title,
-    this.name,
-    this.description,
-    this.color,
-    this.hotels,
+    required this.title,
+    required this.name,
+    required this.description,
+    required this.color,
+    required this.hotels,
   });
 }
 
 class Hotel {
   final String name;
   double rate;
-  final int reviews;
-  final int price;
+  final int? reviews;
+  final int? price;
 
   Hotel(this.name, {this.reviews, this.price}) : rate = 5.0;
 }

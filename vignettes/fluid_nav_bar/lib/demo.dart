@@ -13,7 +13,7 @@ class FluidNavBarDemo extends StatefulWidget {
 }
 
 class _FluidNavBarDemoState extends State {
-  Widget _child;
+  late Widget _child;
 
   @override
   void initState() {

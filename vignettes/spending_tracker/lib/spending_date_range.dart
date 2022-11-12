@@ -9,7 +9,7 @@ class SpendingDateRange extends StatelessWidget {
 
   final Chart chart;
 
-  SpendingDateRange({this.chart});
+  SpendingDateRange({required this.chart});
 
   @override
   Widget build(context) {

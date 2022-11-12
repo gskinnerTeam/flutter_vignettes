@@ -4,7 +4,7 @@ class FadeRouteBuilder extends PageRouteBuilder {
   final Widget page;
   final int duration;
 
-  FadeRouteBuilder({this.page, this.duration=1000})
+  FadeRouteBuilder({required this.page, this.duration=1000})
       : super(
     transitionDuration: Duration(milliseconds: duration),
     //Page builder doesn't do anything special, just return the page we were passed in.

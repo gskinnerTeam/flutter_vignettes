@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 class TextTransition extends StatefulWidget {
   final String text;
   final TextStyle textStyle;
-  final Duration duration;
-  final double width;
+  final Duration? duration;
+  final double? width;
 
-  TextTransition({this.text, this.textStyle, this.duration, this.width});
+  TextTransition({required this.text, required this.textStyle, this.duration, this.width});
 
   @override
   State createState() => _TextTransitionState(text);
 }
 
 class _TextTransitionState extends State<TextTransition> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  String _string0;
-  String _string1;
+  String? _string0 = null;
+  String? _string1 = null;
 
   _TextTransitionState(this._string0);
 
@@ -61,28 +61,28 @@ class _TextTransitionState extends State<TextTransition> with SingleTickerProvid
 
   @override
   Widget build(context) {
-    final double width = widget.width != null ? widget.width : _string0.length * widget.textStyle.fontSize / 1.4;
+    final double width = widget.width != null ? widget.width! : _string0!.length * widget.textStyle!.fontSize! / 1.4;
     return Container(
       width: width,
-      height: widget.textStyle.fontSize * 1.2,
+      height: widget.textStyle!.fontSize! * 1.2,
       child: Stack(
         children: [
           Positioned(
-            top: 0 - _controller.value * widget.textStyle.fontSize,
+            top: 0 - _controller.value * widget.textStyle.fontSize!,
             width: width,
             child: Text(
-              _string0,
+              _string0 ?? "",
               textAlign: TextAlign.center,
               style: widget.textStyle,
             ),
           ),
           if (_string1 != null) ...{
             Positioned(
-              top: widget.textStyle.fontSize - (_controller.value * widget.textStyle.fontSize),
+              top: widget.textStyle.fontSize! - (_controller.value * widget.textStyle.fontSize!),
               width: width,
               height: widget.textStyle.fontSize,
               child: Text(
-                _string1,
+                _string1 ?? "",
                 textAlign: TextAlign.center,
                 style: widget.textStyle,
               ),

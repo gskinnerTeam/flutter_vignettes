@@ -5,7 +5,7 @@ class NestedNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState> navKey;
   final Function onBackPop;
 
-  const NestedNavigator({Key key, this.routeBuilder, this.navKey, this.onBackPop}) : super(key: key);
+  const NestedNavigator({Key? key, required this.routeBuilder, required this.navKey, required this.onBackPop}) : super(key: key);
 
   @override
   _NestedNavigatorState createState() => _NestedNavigatorState();
@@ -18,7 +18,7 @@ class _NestedNavigatorState extends State<NestedNavigator> {
     return WillPopScope(
       onWillPop: () async {
         var navigator = widget.navKey.currentState;
-        if (navigator.canPop()) {
+        if (navigator!.canPop()) {
           if(widget.onBackPop != null) widget.onBackPop();
           navigator.pop();
           return true;

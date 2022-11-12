@@ -13,7 +13,7 @@ class ConstellationListView extends StatefulWidget {
   final void Function(double) onScrolled;
   final void Function(ConstellationData, bool) onItemTap;
 
-  const ConstellationListView({Key key, this.onScrolled, this.onItemTap, @required this.constellations}) : super(key: key);
+  const ConstellationListView({Key? key, required this.onScrolled, required this.onItemTap, required this.constellations}) : super(key: key);
 
   @override
   _ConstellationListViewState createState() => _ConstellationListViewState();

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../styles.dart';
 
 class CheckBoxInput extends StatefulWidget {
-  final String label;
-  final Function onChange;
+  final String? label;
+  final Function? onChange;
 
-  const CheckBoxInput({Key key, this.label, this.onChange}) : super(key: key);
+  const CheckBoxInput({Key? key, this.label, this.onChange}) : super(key: key);
 
   @override
   _CheckBoxInputState createState() => _CheckBoxInputState();
@@ -30,15 +30,15 @@ class _CheckBoxInputState extends State<CheckBoxInput> {
             onChanged: _handleChange,
             value: _value,
           ),
-          Text(widget.label, style: Styles.inputLabel),
+          Text(widget.label ?? "", style: Styles.inputLabel),
         ],
       ),
     );
   }
 
-  void _handleChange(bool value){
+  void _handleChange(bool? value){
     setState(() {
-      _value = value;
+      _value = value!;
     });
   }
 }

@@ -31,8 +31,8 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
   bool _selected;
   FluidNavBarButtonPressedCallback _onPressed;
 
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   _FluidNavBarButtonState(FluidFillIconData iconData, bool selected, FluidNavBarButtonPressedCallback onPressed)
       : _iconData = iconData,

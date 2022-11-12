@@ -9,7 +9,7 @@ class TravelCardRenderer extends StatelessWidget {
   final double cardHeight;
   final City city;
 
-  const TravelCardRenderer(this.offset, {Key key, this.cardWidth = 250, @required this.city, this.cardHeight}) : super(key: key);
+  const TravelCardRenderer(this.offset, {Key? key, this.cardWidth = 250, required this.city, required this.cardHeight}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

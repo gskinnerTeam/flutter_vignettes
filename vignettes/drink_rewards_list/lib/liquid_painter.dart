@@ -10,14 +10,14 @@ class LiquidSimulation {
 
   double endPtX1 = .5;
   double endPtY1 = 1;
-  double duration;
-  double time;
+  // double duration;
+  // double time;
   double xOffset = 0;
 
   final ElasticOutCurve _ease = ElasticOutCurve(.3);
 
-  double hzScale;
-  double hzOffset;
+  late double hzScale;
+  late double hzOffset;
 
   void start(AnimationController controller, bool flipY) {
 

@@ -17,17 +17,17 @@ class DrinkListCard extends StatefulWidget {
   final DrinkData drinkData;
   final int earnedPoints;
 
-  const DrinkListCard({Key key, this.drinkData, this.onTap, this.isOpen = false, this.earnedPoints = 100}) : super(key: key);
+  const DrinkListCard({Key? key, required this.drinkData, required this.onTap, this.isOpen = false, this.earnedPoints = 100}) : super(key: key);
 
   @override
   _DrinkListCardState createState() => _DrinkListCardState();
 }
 
 class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateMixin {
-  bool _wasOpen;
-  Animation<double> _fillTween;
-  Animation<double> _pointsTween;
-  AnimationController _liquidSimController;
+  bool? _wasOpen;
+  late Animation<double> _fillTween;
+  late Animation<double> _pointsTween;
+  late AnimationController _liquidSimController;
 
   //Create 2 simulations, that will be passed to the LiquidPainter to be drawn.
   LiquidSimulation _liquidSim1 = LiquidSimulation();
@@ -78,12 +78,13 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
     double fillLevel = _maxFillLevel; //_maxFillLevel * _fillTween.value;
     double cardHeight = widget.isOpen ? DrinkListCard.nominalHeightOpen : DrinkListCard.nominalHeightClosed;
 
+    final not_wO = _wasOpen != null && _wasOpen!;
     return GestureDetector(
       onTap: _handleTap,
       //Use an animated container so we can easily animate our widget height
       child: AnimatedContainer(
-        curve: !_wasOpen ? ElasticOutCurve(.9) : Curves.elasticOut,
-        duration: Duration(milliseconds: !_wasOpen ? 1200 : 1500),
+        curve: not_wO ? ElasticOutCurve(.9) : Curves.elasticOut,
+        duration: Duration(milliseconds: not_wO ? 1200 : 1500),
         height: cardHeight,
         //Wrap content in a rounded shadow widget, so it will be rounded on the corners but also have a drop shadow
         child: RoundedShadow.fromRadius(
