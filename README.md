@@ -10,7 +10,7 @@
 
 A collection of explorations into the exciting user experience possibilities enabled by the Flutter platform. Built by [gskinner](https://gskinner.com) in partnership with Google, these vignettes range from the practical to the novel. They aim to inspire both developers and designers to build delightful and beautiful experiences with Flutter.
 
-In addition to forking and reviewing the [MIT licensed code](LICENSE.md) available here, you can also check out more information on the [Vignette Showcase Website](https://flutter.gskinner.com/vignettes.html).
+In addition to forking and reviewing the [MIT licensed code](LICENSE.md) available here, you can also check out more information on the [Vignette Showcase Website](https://flutter.gskinner.com/vignettes/).
 
 <br/>
 
