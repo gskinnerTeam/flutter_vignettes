@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/_shared/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/_shared/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/_shared/build" />
+      <excludeFolder url="file://$MODULE_DIR$/basketball_ptr/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/basketball_ptr/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/basketball_ptr/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bubble_tab_bar/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bubble_tab_bar/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bubble_tab_bar/build" />
+      <excludeFolder url="file://$MODULE_DIR$/constellations_list/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/constellations_list/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/constellations_list/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dark_ink_transition/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/dark_ink_transition/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/dark_ink_transition/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dog_slider/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/dog_slider/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/dog_slider/build" />
+      <excludeFolder url="file://$MODULE_DIR$/drink_rewards_list/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/drink_rewards_list/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/drink_rewards_list/build" />
+      <excludeFolder url="file://$MODULE_DIR$/fluid_nav_bar/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/fluid_nav_bar/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/fluid_nav_bar/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gooey_edge/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/gooey_edge/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gooey_edge/build" />
+      <excludeFolder url="file://$MODULE_DIR$/indie_3d/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/indie_3d/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/indie_3d/build" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_hero/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_hero/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_hero/build" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_list/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_list/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/parallax_travel_cards_list/build" />
+      <excludeFolder url="file://$MODULE_DIR$/particle_swipe/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/particle_swipe/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/particle_swipe/build" />
+      <excludeFolder url="file://$MODULE_DIR$/plant_forms/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/plant_forms/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/plant_forms/build" />
+      <excludeFolder url="file://$MODULE_DIR$/product_detail_zoom/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/product_detail_zoom/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/product_detail_zoom/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sparkle_party/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sparkle_party/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sparkle_party/build" />
+      <excludeFolder url="file://$MODULE_DIR$/spending_tracker/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/spending_tracker/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/spending_tracker/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ticket_fold/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ticket_fold/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ticket_fold/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
