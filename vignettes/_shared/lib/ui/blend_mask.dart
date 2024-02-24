@@ -7,7 +7,7 @@ class BlendMask extends SingleChildRenderObjectWidget {
   final BlendMode _blendMode;
   final double _opacity;
 
-  BlendMask({@required BlendMode blendMode, double opacity = 1.0, Key key, Widget child })
+  BlendMask({required BlendMode blendMode, double opacity = 1.0, Key? key, Widget? child })
       : _blendMode = blendMode, _opacity = opacity, super(key: key, child: child);
 
   @override

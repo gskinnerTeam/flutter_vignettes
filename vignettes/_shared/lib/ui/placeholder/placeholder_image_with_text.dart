@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 class PlaceholderImageWithText extends StatelessWidget {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final double cornerRadius;
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
 
-  const PlaceholderImageWithText({Key key, this.cornerRadius = 0, this.color, this.backgroundColor, this.width = 100, this.height = 100})
+  const PlaceholderImageWithText({Key? key, this.cornerRadius = 0, this.color, this.backgroundColor, this.width = 100, this.height = 100})
       : super(key: key);
 
   @override
