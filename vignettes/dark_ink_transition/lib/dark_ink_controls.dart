@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
 class DarkInkControls extends StatefulWidget {
-  final ValueNotifier<bool> darkModeValue;
+  final ValueNotifier<bool>? darkModeValue;
 
   DarkInkControls({this.darkModeValue});
 
   @override
   State createState() {
-    return _DarkInkControlsState(darkModeValue);
+    return _DarkInkControlsState(darkModeValue!);
   }
 }
 
 class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProviderStateMixin {
-  ValueNotifier<bool> _darkModeValue;
+  ValueNotifier<bool>? _darkModeValue;
 
-  AnimationController _controller;
-  Animation<double> _buttonAnimation0;
-  Animation<double> _buttonAnimation1;
-  Animation<double> _buttonAnimation2;
+  AnimationController? _controller;
+  Animation<double>? _buttonAnimation0;
+  Animation<double>? _buttonAnimation1;
+  Animation<double>? _buttonAnimation2;
 
-  Color _backgroundColor;
-  Color _foregroundColor;
+  Color? _backgroundColor;
+  Color? _foregroundColor;
 
   _DarkInkControlsState(ValueNotifier<bool> darkModeValue) : _darkModeValue = darkModeValue {
-    _darkModeValue.addListener(_handleDarkModeChange);
+    _darkModeValue!.addListener(_handleDarkModeChange);
     _updateColor();
   }
 
@@ -49,7 +49,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
           weight: 4,
         ),
       ],
-    ).animate(_controller);
+    ).animate(_controller!);
     _buttonAnimation1 = TweenSequence(
       <TweenSequenceItem<double>>[
         TweenSequenceItem<double>(
@@ -73,7 +73,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
           weight: 2,
         ),
       ],
-    ).animate(_controller);
+    ).animate(_controller!);
     _buttonAnimation2 = TweenSequence(
       <TweenSequenceItem<double>>[
         TweenSequenceItem<double>(
@@ -93,10 +93,10 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
           weight: 10,
         ),
       ],
-    ).animate(_controller);
-    _buttonAnimation0.addListener(() {
+    ).animate(_controller!);
+    _buttonAnimation0!.addListener(() {
       setState(() {
-        if (_controller.value > 0.5) {
+        if (_controller!.value > 0.5) {
           _updateColor();
         }
       });
@@ -107,7 +107,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -125,7 +125,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
         // Animate the controls moving offscreen using slightly offset animations
         children: [
           Transform(
-            transform: Matrix4.translationValues(0, _buttonAnimation0.value, 0),
+            transform: Matrix4.translationValues(0, _buttonAnimation0!.value, 0),
             child: FloatingActionButton(
               mini: true,
               heroTag: 0,
@@ -137,7 +137,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
           ),
           Padding(padding: EdgeInsets.all(10)),
           Transform(
-            transform: Matrix4.translationValues(0, _buttonAnimation1.value, 0),
+            transform: Matrix4.translationValues(0, _buttonAnimation1!.value, 0),
             child: FloatingActionButton(
               mini: true,
               heroTag: 1,
@@ -149,7 +149,7 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
           ),
           Padding(padding: EdgeInsets.all(10)),
           Transform(
-            transform: Matrix4.translationValues(0, _buttonAnimation2.value, 0),
+            transform: Matrix4.translationValues(0, _buttonAnimation2!.value, 0),
             child: FloatingActionButton(
               heroTag: 2,
               mini: true,
@@ -165,14 +165,14 @@ class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProv
   }
 
   void _handleDarkModeChange() {
-    _controller.forward(from: 0.0);
+    _controller!.forward(from: 0.0);
     setState(() {});
   }
 
   void _updateColor() {
     final darkColor = Color(0xFF171137);
     final lightColor = Color(0xFF67ECDC);
-    _backgroundColor = _darkModeValue.value ? darkColor : lightColor;
-    _foregroundColor = _darkModeValue.value ? lightColor : darkColor;
+    _backgroundColor = _darkModeValue!.value ? darkColor : lightColor;
+    _foregroundColor = _darkModeValue!.value ? lightColor : darkColor;
   }
 }

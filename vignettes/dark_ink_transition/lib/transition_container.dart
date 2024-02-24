@@ -7,31 +7,31 @@ import 'main.dart';
 
 class TransitionContainer extends StatefulWidget {
 
-  final ValueNotifier<bool> darkModeValue;
-  final Widget child;
+  final ValueNotifier<bool>? darkModeValue;
+  final Widget? child;
 
   TransitionContainer({ this.darkModeValue, this.child });
 
   @override
   State createState() {
-    return _TransitionContainerState(darkModeValue, child);
+    return _TransitionContainerState(darkModeValue!, child!);
   }
 }
 
 class _TransitionContainerState extends State<TransitionContainer>
     with SingleTickerProviderStateMixin {
 
-  AnimationController _controller;
-  Animation<double> _animation;
+  AnimationController? _controller;
+  Animation<double>? _animation;
 
-  List<ImageProvider> _images;
+  List<ImageProvider>? _images;
   int _currentImageIndex = 0;
 
-  Widget _childForeground;
-  Widget _childBackground;
+  Widget? _childForeground;
+  Widget? _childBackground;
 
   _TransitionContainerState(ValueNotifier<bool> darkModeValue, this._childBackground) {
-    darkModeValue?.addListener(() { _handleDarkModeChange(darkModeValue.value); });
+    darkModeValue.addListener(() { _handleDarkModeChange(darkModeValue.value); });
   }
 
   @override
@@ -54,18 +54,18 @@ class _TransitionContainerState extends State<TransitionContainer>
           weight: 70,
         ),
       ],
-    ).animate(_controller);
-    _controller.addListener(() {
+    ).animate(_controller!);
+    _controller!.addListener(() {
       setState(() {
       });
     });
-    _controller.addStatusListener((status) {
+    _controller!.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
           _childBackground = _childForeground;
           _childForeground = null;
         });
-          _controller.reset();
+          _controller!.reset();
       }
     });
     super.initState();
@@ -77,14 +77,14 @@ class _TransitionContainerState extends State<TransitionContainer>
       setState(() {
         _childForeground = widget.child;
       });
-      _controller.forward();
+      _controller!.forward();
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -112,10 +112,10 @@ class _TransitionContainerState extends State<TransitionContainer>
             height: height,
             // Draw the transition animation as the mask
             child: AnimatedSprite(
-              image: _images[_currentImageIndex],
+              image: _images![_currentImageIndex],
               frameWidth: 360,
               frameHeight: 720,
-              animation: _animation,
+              animation: _animation!,
             ),
           ),
           child: Container(
@@ -141,7 +141,7 @@ class _TransitionContainerState extends State<TransitionContainer>
     if (darkMode) {
       setState(() {
         ++_currentImageIndex;
-        if (_currentImageIndex >= _images.length) {
+        if (_currentImageIndex >= _images!.length) {
           _currentImageIndex = 0;
         }
       });
