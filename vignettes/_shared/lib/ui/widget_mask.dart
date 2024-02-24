@@ -10,13 +10,13 @@ class RenderWidgetMask extends RenderStack {
         required AlignmentGeometry alignment,
         required TextDirection textDirection,
         required StackFit fit,
-        required Overflow overflow})
+        required Clip clip})
       : super(
             children: children,
             alignment: alignment,
             textDirection: textDirection,
             fit: fit,
-            overflow: overflow);
+            clipBehavior: clip);
 
   @override
   void paintStack(context, offset) {
@@ -28,13 +28,13 @@ class RenderWidgetMask extends RenderStack {
       RenderBox? child = (firstChild?.parentData as StackParentData).nextSibling;
       while (child != null) {
         final childParentData = child.parentData as StackParentData;
-        context.paintChild(lastChild, offset + childParentData.offset);
+        context.paintChild(lastChild as RenderObject, offset + childParentData.offset);
         child = childParentData.nextSibling;
       }
     };
 
     final paintMask = (PaintingContext context, Offset offset) {
-      context.paintChild(firstChild,
+      context.paintChild(firstChild as RenderObject,
           offset + (firstChild?.parentData as StackParentData).offset);
     };
 
@@ -57,7 +57,7 @@ class WidgetMask extends Stack {
       AlignmentGeometry alignment = AlignmentDirectional.topStart,
       TextDirection? textDirection,
       StackFit fit = StackFit.loose,
-      Overflow? overflow = Overflow.clip,
+      Clip clip = Clip.hardEdge,
       required Widget maskChild,
       required Widget child})
       : super(
@@ -65,7 +65,7 @@ class WidgetMask extends Stack {
           alignment: alignment,
           textDirection: textDirection,
           fit: fit,
-          overflow: overflow,
+          clipBehavior: clip,
           children: [maskChild, child],
         );
 
@@ -75,7 +75,7 @@ class WidgetMask extends Stack {
       alignment: alignment,
       textDirection: textDirection ?? Directionality.of(context),
       fit: fit,
-      overflow: overflow,
+      clip: clipBehavior,
     );
   }
 
@@ -85,6 +85,6 @@ class WidgetMask extends Stack {
       ..alignment = alignment
       ..textDirection = textDirection ?? Directionality.of(context)
       ..fit = fit
-      ..overflow = overflow;
+      ..clipBehavior = clipBehavior;
   }
 }
