@@ -18,17 +18,17 @@ class _DarkInkBarState extends State<DarkInkBar>
   static final Color darkColor = Color(0xFF171137);
   static final Color lightColor = Color(0xFF67ECDC);
 
-  ValueNotifier<bool>? _darkModeValue;
+  ValueNotifier<bool> _darkModeValue;
 
-  AnimationController? _controller;
-  Animation<double>? _iconOpacityAnimation;
-  Animation<double>? _backgroundColorAnimation;
-  Animation<double>? _foregroundColorAnimation;
+  late AnimationController _controller;
+  late Animation<double> _iconOpacityAnimation;
+  late Animation<double> _backgroundColorAnimation;
+  late Animation<double> _foregroundColorAnimation;
 
-  ImageProvider? _darkModeToggleIconImage;
+  late ImageProvider _darkModeToggleIconImage;
 
   _DarkInkBarState(this._darkModeValue) {
-    _darkModeValue!.addListener(_handleDarkModeChange);
+    _darkModeValue.addListener(_handleDarkModeChange);
   }
 
   @override
@@ -50,7 +50,7 @@ class _DarkInkBarState extends State<DarkInkBar>
           weight: .20,
         ),
       ],
-    ).animate(_controller!);
+    ).animate(_controller);
     _backgroundColorAnimation = TweenSequence<double>(
       [
         TweenSequenceItem(
@@ -66,7 +66,7 @@ class _DarkInkBarState extends State<DarkInkBar>
           weight: .20,
         ),
       ],
-    ).animate(_controller!);
+    ).animate(_controller);
     _foregroundColorAnimation = TweenSequence<double>(
       [
         TweenSequenceItem(
@@ -82,8 +82,8 @@ class _DarkInkBarState extends State<DarkInkBar>
           weight: .55,
         ),
       ],
-    ).animate(_controller!);
-    _iconOpacityAnimation!.addListener(() {
+    ).animate(_controller);
+    _iconOpacityAnimation.addListener(() {
       setState(() {
         _updateIcon();
       });
@@ -98,7 +98,7 @@ class _DarkInkBarState extends State<DarkInkBar>
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -106,10 +106,10 @@ class _DarkInkBarState extends State<DarkInkBar>
   Widget build(context) {
     final appSize = MediaQuery.of(context).size;
     final backgroundColor = HSVColor.lerp(HSVColor.fromColor(lightColor),
-            HSVColor.fromColor(darkColor), _backgroundColorAnimation!.value)!
+            HSVColor.fromColor(darkColor), _backgroundColorAnimation.value)!
         .toColor();
     final foregroundColor = HSVColor.lerp(HSVColor.fromColor(lightColor),
-            HSVColor.fromColor(darkColor), _foregroundColorAnimation!.value)!
+            HSVColor.fromColor(darkColor), _foregroundColorAnimation.value)!
         .toColor();
     // Build a simple bar with 3 animated buttons and a bottom border
     return Positioned(
@@ -144,15 +144,15 @@ class _DarkInkBarState extends State<DarkInkBar>
                         package: App.pkg)),
                   ),
                   TextButton(
-                    onPressed: () => _darkModeValue?.value =
-                        !(_darkModeValue?.value ?? true),
+                    onPressed: () => _darkModeValue.value =
+                        !(_darkModeValue.value ?? true),
                     style: ButtonStyle(
                       overlayColor:
                       MaterialStatePropertyAll(Colors.transparent),
                       foregroundColor: MaterialStatePropertyAll(foregroundColor),
                     ),
                     child: Opacity(
-                      opacity: _iconOpacityAnimation!.value,
+                      opacity: _iconOpacityAnimation.value,
                       child: ImageIcon(_darkModeToggleIconImage),
                     ),
                   ),
@@ -161,23 +161,23 @@ class _DarkInkBarState extends State<DarkInkBar>
         ),
         Container(
           height: 2,
-          color: _darkModeValue!.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
+          color: _darkModeValue.value ? Color(0xFF0098A3) : Color(0xFF2B777E),
         ),
       ]),
     );
   }
 
   void _handleDarkModeChange() {
-    if (_darkModeValue!.value) {
-      _controller!.forward(from: 0.0);
+    if (_darkModeValue.value) {
+      _controller.forward(from: 0.0);
     } else {
-      _controller!.reverse(from: 1.0);
+      _controller.reverse(from: 1.0);
     }
     setState(() {});
   }
 
   void _updateIcon() {
-    if (_controller!.value > 0.5) {
+    if (_controller.value > 0.5) {
       _darkModeToggleIconImage =
           AssetImage('assets/images/icon-sun.png', package: App.pkg);
     } else {

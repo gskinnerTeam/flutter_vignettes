@@ -17,13 +17,13 @@ class DarkInkDemo extends StatefulWidget {
 
 class _DarkInkDemoState extends State<DarkInkDemo> {
 
-  ValueNotifier<bool>? _darkModeValue;
-  ScrollController? _scrollController;
+  late ValueNotifier<bool> _darkModeValue;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     _darkModeValue = ValueNotifier<bool>(false);
-    _darkModeValue!.addListener(() {
+    _darkModeValue.addListener(() {
       setState(() {
       });
     });
@@ -33,8 +33,8 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
 
   @override
   void dispose() {
-    _darkModeValue!.dispose();
-    _scrollController!.dispose();
+    _darkModeValue.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -43,15 +43,15 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
     //Wrap the entire demo is a gestureDetector, just to more easily show off the darkMode transition.
     return GestureDetector(
       onTap: (){
-        _darkModeValue!.value = !_darkModeValue!.value;
+        _darkModeValue.value = !_darkModeValue.value;
       },
     // Build a simple scaffold that shows the top bar and controls over the content
       child: Stack(
         children: [
           TransitionContainer(
-            darkModeValue: _darkModeValue!,
+            darkModeValue: _darkModeValue,
             child: DarkInkContent(
-                darkMode: _darkModeValue!.value,
+                darkMode: _darkModeValue.value,
                 scrollController: _scrollController
             ),
           ),
