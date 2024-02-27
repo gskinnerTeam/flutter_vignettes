@@ -4,14 +4,14 @@ import 'dart:math' as math;
 import 'package:flutter/physics.dart';
 
 class ConstrainedScrollPhysics extends BouncingScrollPhysics {
-  final double? maxOverscroll;
+  final double maxOverscroll;
   final double maxOverscrollFactor;
 
   const ConstrainedScrollPhysics({
     ScrollPhysics? parent,
     required this.maxOverscrollFactor,
     required this.maxOverscroll
-  }) : assert(maxOverscroll != null), super(parent: parent);
+  }) : super(parent: parent);
 
 
 
