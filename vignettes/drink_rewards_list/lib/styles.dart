@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 
 import 'main.dart';
@@ -12,14 +10,13 @@ class AppColors {
 }
 
 class Styles {
-  static TextStyle text(double size, Color color, bool bold, {double height}) {
+  static TextStyle text(double size, Color color, bool bold, {double? height}) {
     return TextStyle(
-      fontSize: size,
-      color: color,
-      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-      height: height,
-      fontFamily: "Poppins",
-      package: App.pkg
-    );
+        fontSize: size,
+        color: color,
+        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+        height: height,
+        fontFamily: "Poppins",
+        package: App.pkg);
   }
 }
