@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ScalingInfo {
 
-  static double _scaleX;
-  static double _scaleY;
+  static double _scaleX = 0;
+  static double _scaleY = 0;
 
 
   static void init(MediaQueryData data) {

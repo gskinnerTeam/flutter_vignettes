@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'scaling_info.dart';
 import 'notifications.dart';
 import 'spinning_basketball.dart';
 
@@ -11,7 +10,7 @@ class PullToRefreshContainer extends StatelessWidget {
   final double height;
   final ChangeNotifier refreshNotifier;
 
-  PullToRefreshContainer({this.maxHeight, this.height, this.refreshNotifier});
+  PullToRefreshContainer({required this.maxHeight,required this.height, required this.refreshNotifier});
 
   @override
   Widget build(context) {
@@ -39,7 +38,7 @@ class BasketballPTRContainerAnimation extends StatefulWidget {
   final double height;
   final ChangeNotifier refreshNotifier;
 
-  BasketballPTRContainerAnimation({this.maxHeight = 180, this.height = 0, this.refreshNotifier});
+  BasketballPTRContainerAnimation({this.maxHeight = 180, this.height = 0, required this.refreshNotifier});
 
   @override
   State createState() {
@@ -51,8 +50,8 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
   final double _maxHeight;
   double _height;
 
-  AnimationController _controller;
-  Animation<double> _scaleAnimation;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
 
   ChangeNotifier _refreshNotifier;
 
@@ -61,7 +60,7 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
   @override
   void initState() {
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2, milliseconds: 500));
-
+    
     _scaleAnimation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween<double>(begin: 0.5, end: 0.0).chain(CurveTween(curve: ElasticOutCurve(0.65)).chain(
