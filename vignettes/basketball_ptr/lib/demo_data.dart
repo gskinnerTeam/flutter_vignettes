@@ -195,8 +195,7 @@ class BasketballGameModel {
 
       basketballGames.add(
         BasketballGameData(
-          quarter: BasketballGameQuarter
-              .values[rng.nextInt(BasketballGameQuarter.values.length)],
+          quarter: BasketballGameQuarter.values[rng.nextInt(BasketballGameQuarter.values.length)],
           time: Duration(minutes: rng.nextInt(30), seconds: rng.nextInt(60)),
           homeTeamScore: rng.nextInt(160),
           awayTeamScore: rng.nextInt(160),

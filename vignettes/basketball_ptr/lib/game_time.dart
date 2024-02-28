@@ -72,8 +72,10 @@ class GameTime extends StatelessWidget {
         Container(
           color: ThemeInfo.accent3,
           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 14),
-          child: Text(data.time==null? '00:00'.padLeft(2, '0'):
-              '${data.time!.inMinutes}:${(data.time!.inSeconds - (data.time!.inMinutes * 60)).toString().padLeft(2, '0')}',
+          child: Text(
+              data.time == null
+                  ? '00:00'.padLeft(2, '0')
+                  : '${data.time!.inMinutes}:${(data.time!.inSeconds - (data.time!.inMinutes * 60)).toString().padLeft(2, '0')}',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 8,

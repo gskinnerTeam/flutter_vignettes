@@ -10,7 +10,7 @@ class PullToRefreshContainer extends StatelessWidget {
   final double height;
   final ChangeNotifier refreshNotifier;
 
-  PullToRefreshContainer({required this.maxHeight,required this.height, required this.refreshNotifier});
+  PullToRefreshContainer({required this.maxHeight, required this.height, required this.refreshNotifier});
 
   @override
   Widget build(context) {
@@ -46,7 +46,8 @@ class BasketballPTRContainerAnimation extends StatefulWidget {
   }
 }
 
-class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainerAnimation> with SingleTickerProviderStateMixin {
+class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainerAnimation>
+    with SingleTickerProviderStateMixin {
   final double _maxHeight;
   double _height;
 
@@ -60,7 +61,7 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
   @override
   void initState() {
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2, milliseconds: 500));
-    
+
     _scaleAnimation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween<double>(begin: 0.5, end: 0.0).chain(CurveTween(curve: ElasticOutCurve(0.65)).chain(
@@ -118,8 +119,7 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
   Widget build(context) {
     final appSize = MediaQuery.of(context).size;
 
-    final scale = 0.8 -
-        Curves.easeIn.transform((_height / _maxHeight) / 2.0) * _scaleAnimation.value;
+    final scale = 0.8 - Curves.easeIn.transform((_height / _maxHeight) / 2.0) * _scaleAnimation.value;
 
     final centerX = appSize.width / 2;
     final backboardWidth = 0.8 * _maxHeight * scale;
@@ -182,7 +182,8 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
       ),
     ];
 
-    children.insert(_controller.value > 0.28 ? 2 : 4, SpinningBasketball(controller: _controller, maxHeight: _maxHeight));
+    children.insert(
+        _controller.value > 0.28 ? 2 : 4, SpinningBasketball(controller: _controller, maxHeight: _maxHeight));
 
     return Stack(
       children: children,

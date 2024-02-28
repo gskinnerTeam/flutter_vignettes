@@ -64,7 +64,7 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
   Widget build(context) {
     ScalingInfo.init(MediaQuery.of(context));
     // Determine the max height of the pull to refresh area
-     _maxHeight ??= (MediaQuery.of(context).size.height * 0.325).clamp(0.0, 180.0);
+    _maxHeight ??= (MediaQuery.of(context).size.height * 0.325).clamp(0.0, 180.0);
     final pullHeight = _maxHeight!;
     // Build a simple scaffold of the various app components
     return Column(
