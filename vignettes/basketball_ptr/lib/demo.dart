@@ -24,38 +24,28 @@ class BasketballPTRHome extends StatefulWidget {
 }
 
 class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTickerProviderStateMixin {
-  BasketballGameModel _model;
+  BasketballGameModel _model = BasketballGameModel();
 
-  ScrollController _scrollController;
+  ScrollController _scrollController = ScrollController();
 
-  AnimationController _controller;
-  Animation<double> _pullAnimation;
+  late AnimationController _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 400), upperBound: 1.0);
+  Animation<double> _pullAnimation = Tween<double>(begin: 1.2, end: 0.0).animate(_controller);
 
   double _percentage = 0.0;
   bool _isLoading = false;
 
-  double _maxHeight;
+  double? _maxHeight;
 
-  ValueNotifier<bool> _refreshNotifier;
+  ValueNotifier<bool> _refreshNotifier = ValueNotifier(false) ;
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400), upperBound: 1.0);
-
-    _pullAnimation = Tween<double>(begin: 1.2, end: 0.0).animate(_controller);
-
     _pullAnimation.addListener(() {
       setState(() {
         _percentage = _pullAnimation.value;
       });
     });
-
-    _model = BasketballGameModel();
-
-    _refreshNotifier = ValueNotifier(false);
 
     super.initState();
   }
@@ -83,8 +73,8 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
         NotificationListener<LoadingNotification>(
           onNotification: _handleLoadingNotification,
           child: PullToRefreshContainer(
-            maxHeight: _maxHeight,
-            height: _percentage * _maxHeight,
+            maxHeight: _maxHeight!,
+            height: _percentage * _maxHeight!,
             refreshNotifier: _refreshNotifier,
           ),
         ),
@@ -151,7 +141,7 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
 
     if (!_isLoading) {
       setState(() {
-        _percentage += (-offset / _maxHeight);
+        _percentage += (-offset / _maxHeight!);
         _percentage = _percentage.clamp(0.0, 1.2);
       });
     }
