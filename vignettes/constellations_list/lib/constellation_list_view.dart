@@ -10,10 +10,11 @@ class ConstellationListView extends StatefulWidget {
   static const route = "ConstellationListView";
 
   final List<ConstellationData> constellations;
-  final void Function(double) onScrolled;
-  final void Function(ConstellationData, bool) onItemTap;
+  final void Function(double)? onScrolled;
+  final void Function(ConstellationData, bool)? onItemTap;
 
-  const ConstellationListView({Key key, this.onScrolled, this.onItemTap, @required this.constellations}) : super(key: key);
+  const ConstellationListView({Key? key, this.onScrolled, this.onItemTap, required this.constellations})
+      : super(key: key);
 
   @override
   _ConstellationListViewState createState() => _ConstellationListViewState();
@@ -118,7 +119,7 @@ class _ConstellationListViewState extends State<ConstellationListView> {
     //Determine scrollVelocity and dispatch it to any listeners
     _scrollVel = notification.metrics.pixels - _prevScrollPos;
     if (widget.onScrolled != null) {
-      widget.onScrolled(_scrollVel);
+      widget.onScrolled?.call(_scrollVel);
     }
     //print(notification.metrics.pixels - _prevScroll);
     _prevScrollPos = notification.metrics.pixels;
