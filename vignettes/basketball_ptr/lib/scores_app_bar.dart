@@ -36,8 +36,10 @@ class ScoresAppBar extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('LIVE SCORES', style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'FjallaOne', package: App.pkg)),
-                  Text('OCT 24, 2019', style: TextStyle(fontSize: 10, color: Colors.white, fontFamily: 'OpenSans', package: App.pkg)),
+                  Text('LIVE SCORES',
+                      style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'FjallaOne', package: App.pkg)),
+                  Text('OCT 24, 2019',
+                      style: TextStyle(fontSize: 10, color: Colors.white, fontFamily: 'OpenSans', package: App.pkg)),
                 ],
               ),
               Padding(padding: EdgeInsets.all(20)),

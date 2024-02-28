@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'scaling_info.dart';
 import 'notifications.dart';
 import 'spinning_basketball.dart';
 
@@ -11,7 +10,7 @@ class PullToRefreshContainer extends StatelessWidget {
   final double height;
   final ChangeNotifier refreshNotifier;
 
-  PullToRefreshContainer({this.maxHeight, this.height, this.refreshNotifier});
+  PullToRefreshContainer({required this.maxHeight, required this.height, required this.refreshNotifier});
 
   @override
   Widget build(context) {
@@ -39,7 +38,7 @@ class BasketballPTRContainerAnimation extends StatefulWidget {
   final double height;
   final ChangeNotifier refreshNotifier;
 
-  BasketballPTRContainerAnimation({this.maxHeight = 180, this.height = 0, this.refreshNotifier});
+  BasketballPTRContainerAnimation({this.maxHeight = 180, this.height = 0, required this.refreshNotifier});
 
   @override
   State createState() {
@@ -47,12 +46,13 @@ class BasketballPTRContainerAnimation extends StatefulWidget {
   }
 }
 
-class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainerAnimation> with SingleTickerProviderStateMixin {
+class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainerAnimation>
+    with SingleTickerProviderStateMixin {
   final double _maxHeight;
   double _height;
 
-  AnimationController _controller;
-  Animation<double> _scaleAnimation;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
 
   ChangeNotifier _refreshNotifier;
 
@@ -119,8 +119,7 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
   Widget build(context) {
     final appSize = MediaQuery.of(context).size;
 
-    final scale = 0.8 -
-        Curves.easeIn.transform((_height / _maxHeight) / 2.0) * _scaleAnimation.value;
+    final scale = 0.8 - Curves.easeIn.transform((_height / _maxHeight) / 2.0) * _scaleAnimation.value;
 
     final centerX = appSize.width / 2;
     final backboardWidth = 0.8 * _maxHeight * scale;
@@ -183,7 +182,8 @@ class _BasketballPTRContainerAnimationState extends State<BasketballPTRContainer
       ),
     ];
 
-    children.insert(_controller.value > 0.28 ? 2 : 4, SpinningBasketball(controller: _controller, maxHeight: _maxHeight));
+    children.insert(
+        _controller.value > 0.28 ? 2 : 4, SpinningBasketball(controller: _controller, maxHeight: _maxHeight));
 
     return Stack(
       children: children,
