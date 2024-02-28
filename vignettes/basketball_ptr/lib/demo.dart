@@ -23,24 +23,29 @@ class BasketballPTRHome extends StatefulWidget {
   }
 }
 
-class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTickerProviderStateMixin {
+class _BasketballPTRHomeState extends State<BasketballPTRHome>
+    with SingleTickerProviderStateMixin {
   BasketballGameModel _model = BasketballGameModel();
 
   ScrollController _scrollController = ScrollController();
 
   late AnimationController _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400), upperBound: 1.0);
-  Animation<double> _pullAnimation = Tween<double>(begin: 1.2, end: 0.0).animate(_controller);
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+      upperBound: 1.0);
+
+  late Animation<double> _pullAnimation;
 
   double _percentage = 0.0;
   bool _isLoading = false;
 
   double? _maxHeight;
 
-  ValueNotifier<bool> _refreshNotifier = ValueNotifier(false) ;
+  ValueNotifier<bool> _refreshNotifier = ValueNotifier(false);
 
   @override
   void initState() {
+    _pullAnimation = Tween<double>(begin: 1.2, end: 0.0).animate(_controller);
     _pullAnimation.addListener(() {
       setState(() {
         _percentage = _pullAnimation.value;
@@ -63,7 +68,8 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
     ScalingInfo.init(MediaQuery.of(context));
     // Determine the max height of the pull to refresh area
     if (_maxHeight == null) {
-      _maxHeight = (MediaQuery.of(context).size.height * 0.325).clamp(0.0, 180.0);
+      _maxHeight =
+          (MediaQuery.of(context).size.height * 0.325).clamp(0.0, 180.0);
     }
     // Build a simple scaffold of the various app components
     return Column(
@@ -84,10 +90,10 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
           child: NotificationListener<ScrollNotification>(
             onNotification: _handleScrollNotification,
             child: GameListView(
-              controller: _scrollController,
-              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-              model: _model
-            ),
+                controller: _scrollController,
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                model: _model),
           ),
         )
       ],
@@ -109,13 +115,17 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
     }
 
     if (notification is ScrollUpdateNotification) {
-      if (notification.dragDetails == null && _percentage >= 1.2 && notification.scrollDelta != 0) {
+      if (notification.dragDetails == null &&
+          _percentage >= 1.2 &&
+          notification.scrollDelta != 0) {
         _scrollController.jumpTo(_scrollController.offset);
       }
-      if (notification.scrollDelta > 0.0) {
-        deltaOffset += notification.scrollDelta;
-      } else if (_scrollController.offset < 0) {
-        deltaOffset += notification.scrollDelta;
+      if (notification.scrollDelta != null) {
+        if (notification.scrollDelta! > 0.0) {
+          deltaOffset += notification.scrollDelta!;
+        } else if (_scrollController.offset < 0) {
+          deltaOffset += notification.scrollDelta!;
+        }
       }
     }
 
@@ -147,10 +157,11 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
     }
   }
 
-  bool _handleOverscrollNotification(OverscrollIndicatorNotification notification) {
+  bool _handleOverscrollNotification(
+      OverscrollIndicatorNotification notification) {
     if (notification.depth != 0 || !notification.leading) return false;
 
-    notification.disallowGlow();
+    notification.disallowIndicator();
     return false;
   }
 
@@ -182,6 +193,4 @@ class _BasketballPTRHomeState extends State<BasketballPTRHome> with SingleTicker
     _controller.value = 1.0 - _percentage * 0.83;
     _controller.animateTo(0.22);
   }
-
 }
-
