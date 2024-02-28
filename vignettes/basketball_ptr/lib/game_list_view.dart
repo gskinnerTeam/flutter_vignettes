@@ -10,7 +10,7 @@ class GameListView extends StatelessWidget {
   final BasketballGameModel model;
   final EdgeInsetsGeometry padding;
 
-  GameListView({@required this.controller, this.physics, @required this.model, this.padding = EdgeInsets.zero});
+  GameListView({required this.controller, required this.physics, required this.model, this.padding = EdgeInsets.zero});
 
   @override
   Widget build(context) {
