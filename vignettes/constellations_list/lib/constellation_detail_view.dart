@@ -13,16 +13,18 @@ class ConstellationDetailView extends StatefulWidget {
   final int contentDelay;
   final Function onBackTap;
 
-  const ConstellationDetailView({Key key, this.data, this.redMode, this.contentDelay = 1000, @required this.onBackTap}) : super(key: key);
+  const ConstellationDetailView(
+      {Key? key, required this.data, this.redMode = false, this.contentDelay = 1000, required this.onBackTap})
+      : super(key: key);
 
   @override
   _ConstellationDetailViewState createState() => _ConstellationDetailViewState();
 }
 
 class _ConstellationDetailViewState extends State<ConstellationDetailView> with SingleTickerProviderStateMixin {
-  AnimationController _animController;
-  Animation<double> _contentScaleTween;
-  Animation<double> _textAlphaTween;
+  late AnimationController _animController;
+  late Animation<double> _contentScaleTween;
+  late Animation<double> _textAlphaTween;
 
   @override
   void initState() {
@@ -62,23 +64,32 @@ class _ConstellationDetailViewState extends State<ConstellationDetailView> with 
                 scale: _contentScaleTween.value,
                 child: Stack(
                   children: <Widget>[
-                    Image.asset("images/${widget.data.image}-Constellation@2x.png", filterQuality: FilterQuality.high, package: App.pkg, ),
+                    Image.asset(
+                      "images/${widget.data.image}-Constellation@2x.png",
+                      filterQuality: FilterQuality.high,
+                      package: App.pkg,
+                    ),
                     Opacity(
                       opacity: _textAlphaTween.value,
-                      child: Image.asset("images/${widget.data.image}-Text@2x.png", fit: BoxFit.contain, package: App.pkg),
+                      child:
+                          Image.asset("images/${widget.data.image}-Text@2x.png", fit: BoxFit.contain, package: App.pkg),
                     ),
                   ],
                 ),
               ),
             ),
-            RaisedButton(
-              padding: EdgeInsets.symmetric(horizontal: 48, vertical: 12),
-              splashColor: Colors.white24,
-              color: Colors.black,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40), side: BorderSide(color: Color(0xffc9c9c9))),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 48, vertical: 12),
+                splashFactory: InkSplash.splashFactory,
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40), side: BorderSide(color: Color(0xffc9c9c9))),
+              ),
               //Dispatch our tap event to the parent of this widget, and let them handle it.
               onPressed: () => widget.onBackTap(),
-              child: Text("Return to List", style: TextStyle(fontFamily: Fonts.Content, color: Colors.white, package: App.pkg)),
+              child: Text("Return to List",
+                  style: TextStyle(fontFamily: Fonts.Content, color: Colors.white, package: App.pkg)),
             ),
             SizedBox(
               height: 36,

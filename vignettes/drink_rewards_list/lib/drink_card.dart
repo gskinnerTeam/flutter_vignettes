@@ -4,30 +4,31 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'liquid_painter.dart';
 import 'rounded_shadow.dart';
-import 'syles.dart';
+import 'styles.dart';
 import 'demo_data.dart';
 
 class DrinkListCard extends StatefulWidget {
   static double nominalHeightClosed = 96;
   static double nominalHeightOpen = 290;
 
-  final Function(DrinkData) onTap;
+  final void Function(DrinkData)? onTap;
 
   final bool isOpen;
   final DrinkData drinkData;
   final int earnedPoints;
 
-  const DrinkListCard({Key key, this.drinkData, this.onTap, this.isOpen = false, this.earnedPoints = 100}) : super(key: key);
+  const DrinkListCard({Key? key, required this.drinkData, this.onTap, this.isOpen = false, this.earnedPoints = 100})
+      : super(key: key);
 
   @override
   _DrinkListCardState createState() => _DrinkListCardState();
 }
 
 class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateMixin {
-  bool _wasOpen;
-  Animation<double> _fillTween;
-  Animation<double> _pointsTween;
-  AnimationController _liquidSimController;
+  late bool _wasOpen;
+  late Animation<double> _fillTween;
+  late Animation<double> _pointsTween;
+  late AnimationController _liquidSimController;
 
   //Create 2 simulations, that will be passed to the LiquidPainter to be drawn.
   LiquidSimulation _liquidSim1 = LiquidSimulation();
@@ -35,6 +36,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
 
   @override
   void initState() {
+    _wasOpen = widget.isOpen;
     //Create a controller to drive the "fill" animations
     _liquidSimController = AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
     _liquidSimController.addListener(_rebuildIfOpen);
@@ -139,8 +141,10 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
       fit: StackFit.expand,
       children: <Widget>[
         Transform.translate(
-          offset:
-              Offset(0, DrinkListCard.nominalHeightOpen * 1.2 - DrinkListCard.nominalHeightOpen * _fillTween.value * _maxFillLevel * 1.2),
+          offset: Offset(
+              0,
+              DrinkListCard.nominalHeightOpen * 1.2 -
+                  DrinkListCard.nominalHeightOpen * _fillTween.value * _maxFillLevel * 1.2),
           child: CustomPaint(
             painter: LiquidPainter(fillLevel, _liquidSim1, _liquidSim2, waveHeight: 100),
           ),
@@ -210,12 +214,16 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
           height: 40,
           child: Opacity(
             opacity: isDisabled ? .6 : 1,
-            child: FlatButton(
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: AppColors.orangeAccent,
+                disabledBackgroundColor: AppColors.orangeAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
               //Enable the button if we have enough points. Can do this by assigning a onPressed listener, or not.
               onPressed: isDisabled ? () {} : null,
-              color: AppColors.orangeAccent,
-              disabledColor: AppColors.orangeAccent,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               child: Text("REDEEM", style: Styles.text(16, Colors.white, true)),
             ),
           ),
@@ -226,7 +234,7 @@ class _DrinkListCardState extends State<DrinkListCard> with TickerProviderStateM
 
   void _handleTap() {
     if (widget.onTap != null) {
-      widget.onTap(widget.drinkData);
+      widget.onTap?.call(widget.drinkData);
     }
   }
 

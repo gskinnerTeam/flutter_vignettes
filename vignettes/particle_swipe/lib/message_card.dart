@@ -9,7 +9,7 @@ class EmailCard extends StatelessWidget {
   final Email email;
   final Color backgroundColor;
 
-  EmailCard({this.email, this.backgroundColor});
+  EmailCard({required this.email, required this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,8 @@ class EmailCard extends StatelessWidget {
                     child: Icon(Icons.lens, size: 12.0, color: Color(0xffaa07de)),
                   ),
                 Expanded(
-                  child:
-                      Text(email.from, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, letterSpacing: .3, package: App.pkg)),
+                  child: Text(email.from,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, letterSpacing: .3, package: App.pkg)),
                 ),
                 Text('11:45 PM', style: TextStyle(fontSize: 11, letterSpacing: .3, package: App.pkg)),
               ],

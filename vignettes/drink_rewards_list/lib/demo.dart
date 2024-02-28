@@ -1,8 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'main.dart';
-import 'syles.dart';
+import 'styles.dart';
 import 'demo_data.dart';
 import 'rounded_shadow.dart';
 import 'drink_card.dart';
@@ -13,24 +12,17 @@ class DrinkRewardsListDemo extends StatefulWidget {
 }
 
 class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
+  static final _demoData = DemoData();
   double _listPadding = 20;
-  DrinkData _selectedDrink;
+  DrinkData? _selectedDrink;
   ScrollController _scrollController = ScrollController();
-  List<DrinkData>_drinks;
-  int _earnedPoints;
-
-  @override
-  void initState() {
-    var demoData = DemoData();
-    _drinks = demoData.drinks;
-    _earnedPoints = demoData.earnedPoints;
-    super.initState();
-  }
+  List<DrinkData> _drinks = _demoData.drinks;
+  int _earnedPoints = _demoData.earnedPoints;
 
   @override
   Widget build(BuildContext context) {
     bool isLandscape = MediaQuery.of(context).size.aspectRatio > 1;
-    double headerHeight = MediaQuery.of(context).size.height * (isLandscape? .25 : .2);
+    double headerHeight = MediaQuery.of(context).size.height * (isLandscape ? .25 : .2);
     return Scaffold(
       backgroundColor: Color(0xff22222b),
       body: Theme(
@@ -44,11 +36,8 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
               controller: _scrollController,
               itemBuilder: (context, index) => _buildListItem(index),
             ),
-
             _buildTopBg(headerHeight),
-
             _buildTopContent(headerHeight),
-
           ],
         ),
       ),
@@ -77,7 +66,11 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
           shadowColor: Color(0x0).withAlpha(65),
           child: Container(
             width: double.infinity,
-            child: Image.asset("images/Header-Dark.png", fit: BoxFit.fill, package: App.pkg,),
+            child: Image.asset(
+              "images/Header-Dark.png",
+              fit: BoxFit.fill,
+              package: App.pkg,
+            ),
           )),
     );
   }
@@ -118,7 +111,7 @@ class _DrinkRewardsListDemoState extends State<DrinkRewardsListDemo> {
       //Open tapped drink card and scroll to it
       else {
         _selectedDrink = data;
-        var selectedIndex = _drinks.indexOf(_selectedDrink);
+        var selectedIndex = _drinks.indexOf(data);
         var closedHeight = DrinkListCard.nominalHeightClosed;
         //Calculate scrollTo offset, subtract a bit so we don't end up perfectly at the top
         var offset = selectedIndex * (closedHeight + _listPadding) - closedHeight * .35;

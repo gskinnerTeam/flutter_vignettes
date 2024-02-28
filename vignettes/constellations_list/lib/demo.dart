@@ -15,17 +15,16 @@ class ConstellationsListDemo extends StatefulWidget {
 class _ConstellationsListDemoState extends State<ConstellationsListDemo> with TickerProviderStateMixin {
   static const double idleSpeed = .2;
   static const double maxSpeed = 10;
-  static const int starAnimDurationIn = 4500;
+  static const int starAnimDurationIn = 3000;
 
   //double _speed = idleSpeed;
   GlobalKey<NavigatorState> _navigationStackKey = GlobalKey<NavigatorState>();
 
   ValueNotifier<double> _speedValue = ValueNotifier(idleSpeed);
 
-  AnimationController _starAnimController;
-  Animation<double> _starAnimSequence;
-
-  List<ConstellationData> _constellationsData;
+  late AnimationController _starAnimController;
+  late Animation<double> _starAnimSequence;
+  late List<ConstellationData> _constellationsData;
 
   @override
   void initState() {
@@ -33,7 +32,7 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
     _starAnimController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: starAnimDurationIn),
-      reverseDuration: Duration(milliseconds: starAnimDurationIn ~/ 3),
+      reverseDuration: Duration(milliseconds: starAnimDurationIn ~/ 2),
     );
     _starAnimController.addListener(() {
       _speedValue.value = _starAnimSequence.value;
@@ -58,7 +57,6 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
     super.initState();
   }
 
-
   @override
   void dispose() {
     _starAnimController.dispose();
@@ -77,7 +75,7 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
             valueListenable: _speedValue,
             builder: (context, value, child) {
               //Scrolling star background
-              return StarField(starSpeed: value, starCount: starCount );
+              return StarField(starSpeed: value, starCount: starCount);
             },
           ),
           //Main content
@@ -103,16 +101,15 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
       //Get the data for the new view from the .arguments property
       var args = route.arguments as _DetailViewRouteArguments;
       page = ConstellationDetailView(
-        data: args.data,
-        redMode: args.redMode,
-        //Pass a time value into the content view, so it knows how long to delay the fadeIn. This allows us to choreograph the star animation, with the page content, without a direct dependency
-        contentDelay: starAnimDurationIn + 1000,
-        //When the back button is tapped in the detail view, pop the nested navigator and reverse the animation controller for the stars
-        onBackTap: (){
-         _navigationStackKey.currentState.pop();
-         _reverseStarAnim();
-        }
-      );
+          data: args.data,
+          redMode: args.redMode,
+          //Pass a time value into the content view, so it knows how long to delay the fadeIn. This allows us to choreograph the star animation, with the page content, without a direct dependency
+          contentDelay: starAnimDurationIn + 1000,
+          //When the back button is tapped in the detail view, pop the nested navigator and reverse the animation controller for the stars
+          onBackTap: () {
+            _navigationStackKey.currentState?.pop();
+            _reverseStarAnim();
+          });
     }
     //Default to ListView as our home route
     else {
@@ -140,14 +137,13 @@ class _ConstellationsListDemoState extends State<ConstellationsListDemo> with Ti
   //When an item in the list is tapped, push a Detail view onto the navigator. Pass along the data as as route argument.
   void _handleListItemTap(ConstellationData data, bool redMode) {
     //Add details page to Navigator
-    _navigationStackKey.currentState.pushNamed(
+    _navigationStackKey.currentState?.pushNamed(
       ConstellationDetailView.route,
       arguments: _DetailViewRouteArguments(data, redMode),
     );
     //Start star transition
     _starAnimController.forward(from: 0);
   }
-
 
   void _reverseStarAnim() {
     if (_starAnimController.isAnimating) {

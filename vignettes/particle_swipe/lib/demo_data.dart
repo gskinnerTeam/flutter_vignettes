@@ -9,7 +9,7 @@ class Email {
 
   int randNum = Random().nextInt(999);
 
-  Email({this.from, this.subject, this.body, this.isRead = false, this.isFavorite = false});
+  Email({required this.from, required this.subject, required this.body, this.isRead = false, this.isFavorite = false});
 
   toggleFavorite() {
     this.isFavorite = !this.isFavorite;

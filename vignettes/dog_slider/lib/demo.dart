@@ -75,7 +75,8 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
             children: <Widget>[
               Text("PRODUCT DETAIL", style: baseStyle.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
               SizedBox(height: 12),
-              Text("Fetch Tennis Ball - 2.0 inch", style: baseStyle.copyWith(fontSize: contentFontSize, fontWeight: FontWeight.bold)),
+              Text("Fetch Tennis Ball - 2.0 inch",
+                  style: baseStyle.copyWith(fontSize: contentFontSize, fontWeight: FontWeight.bold)),
               SizedBox(height: 12),
               Text("Colour: Green", style: baseStyle.copyWith(fontSize: contentFontSize)),
               Text("Size: 2.5 inch", style: baseStyle.copyWith(fontSize: contentFontSize)),
@@ -102,7 +103,8 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
             height: 24,
           ),
           Text(_numTreats.toString(),
-              textAlign: TextAlign.center, style: baseStyle.copyWith(fontSize: 48, color: Color(0xff00a6a4), fontWeight: FontWeight.w600))
+              textAlign: TextAlign.center,
+              style: baseStyle.copyWith(fontSize: 48, color: Color(0xff00a6a4), fontWeight: FontWeight.w600))
         ],
       ),
     );
@@ -113,7 +115,8 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
       padding: EdgeInsets.symmetric(horizontal: 22),
       height: 100,
       width: double.infinity,
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(.1), blurRadius: 20)]),
+      decoration: BoxDecoration(
+          color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(.1), blurRadius: 20)]),
       child: Center(
         child: Container(
           width: _maxContentWidth,
@@ -135,11 +138,15 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
     );
   }
 
-  FlatButton _buildAddToCartBtn() {
-    return FlatButton(
-      color: Color(0xff2cb5b5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+  TextButton _buildAddToCartBtn() {
+    return TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Color(0xff2cb5b5),
+        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
       child: Text("ADD TO CART", style: baseStyle.copyWith(fontSize: 16, color: Colors.white)),
       onPressed: () {},
     );

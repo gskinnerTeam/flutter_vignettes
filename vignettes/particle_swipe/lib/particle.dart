@@ -22,7 +22,7 @@ class Particle {
       this.color = Colors.transparent});
 
   // Returns an offset representing this particles, optionally with a transformation applied.
-  Offset toOffset([Matrix4 transform]) {
+  Offset toOffset([Matrix4? transform]) {
     Offset o = Offset(x, y);
     if (transform == null) {
       return o;

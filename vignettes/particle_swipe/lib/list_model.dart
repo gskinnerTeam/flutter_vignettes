@@ -6,29 +6,26 @@ import 'package:flutter/material.dart';
 
 class ListModel<E> {
   ListModel({
-    @required this.listKey,
-    @required this.removedItemBuilder,
-    Iterable<E> initialItems,
-  })  : assert(listKey != null),
-        assert(removedItemBuilder != null),
-        _items = List<E>.from(initialItems ?? <E>[]);
+    required this.listKey,
+    required this.removedItemBuilder,
+    Iterable<E>? initialItems,
+  }) : _items = List<E>.from(initialItems ?? <E>[]);
 
   final GlobalKey<AnimatedListState> listKey;
   final dynamic removedItemBuilder;
   final List<E> _items;
 
-  AnimatedListState get _animatedList => listKey.currentState;
+  AnimatedListState? get _animatedList => listKey.currentState;
 
-  void insert(int index, E item, {Duration duration}) {
+  void insert(int index, E item, {required Duration duration}) {
     _items.insert(index, item);
-    _animatedList.insertItem(index, duration: duration);
+    _animatedList?.insertItem(index, duration: duration);
   }
 
-  E removeAt(int index, {Duration duration}) {
+  E removeAt(int index, {required Duration duration}) {
     final E removedItem = _items.removeAt(index);
     if (removedItem != null) {
-      _animatedList.removeItem(index,
-          (BuildContext context, Animation<double> animation) {
+      _animatedList?.removeItem(index, (BuildContext context, Animation<double> animation) {
         return removedItemBuilder(removedItem, context, animation);
       }, duration: duration);
     }

@@ -7,7 +7,7 @@ class ConstellationTitleCard extends StatelessWidget {
   final ConstellationData data;
   final bool redMode;
 
-  const ConstellationTitleCard({Key key, this.data, this.redMode}) : super(key: key);
+  const ConstellationTitleCard({Key? key, required this.data, required this.redMode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class ConstellationTitleCard extends StatelessWidget {
     //Need to wrap the title with spaces, to prevent a flicker during the Hero animation. known issue: https://github.com/flutter/flutter/issues/42988
     var titleText = Text("  ${data.title}  ",
         style: TextStyle(fontSize: 42, fontFamily: Fonts.Title, foreground: paint, height: 1.3, package: App.pkg));
-    var subTitleText =
-        Text("${data.subTitle}", style: TextStyle(fontSize: 16, fontFamily: Fonts.Content, color: color, package: App.pkg));
+    var subTitleText = Text("${data.subTitle}",
+        style: TextStyle(fontSize: 16, fontFamily: Fonts.Content, color: color, package: App.pkg));
 
     return Hero(
       tag: "${data.title}${data.key}",
@@ -30,10 +30,7 @@ class ConstellationTitleCard extends StatelessWidget {
       child: Material(
           color: Colors.transparent,
           child: Column(
-            children: <Widget>[
-              titleText,
-              subTitleText
-            ],
+            children: <Widget>[titleText, subTitleText],
           )),
     );
   }

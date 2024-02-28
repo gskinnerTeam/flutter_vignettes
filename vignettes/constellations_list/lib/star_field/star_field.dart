@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -12,19 +11,19 @@ class StarField extends StatefulWidget {
   final double starSpeed;
   final int starCount;
 
-  const StarField({Key key, this.starSpeed = 3, this.starCount = 500 }) : super(key: key);
+  const StarField({Key? key, this.starSpeed = 3, this.starCount = 500}) : super(key: key);
 
   @override
   _StarFieldState createState() => _StarFieldState();
 }
 
 class _StarFieldState extends State<StarField> {
-  List<Star> _stars;
+  List<Star> _stars = [];
   double _maxZ = 500;
   double _minZ = 1;
-  ui.Image _glowImage;
+  ui.Image? _glowImage;
 
-  Ticker _ticker;
+  Ticker? _ticker;
 
   void _initStars(BuildContext context) {
     //Start async image load
@@ -40,13 +39,13 @@ class _StarFieldState extends State<StarField> {
 
   @override
   void dispose() {
-    _ticker.dispose();
+    _ticker?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_stars == null) {
+    if (_stars.isEmpty) {
       _initStars(context);
     }
     return Container(
