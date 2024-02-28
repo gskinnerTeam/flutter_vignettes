@@ -6,13 +6,18 @@ typedef FXChangeCallback = void Function(int);
 
 class FXSwitcher extends StatelessWidget {
   static final List<String> buttonNames = ['Waterfall', 'Fireworks', 'Comet', 'Pinwheel'];
-  static final List<String> selectedPaths = ['waterfall-selected', 'fireworks-selected', 'comet-selected', 'pinwheel-selected'];
+  static final List<String> selectedPaths = [
+    'waterfall-selected',
+    'fireworks-selected',
+    'comet-selected',
+    'pinwheel-selected'
+  ];
   static final List<String> paths = ['waterfall-idle', 'fireworks-idle', 'comet-idle', 'pinwheel-idle'];
 
   final int activeEffect;
-  final FXChangeCallback callback;
+  final FXChangeCallback? callback;
 
-  FXSwitcher({this.activeEffect, this.callback});
+  FXSwitcher({required this.activeEffect, this.callback});
 
   @override
   Widget build(context) {
@@ -26,8 +31,9 @@ class FXSwitcher extends StatelessWidget {
           children: [0, 1, 2, 3]
               .map((int index) => _FXSwitcherButton(
                     name: buttonNames[index],
-                    image:
-                        AssetImage('assets/buttons/${activeEffect == index ? selectedPaths[index] : paths[index]}.png', package: App.pkg),
+                    image: AssetImage(
+                        'assets/buttons/${activeEffect == index ? selectedPaths[index] : paths[index]}.png',
+                        package: App.pkg),
                     handleTap: () => _handleButtonPress(index),
                   ))
               .toList(),
@@ -44,9 +50,9 @@ class FXSwitcher extends StatelessWidget {
 class _FXSwitcherButton extends StatelessWidget {
   final String name;
   final ImageProvider image;
-  final VoidCallback handleTap;
+  final VoidCallback? handleTap;
 
-  _FXSwitcherButton({this.name, this.image, this.handleTap});
+  _FXSwitcherButton({required this.name, required this.image, this.handleTap});
 
   @override
   Widget build(context) {

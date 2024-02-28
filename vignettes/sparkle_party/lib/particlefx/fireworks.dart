@@ -12,21 +12,20 @@ class Fireworks extends ParticleFX {
   double _hue = 120.0;
   int _cooldown = 0; // ticks before another firework is allowed
   int _nextAuto = 10; // ticks before another firework is automatically triggered
-  Offset _touchPoint;
+  Offset? _touchPoint;
 
-  Fireworks({@required SpriteSheet spriteSheet, @required Size size}) :
-    super(spriteSheet: spriteSheet, size: size);
+  Fireworks({required SpriteSheet spriteSheet, required Size size}) : super(spriteSheet: spriteSheet, size: size);
 
   @override
   void fillInitialData() {
-    for (int i=0; i<count; i++) {
-      particles[i] = _Particle();
+    for (int i = 0; i < count; i++) {
+      particles.add(_Particle());
       resetParticle(i);
     }
   }
 
   @override
-  set touchPoint(Offset pt) {
+  set touchPoint(Offset? pt) {
     // avoid premature clears from fast taps.
     if (pt != null && _cooldown <= 0) {
       _touchPoint = pt;
@@ -35,7 +34,7 @@ class Fireworks extends ParticleFX {
   }
 
   void _activateParticle(int i, Offset pt, double wow) {
-    _Particle o = particles[i];
+    _Particle o = particles[i] as _Particle;
     o.x = pt.dx;
     o.y = pt.dy;
     double maxv = wow * 18;
@@ -46,7 +45,7 @@ class Fireworks extends ParticleFX {
 
     // fake 3d effect:
     o.z = 0.0;
-    o.vz = cos(v/maxv * pi/2) * wow;
+    o.vz = cos(v / maxv * pi / 2) * wow;
 
     o.animate = false;
     o.life = Rnd.getDouble(60, 100);
@@ -59,8 +58,12 @@ class Fireworks extends ParticleFX {
   // Called each tick by the parent & updates all the particles
   @override
   void tick(Duration duration) {
-    if (spriteSheet.image == null) { return; }
-    if (particles[0] == null) { fillInitialData(); }
+    if (spriteSheet.image == null) {
+      return;
+    }
+    if (particles.isEmpty) {
+      fillInitialData();
+    }
 
     int frameCount = spriteSheet.length;
     int addCount = 0;
@@ -72,11 +75,14 @@ class Fireworks extends ParticleFX {
       _hue = Rnd.getDeg();
     }
 
-    for (int i=0; i<count; i++) {
-      _Particle o = particles[i];
+    for (int i = 0; i < count; i++) {
+      _Particle o = particles[i] as _Particle;
 
-      if (o.life == 0 && --addCount > 0) { _activateParticle(i, _touchPoint, wow); }
-      else if (o.life == 0) { continue; }
+      if (o.life == 0 && --addCount > 0 && _touchPoint != null) {
+        _activateParticle(i, _touchPoint!, wow);
+      } else if (o.life == 0) {
+        continue;
+      }
 
       o.vy += 0.2;
       o.vy *= 0.95;
@@ -93,14 +99,16 @@ class Fireworks extends ParticleFX {
         continue;
       }
 
-      double r = (o.life/100 * 0.7 + 0.3) * (8 + (o.z));
+      double r = (o.life / 100 * 0.7 + 0.3) * (8 + (o.z));
       injectVertex(i, xy, o.x - r, o.y - r, o.x + r, o.y + r);
 
       if (o.life < 30 && !o.animate) {
         o.animate = true;
         injectColor(i, colors, 0xFFFFFFFF);
       }
-      if (o.animate) { spriteSheet.injectTexCoords(i, uv, Rnd.getInt(0, frameCount)); }
+      if (o.animate) {
+        spriteSheet.injectTexCoords(i, uv, Rnd.getInt(0, frameCount));
+      }
     }
 
     _touchPoint = null;
