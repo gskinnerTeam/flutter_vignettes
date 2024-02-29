@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'main.dart';
 
 class SunAndMoon extends StatefulWidget {
-  final bool isDragComplete;
+  final bool? isDragComplete;
   final List<String> assetPaths;
   final int index;
 
@@ -21,10 +21,10 @@ class SunAndMoon extends StatefulWidget {
 }
 
 class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _rotationAnimation;
+  late AnimationController _animationController;
+  late Animation _rotationAnimation;
   int _rotationRadius = 300;
-  int _currentIndex;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
     return Opacity(
       opacity: sin(currentAngle) < 0 ? 1 : 0,
       child: RotationTransition(
-        turns: _rotationAnimation,
+        turns: _rotationAnimation as Animation<double>,
         child: Transform.translate(
           offset: Offset(_rotationRadius * cos(radianAngle), _rotationRadius * sin(radianAngle)),
           child: Image.asset(
@@ -82,5 +82,4 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
       ),
     );
   }
-
 }
