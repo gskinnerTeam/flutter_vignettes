@@ -11,16 +11,9 @@ class TravelCardDemo extends StatefulWidget {
 }
 
 class _TravelCardDemoState extends State<TravelCardDemo> {
-  List<City> _cityList;
-  City _currentCity;
-
-  @override
-  void initState() {
-    super.initState();
-    var data = DemoData();
-    _cityList = data.getCities();
-    _currentCity = _cityList[1];
-  }
+  static final data = DemoData();
+  static final _cityList = data.getCities();
+  City _currentCity = _cityList[1];
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +54,11 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
     });
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),
       backgroundColor: Colors.white,
-      brightness: Brightness.light,
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),

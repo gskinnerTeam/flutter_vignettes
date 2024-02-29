@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 //Takes a x,y or z rotation, in degrees, and rotates. Good for spins & 3d flip effects
 class Rotation3d extends StatelessWidget {
   //Degrees to rads constant
-  static const double degrees2Radians = pi/180;
+  static const double degrees2Radians = pi / 180;
 
   final Widget child;
   final double rotationX;
   final double rotationY;
   final double rotationZ;
 
-  const Rotation3d({Key key, @required this.child, this.rotationX=0, this.rotationY=0, this.rotationZ=0}) : super(key: key);
+  const Rotation3d({Key? key, required this.child, this.rotationX = 0, this.rotationY = 0, this.rotationZ = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
