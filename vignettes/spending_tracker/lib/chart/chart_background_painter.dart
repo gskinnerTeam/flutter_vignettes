@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spending_tracker/main.dart';
 
 import 'chart.dart';
 
@@ -47,11 +48,9 @@ class ChartBackgroundPainter extends CustomPainter {
       final textPainter = TextPainter(
         text: TextSpan(
           text: xAxisLabels[i - start.round()],
-          style: TextStyle(
+          style: text1.copyWith(
             color: i == _chart.selectedDataPoint ? Color(0xFFC3C8D9) : Color(0xFFC4C8D9),
-            fontFamily: 'Lato',
             fontWeight: i == _chart.selectedDataPoint ? FontWeight.bold : FontWeight.w200,
-            fontSize: 12,
           ),
         ),
         textAlign: TextAlign.left,

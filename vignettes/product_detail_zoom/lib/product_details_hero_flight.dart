@@ -7,10 +7,15 @@ import 'product_details_transition.dart';
 class ProductDetailsHeroFlight extends StatelessWidget {
   final Animation<double> animation;
   final BuildContext toHeroContext;
-  final double framwWidth;
-  final double framwHeight;
+  final double frameWidth;
+  final double frameHeight;
 
-  const ProductDetailsHeroFlight({Key key, @required this.animation, @required this.toHeroContext, this.framwWidth, this.framwHeight})
+  const ProductDetailsHeroFlight(
+      {Key? key,
+      required this.animation,
+      required this.toHeroContext,
+      required this.frameWidth,
+      required this.frameHeight})
       : super(key: key);
 
   @override
@@ -19,8 +24,8 @@ class ProductDetailsHeroFlight extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: <Widget>[
         Container(
-          width: framwWidth,
-          height: framwHeight,
+          width: frameWidth,
+          height: frameHeight,
           child: AnimatedSprite(
             image: AssetImage("images/speaker_sprite.png", package: App.pkg),
             frameWidth: 360,
@@ -29,11 +34,11 @@ class ProductDetailsHeroFlight extends StatelessWidget {
           ),
         ),
         Container(
-          width: framwWidth,
-          height: framwHeight,
+          width: frameWidth,
+          height: frameHeight,
           child: AnimatedBuilder(
             animation: animation,
-            builder: (BuildContext context, Widget child) {
+            builder: (BuildContext context, Widget? child) {
               return DefaultTextStyle(
                 style: DefaultTextStyle.of(toHeroContext).style,
                 child: ProductDetailsTransition(animationValue: animation.value),
