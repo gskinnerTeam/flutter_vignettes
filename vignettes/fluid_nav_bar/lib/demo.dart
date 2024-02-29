@@ -45,7 +45,8 @@ class _FluidNavBarDemoState extends State {
         switchInCurve: Curves.easeOut,
         switchOutCurve: Curves.easeIn,
         duration: Duration(milliseconds: 500),
-        child: _child,);
+        child: _child,
+      );
     });
   }
 }

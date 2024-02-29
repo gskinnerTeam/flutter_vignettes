@@ -9,7 +9,7 @@ typedef void FluidNavBarChangeCallback(int selectedIndex);
 class FluidNavBar extends StatefulWidget {
   static const double nominalHeight = 56.0;
 
-  final FluidNavBarChangeCallback onChange;
+  final FluidNavBarChangeCallback? onChange;
 
   FluidNavBar({required this.onChange});
 
@@ -104,7 +104,7 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
       FluidFillIcons.user,
       FluidFillIcons.window,
     ];
-    var buttons = List<FluidNavBarButton>(3);
+    var buttons = <FluidNavBarButton>[];
     for (var i = 0; i < 3; ++i) {
       buttons[i] = FluidNavBarButton(icons[i], _selectedIndex == i, () => _handlePressed(i));
     }
@@ -148,7 +148,7 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
     _yController.animateTo(0.0, duration: Duration(milliseconds: 300));
 
     if (widget.onChange != null) {
-      widget.onChange(index);
+      widget.onChange!(index);
     }
   }
 }

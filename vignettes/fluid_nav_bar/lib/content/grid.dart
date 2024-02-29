@@ -19,4 +19,3 @@ class GridContent extends StatelessWidget {
     );
   }
 }
-
