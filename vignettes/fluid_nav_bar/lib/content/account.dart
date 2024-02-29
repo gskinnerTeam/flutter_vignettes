@@ -19,4 +19,3 @@ class AccountContent extends StatelessWidget {
     );
   }
 }
-

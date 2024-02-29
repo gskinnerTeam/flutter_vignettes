@@ -14,7 +14,9 @@ class FluidNavBarButton extends StatefulWidget {
   final FluidNavBarButtonPressedCallback _onPressed;
 
   FluidNavBarButton(FluidFillIconData iconData, bool selected, FluidNavBarButtonPressedCallback onPressed)
-      : _iconData = iconData, _selected = selected, _onPressed = onPressed;
+      : _iconData = iconData,
+        _selected = selected,
+        _onPressed = onPressed;
 
   @override
   State createState() {
@@ -31,24 +33,21 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
   bool _selected;
   FluidNavBarButtonPressedCallback _onPressed;
 
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   _FluidNavBarButtonState(FluidFillIconData iconData, bool selected, FluidNavBarButtonPressedCallback onPressed)
       : _iconData = iconData,
-      _selected = selected,
-      _onPressed = onPressed;
+        _selected = selected,
+        _onPressed = onPressed;
 
   @override
   void initState() {
     _animationController = AnimationController(
-        duration: const Duration(milliseconds: 1666),
-        reverseDuration: const Duration(milliseconds: 833),
-        vsync: this);
+        duration: const Duration(milliseconds: 1666), reverseDuration: const Duration(milliseconds: 833), vsync: this);
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
       ..addListener(() {
-        setState(() {
-        });
+        setState(() {});
       });
     _startAnimation();
 
@@ -69,10 +68,7 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
 
     final progress = LinearPointCurve(0.28, 0.0).transform(_animation.value);
 
-    final offset = Tween<double>(
-        begin: _defaultOffset,
-        end: _activeOffset
-        ).transform(offsetCurve.transform(progress));
+    final offset = Tween<double>(begin: _defaultOffset, end: _activeOffset).transform(offsetCurve.transform(progress));
     final scaleCurveScale = 0.50;
     final scaleY = 0.5 + scaleCurve.transform(progress) * scaleCurveScale + (0.5 - scaleCurveScale / 2);
 
@@ -96,9 +92,9 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
           transform: Matrix4.translationValues(0, -offset, 0),
           // Create a fluid fill icon that get's filled in with a slight delay to the buttons animation
           child: FluidFillIcon(
-              _iconData,
-              LinearPointCurve(0.25, 1.0).transform(_animation.value),
-              scaleY,
+            _iconData,
+            LinearPointCurve(0.25, 1.0).transform(_animation.value),
+            scaleY,
           ),
         ),
       ),
@@ -121,6 +117,4 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
       _animationController.reverse();
     }
   }
-
 }
-

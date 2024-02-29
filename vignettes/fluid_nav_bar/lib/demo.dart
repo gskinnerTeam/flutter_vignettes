@@ -13,13 +13,7 @@ class FluidNavBarDemo extends StatefulWidget {
 }
 
 class _FluidNavBarDemoState extends State {
-  Widget _child;
-
-  @override
-  void initState() {
-    _child = HomeContent();
-    super.initState();
-  }
+  Widget _child = HomeContent();
 
   @override
   Widget build(context) {

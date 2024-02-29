@@ -4,16 +4,14 @@ import './fluid_icon.dart';
 import './fluid_button.dart';
 import './curves.dart';
 
-
 typedef void FluidNavBarChangeCallback(int selectedIndex);
 
 class FluidNavBar extends StatefulWidget {
-
   static const double nominalHeight = 56.0;
 
   final FluidNavBarChangeCallback onChange;
 
-  FluidNavBar({ this.onChange });
+  FluidNavBar({required this.onChange});
 
   @override
   State createState() => _FluidNavBarState();
@@ -22,23 +20,16 @@ class FluidNavBar extends StatefulWidget {
 class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin {
   int _selectedIndex = 0;
 
-  AnimationController _xController;
-  AnimationController _yController;
+  late AnimationController _xController;
+  late AnimationController _yController;
 
   @override
   void initState() {
-    _xController = AnimationController(
-      vsync: this,
-      animationBehavior: AnimationBehavior.preserve
-    );
-    _yController = AnimationController(
-      vsync: this,
-      animationBehavior: AnimationBehavior.preserve
-    );
+    _xController = AnimationController(vsync: this, animationBehavior: AnimationBehavior.preserve);
+    _yController = AnimationController(vsync: this, animationBehavior: AnimationBehavior.preserve);
 
-    Listenable.merge([ _xController, _yController ]).addListener(() {
-      setState(() {
-      });
+    Listenable.merge([_xController, _yController]).addListener(() {
+      setState(() {});
     });
 
     super.initState();
@@ -90,7 +81,6 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
         ],
       ),
     );
-
   }
 
   Widget _buildBackground() {
@@ -136,23 +126,18 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
     final appWidth = MediaQuery.of(context).size.width;
     final buttonsWidth = _getButtonContainerWidth();
     final startX = (appWidth - buttonsWidth) / 2;
-    return startX
-        + index.toDouble() * buttonsWidth / buttonCount
-        + buttonsWidth / (buttonCount * 2.0);
+    return startX + index.toDouble() * buttonsWidth / buttonCount + buttonsWidth / (buttonCount * 2.0);
   }
 
   void _handlePressed(int index) {
-    if (_selectedIndex == index || _xController.isAnimating)
-      return;
+    if (_selectedIndex == index || _xController.isAnimating) return;
 
     setState(() {
       _selectedIndex = index;
     });
 
-
     _yController.value = 1.0;
-    _xController.animateTo(
-        _indexToPosition(index) / MediaQuery.of(context).size.width,
+    _xController.animateTo(_indexToPosition(index) / MediaQuery.of(context).size.width,
         duration: Duration(milliseconds: 620));
     Future.delayed(
       Duration(milliseconds: 500),
@@ -188,35 +173,26 @@ class _BackgroundCurvePainter extends CustomPainter {
   final Color _color;
 
   _BackgroundCurvePainter(double x, double normalizedY, Color color)
-      : _x = x, _normalizedY = normalizedY, _color = color;
+      : _x = x,
+        _normalizedY = normalizedY,
+        _color = color;
 
   @override
   void paint(canvas, size) {
     // Paint two cubic bezier curves using various linear interpolations based off of the `_normalizedY` value
     final norm = LinearPointCurve(0.5, 2.0).transform(_normalizedY) / 2;
 
-    final radius = Tween<double>(
-        begin: _radiusTop,
-        end: _radiusBottom
-      ).transform(norm);
+    final radius = Tween<double>(begin: _radiusTop, end: _radiusBottom).transform(norm);
     // Point colinear to the top edge of the background pane
-    final anchorControlOffset = Tween<double>(
-        begin: radius * _horizontalControlTop,
-        end: radius * _horizontalControlBottom
-      ).transform(LinearPointCurve(0.5, 0.75).transform(norm));
+    final anchorControlOffset =
+        Tween<double>(begin: radius * _horizontalControlTop, end: radius * _horizontalControlBottom)
+            .transform(LinearPointCurve(0.5, 0.75).transform(norm));
     // Point that slides up and down depending on distance for the target x position
-    final dipControlOffset = Tween<double>(
-        begin: radius * _pointControlTop,
-        end: radius * _pointControlBottom
-      ).transform(LinearPointCurve(0.5, 0.8).transform(norm));
-    final y = Tween<double>(
-        begin: _topY,
-        end: _bottomY
-        ).transform(LinearPointCurve(0.2, 0.7).transform(norm));
-    final dist = Tween<double>(
-        begin: _topDistance,
-        end: _bottomDistance
-        ).transform(LinearPointCurve(0.5, 0.0).transform(norm));
+    final dipControlOffset = Tween<double>(begin: radius * _pointControlTop, end: radius * _pointControlBottom)
+        .transform(LinearPointCurve(0.5, 0.8).transform(norm));
+    final y = Tween<double>(begin: _topY, end: _bottomY).transform(LinearPointCurve(0.2, 0.7).transform(norm));
+    final dist =
+        Tween<double>(begin: _topDistance, end: _bottomDistance).transform(LinearPointCurve(0.5, 0.0).transform(norm));
     final x0 = _x - dist / 2;
     final x1 = _x + dist / 2;
 
@@ -230,17 +206,13 @@ class _BackgroundCurvePainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height);
 
-    final paint = Paint()
-        ..color = _color;
+    final paint = Paint()..color = _color;
 
     canvas.drawPath(path, paint);
   }
 
   @override
   bool shouldRepaint(_BackgroundCurvePainter oldPainter) {
-    return _x != oldPainter._x
-        || _normalizedY != oldPainter._normalizedY
-        || _color != oldPainter._color;
+    return _x != oldPainter._x || _normalizedY != oldPainter._normalizedY || _color != oldPainter._color;
   }
 }
-
