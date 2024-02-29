@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'demo_data.dart';
 import 'styles.dart';
@@ -44,37 +43,38 @@ class HotelListRenderer extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            /// Title
             Padding(
               padding: const EdgeInsets.only(bottom: 3),
               child: Text(hotel.name, style: Styles.hotelTitle),
             ),
             Row(
               children: <Widget>[
-                _buildFiveStars(hotel),
+                /// Stars
+                ...List.generate(
+                  hotel.rating.round(),
+                  (index) => Icon(Icons.star, color: Color(0xFFfeda7d), size: 13),
+                ),
+
+                /// Rating
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(hotel.rate.toString(), style: Styles.hotelScore),
+                  child: Text(hotel.rating.toString(), style: Styles.hotelScore),
                 ),
+
+                /// Review count
                 Text('(${hotel.reviews})', style: Styles.hotelData),
               ],
             )
           ],
         ),
+
+        /// Price
         Text(
           '\$${hotel.price.toInt()}',
           style: Styles.hotelPrice,
         )
       ],
-    );
-  }
-
-  Widget _buildFiveStars(HotelData hotel) {
-    List<Widget> stars = [];
-    for (int i = 0; i < hotel.rate.toInt(); i++) {
-      stars.add(Icon(Icons.star, color: Color(0xFFfeda7d), size: 13));
-    }
-    return Row(
-      children: stars,
     );
   }
 }
