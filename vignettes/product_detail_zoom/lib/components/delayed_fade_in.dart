@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DelayedFadeIn extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
   final Duration duration;
   final Duration delay;
 
-  const DelayedFadeIn({Key key, this.child, @required this.delay, this.duration = const Duration(milliseconds: 700)})
+  const DelayedFadeIn({Key? key, this.child, required this.delay, this.duration = const Duration(milliseconds: 700)})
       : super(key: key);
 
   @override
@@ -13,12 +13,11 @@ class DelayedFadeIn extends StatefulWidget {
 }
 
 class _DelayedFadeInState extends State<DelayedFadeIn> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController = AnimationController(vsync: this);
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this);
     _animationController.duration = widget.duration + widget.delay;
     _animationController.forward(from: 0);
   }
@@ -32,6 +31,8 @@ class _DelayedFadeInState extends State<DelayedFadeIn> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-        opacity: CurvedAnimation(curve: Interval(.9, 1), parent: _animationController), child: widget.child);
+      opacity: CurvedAnimation(curve: Interval(.9, 1), parent: _animationController),
+      child: widget.child,
+    );
   }
 }

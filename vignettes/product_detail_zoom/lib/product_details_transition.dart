@@ -11,16 +11,20 @@ class ProductDetailsTransition extends StatelessWidget {
   final TextStyle bodyStyle =
       TextStyle(fontFamily: 'WorkSans', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 2, package: App.pkg);
 
-  ProductDetailsTransition({Key key, this.animationValue = 1})
-      : _curvedAnimation = CurvedAnimation(curve: Interval(0, .8, curve: Curves.easeOut), parent: AlwaysStoppedAnimation(animationValue)),
+  ProductDetailsTransition({Key? key, this.animationValue = 1})
+      : _curvedAnimation = CurvedAnimation(
+          curve: Interval(0, .8, curve: Curves.easeOut),
+          parent: AlwaysStoppedAnimation(animationValue),
+        ),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
-      overflow: Overflow.visible,
+      clipBehavior: Clip.none,
       children: [
+        /// Speak attributes + lines
         Positioned(
           top: 25,
           left: 45,
@@ -48,6 +52,8 @@ class ProductDetailsTransition extends StatelessWidget {
             lineHeight: 185,
           ),
         ),
+
+        /// Bottom Text
         ScaleTransition(
           scale: Tween<double>(begin: .6, end: 1).animate(_curvedAnimation),
           child: SlideTransition(
@@ -57,10 +63,14 @@ class ProductDetailsTransition extends StatelessWidget {
                 child: Transform(
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, 0.01)
-                    ..rotateY(Tween<double>(begin: -.09, end: 0).transform(CurvedAnimation(
-                      curve: Interval(0, .8),
-                      parent: AlwaysStoppedAnimation(animationValue),
-                    ).value)),
+                    ..rotateY(
+                      Tween<double>(begin: -.09, end: 0).transform(
+                        CurvedAnimation(
+                          curve: Interval(0, .8),
+                          parent: AlwaysStoppedAnimation(animationValue),
+                        ).value,
+                      ),
+                    ),
                   child: Container(
                     width: 300,
                     height: 500,
@@ -68,11 +78,13 @@ class ProductDetailsTransition extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text('Perfect Sound'.toUpperCase(),
-                            style: bodyStyle.copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 52, height: .9)),
+                            style: bodyStyle.copyWith(
+                                color: Colors.white, fontWeight: FontWeight.w900, fontSize: 52, height: .9)),
                         Text(
                           'This is our best speaker yet.',
                           textAlign: TextAlign.start,
-                          style: bodyStyle.copyWith(color: Colors.white, height: 1.5, fontWeight: FontWeight.w600, fontSize: 20),
+                          style: bodyStyle.copyWith(
+                              color: Colors.white, height: 1.5, fontWeight: FontWeight.w600, fontSize: 20),
                         ),
                       ],
                     ),
@@ -96,16 +108,18 @@ class ProductDetailsTransition extends StatelessWidget {
 
 class _SpeakerAttribute extends StatelessWidget {
   final double lineHeight;
-  final Animation animation;
+  final Animation<double> animation;
   final String attribute;
 
-  const _SpeakerAttribute({Key key, this.lineHeight = 150, this.attribute, this.animation}) : super(key: key);
+  const _SpeakerAttribute({Key? key, this.lineHeight = 150, required this.attribute, required this.animation})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double lineHeight = Tween<double>(begin: 0, end: this.lineHeight).transform(Curves.easeInOutQuad.transform(animation.value));
+    double lineHeight =
+        Tween<double>(begin: 0, end: this.lineHeight).transform(Curves.easeInOutQuad.transform(animation.value));
     return Stack(
-      overflow: Overflow.visible,
+      clipBehavior: Clip.none,
       children: <Widget>[
         SlideTransition(
           position: Tween<Offset>(begin: Offset(0, -.5), end: Offset.zero).animate(_getAnimationWithInterval(.2, 1)),
@@ -113,7 +127,8 @@ class _SpeakerAttribute extends StatelessWidget {
             opacity: _getAnimationWithInterval(.15, .95),
             child: Text(
               attribute,
-              style: TextStyle(fontFamily: 'WorkSans', letterSpacing: 3, color: Colors.white, fontSize: 13.5, package: App.pkg),
+              style: TextStyle(
+                  fontFamily: 'WorkSans', letterSpacing: 3, color: Colors.white, fontSize: 13.5, package: App.pkg),
             ),
           ),
         ),
