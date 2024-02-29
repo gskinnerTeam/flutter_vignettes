@@ -57,7 +57,8 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
     double offset = openTicketsOffset + closedTicketsOffset - (Ticket.nominalClosedHeight * .5);
 
     // Scroll to the clicked element
-    _scrollController.animateTo(max(0, offset), duration: Duration(seconds: 1), curve: Interval(.25, 1, curve: Curves.easeOutQuad));
+    _scrollController.animateTo(max(0, offset),
+        duration: Duration(seconds: 1), curve: Interval(.25, 1, curve: Curves.easeOutQuad));
     // Return true to stop the notification propagation
     return true;
   }
@@ -67,7 +68,7 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
     return _openTickets.where((int index) => index < ticketIndex).length;
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     Color appBarIconsColor = Color(0xFF212121);
     return AppBar(
       leading: Icon(Icons.arrow_back, color: appBarIconsColor),
@@ -77,7 +78,6 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
           child: Icon(Icons.more_horiz, color: appBarIconsColor, size: 28),
         )
       ],
-      brightness: Brightness.light,
       backgroundColor: _backgroundColor,
       elevation: 0,
       title: Container(
@@ -85,8 +85,13 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
         alignment: Alignment.center,
         child: Text('Boarding Passes'.toUpperCase(),
             textAlign: TextAlign.center,
-            style:
-                TextStyle(fontSize: 15, letterSpacing: 0.5, color: appBarIconsColor, fontFamily: 'OpenSans', fontWeight: FontWeight.bold, package: App.pkg)),
+            style: TextStyle(
+                fontSize: 15,
+                letterSpacing: 0.5,
+                color: appBarIconsColor,
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                package: App.pkg)),
       ),
     );
   }
