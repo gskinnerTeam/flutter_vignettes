@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:spending_tracker/main.dart';
 
 import 'chart/chart.dart';
 import 'components/text_transition.dart';
-import 'app_colors.dart';
 
 class SpendingDateRange extends StatelessWidget {
   static const int startYear = 2018;
 
   final Chart chart;
 
-  SpendingDateRange({this.chart});
+  SpendingDateRange({required this.chart});
 
   @override
   Widget build(context) {
@@ -38,19 +38,8 @@ class SpendingDateRange extends StatelessWidget {
     final endYearOffset = end ~/ 12;
     final endMonth = monthNames[end % 12];
 
-    final titleStyle = TextStyle(
-      color: AppColors.colorText2,
-      fontFamily: 'Lato',
-      fontWeight: FontWeight.w200,
-      fontSize: 13,
-    );
-
-    final dateStyle = TextStyle(
-      color: AppColors.colorText1,
-      fontFamily: 'Lato',
-      fontWeight: FontWeight.w200,
-      fontSize: 14,
-    );
+    final titleStyle = text2.copyWith(fontSize: 13);
+    final dateStyle = text1.copyWith(fontSize: 14);
 
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
