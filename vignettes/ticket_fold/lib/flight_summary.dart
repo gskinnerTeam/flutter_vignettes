@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'demo_data.dart';
 import 'main.dart';
@@ -11,30 +10,16 @@ class FlightSummary extends StatelessWidget {
   final SummaryTheme theme;
   final bool isOpen;
 
-  const FlightSummary({Key key, this.boardingPass, this.theme = SummaryTheme.light, this.isOpen = false}) : super(key: key);
+  const FlightSummary({Key? key, required this.boardingPass, this.theme = SummaryTheme.light, this.isOpen = false})
+      : super(key: key);
 
-  Color get mainTextColor {
-    Color textColor;
-    if (theme == SummaryTheme.dark) textColor = Colors.white;
-    if (theme == SummaryTheme.light) textColor = Color(0xFF083e64);
-    return textColor;
-  }
-
-  Color get secondaryTextColor {
-    Color textColor;
-    if (theme == SummaryTheme.dark) textColor = Color(0xff61849c);
-    if (theme == SummaryTheme.light) textColor = Color(0xFF838383);
-    return textColor;
-  }
-
-  Color get separatorColor {
-    Color color;
-    if (theme == SummaryTheme.light) color = Color(0xffeaeaea);
-    if (theme == SummaryTheme.dark) color = Color(0xff396583);
-    return color;
-  }
+  Color get mainTextColor => (theme == SummaryTheme.dark) ? Colors.white : Color(0xFF083e64);
+  Color get secondaryTextColor => (theme == SummaryTheme.dark) ? Color(0xff61849c) : Color(0xFF838383);
+  Color get separatorColor => (theme == SummaryTheme.dark) ? Color(0xffeaeaea) : Color(0xff396583);
 
   TextStyle get bodyTextStyle => TextStyle(color: mainTextColor, fontSize: 13, fontFamily: 'Oswald', package: App.pkg);
+
+  bool get isLight => theme == SummaryTheme.light;
 
   @override
   Widget build(BuildContext context) {
@@ -68,20 +53,19 @@ class FlightSummary extends StatelessWidget {
   }
 
   _getBackgroundDecoration() {
-    if (theme == SummaryTheme.light)
-      return BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: Colors.white,
-      );
-    if (theme == SummaryTheme.dark)
-      return BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        image: DecorationImage(image: AssetImage('images/bg_blue.png', package: App.pkg), fit: BoxFit.cover),
-      );
+    return isLight
+        ? BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: Colors.white,
+          )
+        : BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            image: DecorationImage(image: AssetImage('images/bg_blue.png', package: App.pkg), fit: BoxFit.cover),
+          );
   }
 
   _buildLogoHeader() {
-    if (theme == SummaryTheme.light)
+    if (isLight) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -99,11 +83,12 @@ class FlightSummary extends StatelessWidget {
                   package: App.pkg))
         ],
       );
-    if (theme == SummaryTheme.dark)
+    } else {
       return Padding(
         padding: const EdgeInsets.only(top: 2.0),
         child: Image.asset('images/logo_white.png', height: 12, package: App.pkg),
       );
+    }
   }
 
   Widget _buildSeparationLine() {
@@ -115,8 +100,8 @@ class FlightSummary extends StatelessWidget {
   }
 
   Widget _buildTicketHeader(context) {
-    var headerStyle =
-        TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFFe46565), package: App.pkg);
+    var headerStyle = TextStyle(
+        fontFamily: 'OpenSans', fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFFe46565), package: App.pkg);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -139,10 +124,8 @@ class FlightSummary extends StatelessWidget {
   }
 
   Widget _buildTicketDuration() {
-    String planeRoutePath;
-    if (theme == SummaryTheme.light) planeRoutePath = 'images/planeroute_blue.png';
-    if (theme == SummaryTheme.dark) planeRoutePath = 'images/planeroute_white.png';
-
+    String routeType = isLight ? 'blue' : 'white';
+    final planeImage = Image.asset('images/airplane_$routeType.png', height: 20, fit: BoxFit.contain, package: App.pkg);
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,13 +137,8 @@ class FlightSummary extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Image.asset(planeRoutePath, fit: BoxFit.cover, package: App.pkg),
-                if (theme == SummaryTheme.light) Image.asset('images/airplane_blue.png', height: 20, fit: BoxFit.contain, package: App.pkg),
-                if (theme == SummaryTheme.dark)
-                  _AnimatedSlideToRight(
-                    child: Image.asset('images/airplane_white.png', height: 20, fit: BoxFit.contain, package: App.pkg),
-                    isOpen: isOpen,
-                  )
+                Image.asset('images/planeroute_$routeType.png', fit: BoxFit.cover, package: App.pkg),
+                isLight ? planeImage : _AnimatedSlideToRight(child: planeImage, isOpen: isOpen)
               ],
             ),
           ),
@@ -187,9 +165,7 @@ class FlightSummary extends StatelessWidget {
   }
 
   Widget _buildBottomIcon() {
-    IconData icon;
-    if (theme == SummaryTheme.light) icon = Icons.keyboard_arrow_down;
-    if (theme == SummaryTheme.dark) icon = Icons.keyboard_arrow_up;
+    IconData icon = isLight ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up;
     return Icon(
       icon,
       color: mainTextColor,
@@ -202,20 +178,14 @@ class _AnimatedSlideToRight extends StatefulWidget {
   final Widget child;
   final bool isOpen;
 
-  const _AnimatedSlideToRight({Key key, this.child, @required this.isOpen}) : super(key: key);
+  const _AnimatedSlideToRight({Key? key, required this.child, required this.isOpen}) : super(key: key);
 
   @override
   _AnimatedSlideToRightState createState() => _AnimatedSlideToRightState();
 }
 
 class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1700));
-  }
+  late AnimationController _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1700));
 
   @override
   void dispose() {
@@ -227,7 +197,9 @@ class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight> with Singl
   Widget build(BuildContext context) {
     if (widget.isOpen) _controller.forward(from: 0);
     return SlideTransition(
-      position: Tween(begin: Offset(-2, 0), end: Offset(1, 0)).animate(CurvedAnimation(curve: Curves.easeOutQuad, parent: _controller)),
+      position: Tween(begin: Offset(-2, 0), end: Offset(1, 0)).animate(
+        CurvedAnimation(curve: Curves.easeOutQuad, parent: _controller),
+      ),
       child: widget.child,
     );
   }

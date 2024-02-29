@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spending_tracker/main.dart';
 
 import 'interact_notification.dart';
-import 'components/scaling_info.dart';
 import 'chart/chart.dart';
 import 'chart/chart_painter.dart';
 import 'chart/chart_background_painter.dart';
@@ -10,22 +10,23 @@ import 'globals.dart';
 class SpendingGraph extends StatefulWidget {
   final Chart chart;
 
-  SpendingGraph({this.chart});
+  SpendingGraph({required this.chart});
 
   @override
   State createState() => _SpendingGraphState();
 }
 
 class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  double _startRange;
+  late AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: Duration(milliseconds: 600),
+    value: 1.0,
+  );
+  double _startRange = 0;
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 600), value: 1.0);
-    _controller.addListener(() {
-      setState(() {});
-    });
+    _controller.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -37,17 +38,8 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
 
   @override
   Widget build(context) {
-    final textStyle = TextStyle(
-      color: Color(0xFFC4C8D9),
-      fontSize: 12,
-      fontFamily: 'Lato',
-      fontWeight: FontWeight.w200,
-    );
-    final labelStyle = TextStyle(
-      color: Color(0xFFDCE2F5),
-      fontFamily: 'Lato',
-      fontSize: 10,
-    );
+    final textStyle = text1.copyWith(color: Color(0xFFC4C8D9));
+    final labelStyle = text1.copyWith(color: Color(0xFFDCE2F5), fontSize: 10);
     final List<String> yAxisLabels = [
       '\$8k',
       '\$6k',
@@ -55,15 +47,15 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
       '\$2k',
       '0',
     ];
-    String label0Text, label1Text;
-    double label0Y, label1Y;
+    String? label0Text = '', label1Text = '';
+    double label0Y = 0, label1Y = 0;
     if (widget.chart.selectedDataPoint != -1) {
       label0Text =
           numberToPriceString((widget.chart.dataSets[0].values[widget.chart.selectedDataPoint] * 1000).round());
       label1Text =
           numberToPriceString((widget.chart.dataSets[1].values[widget.chart.selectedDataPoint] * 1000).round());
-      label0Y = 150 * ScalingInfo.scaleY * (1.0 - widget.chart.selectedY(0)) + 10;
-      label1Y = 150 * ScalingInfo.scaleY * (1.0 - widget.chart.selectedY(1)) + 10;
+      label0Y = 150 * appScale * (1.0 - widget.chart.selectedY(0)) + 10;
+      label1Y = 150 * appScale * (1.0 - widget.chart.selectedY(1)) + 10;
       // Resolve label intersection
       final d = label1Y - label0Y;
       if (d.abs() < 12) {
@@ -85,14 +77,15 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
       onScaleUpdate: _handleZoom,
       onScaleEnd: (_) => _handleEndInteract(context),
       child: Container(
-        //width: 320 * ScalingInfo.scaleX,
-        height: 160 * ScalingInfo.scaleY,
+        //width: 320 * appScaleX,
+        height: 160 * appScale,
         child: Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: [
+            /// Chart background
             Container(
               width: appSize.width,
-              height: 150 * ScalingInfo.scaleY,
+              height: 150 * appScale,
               child: CustomPaint(
                   painter: ChartBackgroundPainter(widget.chart),
                   foregroundPainter: ChartPainter(
@@ -112,22 +105,28 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
                     ],
                   )),
             ),
+
+            /// yAxis labels - left
             Positioned(
               left: 4,
-              height: 150 * ScalingInfo.scaleY,
+              height: 150 * appScale,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: yAxisLabels.map((label) => Text(label, style: textStyle)).toList(),
               ),
             ),
+
+            /// yAxis labels - right
             Positioned(
               left: appSize.width - 24,
-              height: 150 * ScalingInfo.scaleY,
+              height: 150 * appScale,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: yAxisLabels.map((label) => Text(label, style: textStyle)).toList(),
               ),
             ),
+
+            /// Selected data pt labels
             if (widget.chart.selectedDataPoint != -1) ...{
               _buildLabel(appSize, label0Text, labelStyle, label0Y),
               _buildLabel(appSize, label1Text, labelStyle, label1Y),
@@ -193,7 +192,7 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
   }
 
   void _handleDrag(DragUpdateDetails details) {
-    final d = -details.primaryDelta / 200 * (widget.chart.domainEnd - widget.chart.domainStart);
+    final d = -(details.primaryDelta ?? 0) / 200 * (widget.chart.domainEnd - widget.chart.domainStart);
     if (widget.chart.domainStart + d < 0 || widget.chart.domainEnd + d >= widget.chart.maxDomain) return;
     if (d < 0) {
       widget.chart.domainStart += d;
@@ -202,6 +201,5 @@ class _SpendingGraphState extends State<SpendingGraph> with SingleTickerProvider
       widget.chart.domainEnd += d;
       widget.chart.domainStart += d;
     }
-    _controller.reverse();
   }
 }

@@ -11,31 +11,26 @@ class Ticket extends StatefulWidget {
   static const double nominalOpenHeight = 400;
   static const double nominalClosedHeight = 160;
   final BoardingPassData boardingPass;
-  final Function onClick;
+  final VoidCallback? onClick;
 
-  const Ticket({Key key, @required this.boardingPass, @required this.onClick}) : super(key: key);
+  const Ticket({Key? key, required this.boardingPass, required this.onClick}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _TicketState();
 }
 
 class _TicketState extends State<Ticket> {
-  FlightSummary frontCard;
-  FlightSummary topCard;
-  FlightDetails middleCard;
-  FlightBarcode bottomCard;
-  bool _isOpen;
+  FlightSummary? topCard;
+  late FlightSummary frontCard = FlightSummary(boardingPass: widget.boardingPass);
+  late FlightDetails middleCard = FlightDetails(widget.boardingPass);
+  FlightBarcode bottomCard = FlightBarcode();
+  bool _isOpen = false;
 
-  Widget get backCard =>
-      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: Color(0xffdce6ef)));
-
-  @override
-  void initState() {
-    super.initState();
-    _isOpen = false;
-    frontCard = FlightSummary(boardingPass: widget.boardingPass);
-    middleCard = FlightDetails(widget.boardingPass);
-    bottomCard = FlightBarcode();
-  }
+  Widget get backCard => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: Color(0xffdce6ef),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +46,7 @@ class _TicketState extends State<Ticket> {
   }
 
   void _handleOnTap() {
-    widget.onClick();
+    widget.onClick?.call();
     setState(() {
       _isOpen = !_isOpen;
       topCard = FlightSummary(boardingPass: widget.boardingPass, theme: SummaryTheme.dark, isOpen: _isOpen);

@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-
-import 'scaling_info.dart';
+import 'package:spending_tracker/main.dart';
 
 class SpendingCategoryChartPainter extends CustomPainter {
   final double percent;
@@ -16,7 +15,7 @@ class SpendingCategoryChartPainter extends CustomPainter {
     final paint = Paint();
     paint.color = Color(0xFF5B668C);
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 5 * ScalingInfo.scaleY;
+    paint.strokeWidth = 5 * appScale;
     paint.strokeCap = StrokeCap.square;
 
     canvas.drawArc(Rect.fromLTWH(0, 0, size.width, size.height), 0, math.pi * 2, false, paint);

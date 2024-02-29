@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:product_detail_zoom/product_details_hero_flight.dart';
 import 'package:shared/ui/sprite.dart';
 
-import 'components/circle_painter.dart';
 import 'components/fade_color_page_route.dart';
 import 'details.dart';
 import 'main.dart';
@@ -16,27 +15,27 @@ class ProductDetailZoomDemo extends StatefulWidget {
 }
 
 class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with SingleTickerProviderStateMixin {
-  AnimationController _transitionAnimController;
-  bool _isFirstInit;
-  Size _screenSize;
-  double _frameHeight;
-  double _frameWidth;
+  late AnimationController _transitionAnimController =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 1200));
+  Size _screenSize = Size(200, 200);
+  double _frameHeight = 200;
+  double _frameWidth = 200;
   double _buttonAlpha = 0;
 
-  TextStyle bodyStyle = TextStyle(fontFamily: 'WorkSans', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 2, package: App.pkg);
+  TextStyle bodyStyle = TextStyle(
+    fontFamily: 'WorkSans',
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    letterSpacing: 2,
+    package: App.pkg,
+  );
 
   @override
   void initState() {
     super.initState();
-    _isFirstInit = true;
-    _buttonAlpha = 0;
-    _transitionAnimController = AnimationController(vsync: this, duration: Duration(milliseconds: 1600));
-    _transitionIn();
-  }
-
-  void _transitionIn() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    setState(() => _buttonAlpha = 1);
+    Future.delayed(Duration(milliseconds: 1000)).then((value) {
+      setState(() => _buttonAlpha = 1);
+    });
   }
 
   @override
@@ -64,8 +63,8 @@ class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with Sing
               return ProductDetailsHeroFlight(
                 animation: animation,
                 toHeroContext: toHeroContext,
-                framwWidth: _frameWidth,
-                framwHeight: _frameHeight,
+                frameWidth: _frameWidth,
+                frameHeight: _frameHeight,
               );
             },
             //The child of the hero, is the main speaker animation
@@ -75,7 +74,10 @@ class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with Sing
                   width: _frameWidth,
                   height: _frameHeight,
                   child: Sprite(
-                      image: AssetImage("images/speaker_sprite.png", package: App.pkg), frameWidth: 360, frameHeight: 500, frame: 1)),
+                      image: AssetImage("images/speaker_sprite.png", package: App.pkg),
+                      frameWidth: 360,
+                      frameHeight: 500,
+                      frame: 1)),
             ),
           ),
           Align(
@@ -139,14 +141,18 @@ class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with Sing
           .animate(CurvedAnimation(curve: Interval(.5, 1, curve: Curves.easeOut), parent: _transitionAnimController)),
       child: Column(
         children: <Widget>[
-          Text('Classic Speaker 2700'.toUpperCase(),
-              textAlign: TextAlign.justify,
-              style: bodyStyle.copyWith(fontWeight: FontWeight.w900, color: Colors.white, height: 1.1, fontSize: 30, letterSpacing: 5)),
+          Text(
+            'Classic Speaker 2700'.toUpperCase(),
+            textAlign: TextAlign.justify,
+            style: bodyStyle.copyWith(
+                fontWeight: FontWeight.w900, color: Colors.white, height: 1.1, fontSize: 30, letterSpacing: 5),
+          ),
           SizedBox(height: 8),
           Text(
-              'This speaker provides a home soundscape unlike any other with its high quality sound and sleek design. You won\'t believe it until you hear it.',
-              textAlign: TextAlign.start,
-              style: bodyStyle.copyWith(color: Colors.white, fontSize: 12, letterSpacing: 2.8, height: 1.3))
+            'This speaker provides a home soundscape unlike any other with its high quality sound and sleek design. You won\'t believe it until you hear it.',
+            textAlign: TextAlign.start,
+            style: bodyStyle.copyWith(color: Colors.white, fontSize: 12, letterSpacing: 2.8, height: 1.3),
+          )
         ],
       ),
     );
@@ -172,7 +178,8 @@ class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with Sing
       onPressed: () {},
       color: Colors.transparent,
       textColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50), side: BorderSide(color: Colors.white, width: 1.5)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50), side: BorderSide(color: Colors.white, width: 1.5)),
       child: Text(
         'Learn More'.toUpperCase(),
         style: bodyStyle,
@@ -194,10 +201,7 @@ class _ProductDetailZoomDemoState extends State<ProductDetailZoomDemo> with Sing
     );
   }
 
-  bool _isTransitioning = false;
-
   void _handleOnPressed() async {
-    this._isFirstInit = false;
     //Don't accept button presses if we're currently fading the btn in or out
     if (_buttonAlpha < 1) return;
     //Fade button out
