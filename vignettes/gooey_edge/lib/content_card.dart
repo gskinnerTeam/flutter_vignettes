@@ -11,14 +11,14 @@ class ContentCard extends StatefulWidget {
   final String title;
   final String subtitle;
 
-  ContentCard({this.color, this.title = "", this.subtitle, this.altColor}) : super();
+  ContentCard({required this.color, this.title = "", required this.subtitle, required this.altColor}) : super();
 
   @override
   _ContentCardState createState() => _ContentCardState();
 }
 
 class _ContentCardState extends State<ContentCard> {
-  Ticker _ticker;
+  late Ticker _ticker;
 
   @override
   void initState() {
@@ -64,7 +64,8 @@ class _ContentCardState extends State<ContentCard> {
                   flex: 3,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Image.asset('images/Illustration-${widget.color}.png', fit: BoxFit.contain, package: App.pkg),
+                    child:
+                        Image.asset('images/Illustration-${widget.color}.png', fit: BoxFit.contain, package: App.pkg),
                   ),
                 ),
 
@@ -94,10 +95,16 @@ class _ContentCardState extends State<ContentCard> {
       children: <Widget>[
         Text(widget.title,
             textAlign: TextAlign.center,
-            style: TextStyle(height: 1.2, fontSize: 30.0, fontFamily: 'DMSerifDisplay', color: Colors.white, package: App.pkg)),
+            style: TextStyle(
+                height: 1.2, fontSize: 30.0, fontFamily: 'DMSerifDisplay', color: Colors.white, package: App.pkg)),
         Text(widget.subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w300, fontFamily: 'OpenSans', color: Colors.white, package: App.pkg)),
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w300,
+                fontFamily: 'OpenSans',
+                color: Colors.white,
+                package: App.pkg)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 36.0),
           child: MaterialButton(
@@ -106,16 +113,14 @@ class _ContentCardState extends State<ContentCard> {
             color: widget.altColor,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Text(
-                'Get Started',
-                style: TextStyle(
-                    fontSize: 16,
-                    letterSpacing: .8,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    package: App.pkg)
-              ),
+              child: Text('Get Started',
+                  style: TextStyle(
+                      fontSize: 16,
+                      letterSpacing: .8,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      package: App.pkg)),
             ),
             onPressed: () {},
           ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'side.dart';
 
 class GooeyEdge {
-  List<_GooeyPoint> points;
+  List<_GooeyPoint> points = [];
   Side side;
   double edgeTension = 0.01;
   double farEdgeTension = 0.0;
@@ -17,7 +17,6 @@ class GooeyEdge {
   FractionalOffset touchOffset;
 
   GooeyEdge({count=10, this.side=Side.left}) {
-    points = [];
     for (int i=0; i<count; i++) {
       points.add(_GooeyPoint(0.0, i/(count-1)));
     }

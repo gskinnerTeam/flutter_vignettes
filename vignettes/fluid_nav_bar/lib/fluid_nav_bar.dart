@@ -106,7 +106,7 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
     ];
     var buttons = <FluidNavBarButton>[];
     for (var i = 0; i < 3; ++i) {
-      buttons[i] = FluidNavBarButton(icons[i], _selectedIndex == i, () => _handlePressed(i));
+      buttons.add(FluidNavBarButton(icons[i], _selectedIndex == i, () => _handlePressed(i)));
     }
     return buttons;
   }
