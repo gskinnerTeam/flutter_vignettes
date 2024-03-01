@@ -14,15 +14,15 @@ class NavbarButton extends StatefulWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const NavbarButton(this.data, this.isSelected, {@required this.onTap });
+  const NavbarButton(this.data, this.isSelected, {required this.onTap });
 
   @override
   _NavbarButtonState createState() => _NavbarButtonState();
 }
 
 class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderStateMixin {
-  AnimationController _iconAnimController;
-  bool _wasSelected;
+  late AnimationController _iconAnimController;
+  bool _wasSelected = false;
   double _animScale = 1;
 
   @override
