@@ -44,7 +44,7 @@ class GooeyEdge {
   }
 
   Path buildPath(Size size, {double margin = 0.0}) {
-    if (points.length == 0) {
+    if (points.isEmpty) {
       return Path();
     }
 
@@ -79,7 +79,7 @@ class GooeyEdge {
   }
 
   void tick(Duration duration) {
-    if (points.length == 0) {
+    if (points.isEmpty) {
       return;
     }
     int l = points.length;

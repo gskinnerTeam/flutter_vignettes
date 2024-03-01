@@ -147,9 +147,7 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
     );
     _yController.animateTo(0.0, duration: Duration(milliseconds: 300));
 
-    if (widget.onChange != null) {
-      widget.onChange!(index);
-    }
+    widget.onChange?.call(index);
   }
 }
 

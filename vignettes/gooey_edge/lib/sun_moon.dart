@@ -22,7 +22,7 @@ class SunAndMoon extends StatefulWidget {
 
 class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation _rotationAnimation;
+  late Animation<double> _rotationAnimation;
   int _rotationRadius = 300;
   int _currentIndex = 0;
 
@@ -69,7 +69,7 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
     return Opacity(
       opacity: sin(currentAngle) < 0 ? 1 : 0,
       child: RotationTransition(
-        turns: _rotationAnimation as Animation<double>,
+        turns: _rotationAnimation,
         child: Transform.translate(
           offset: Offset(_rotationRadius * cos(radianAngle), _rotationRadius * sin(radianAngle)),
           child: Image.asset(

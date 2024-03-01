@@ -63,7 +63,6 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
                     clipper: GooeyEdgeClipper(_edge, margin: 10.0),
                   ),
             SunAndMoon(
-              //TODO: check this one. is ?? 0 ok?
               index: _dragIndex ?? 0,
               isDragComplete: _dragCompleted,
             )
@@ -72,8 +71,7 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
   }
 
   Size _getSize() {
-    final RenderBox? box = _key.currentContext?.findRenderObject() as RenderBox;
-    //TODO: is Size.zero safe? I could not think of any better default
+    final RenderBox? box = _key.currentContext?.findRenderObject() as RenderBox?;
     return box?.size ?? Size.zero;
   }
 
