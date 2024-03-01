@@ -4,7 +4,7 @@ description: Example of a custom nav bar that changes the size of it's buttons w
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <=3.3.0"
 
 dependencies:
   flutter:
@@ -13,8 +13,8 @@ dependencies:
   shared:
     path: ../_shared/
 
-  cupertino_icons: ^0.1.2
-  outline_material_icons: ^0.1.0
+  cupertino_icons: ^1.0.6
+  outline_material_icons: ^1.0.0
 
 flutter:
 
