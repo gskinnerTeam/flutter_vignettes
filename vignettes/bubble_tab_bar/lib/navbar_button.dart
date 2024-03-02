@@ -1,11 +1,11 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:shared/ui/rotation_3d.dart';
 
 import 'clipped_view.dart';
 import 'main.dart';
 import 'navbar.dart';
-import 'rotation_3d.dart';
 
 // Handle the transition between selected and de-deselected, by animating it's own width,
 // and modifying the color/visibility of some child widgets
@@ -14,7 +14,7 @@ class NavbarButton extends StatefulWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const NavbarButton(this.data, this.isSelected, {required this.onTap });
+  const NavbarButton(this.data, this.isSelected, {required this.onTap});
 
   @override
   _NavbarButtonState createState() => _NavbarButtonState();
@@ -22,7 +22,7 @@ class NavbarButton extends StatefulWidget {
 
 class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderStateMixin {
   late AnimationController _iconAnimController;
-  bool _wasSelected = false;
+  late bool _wasSelected = widget.isSelected;
   double _animScale = 1;
 
   @override
