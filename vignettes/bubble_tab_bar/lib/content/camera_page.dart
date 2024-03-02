@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CameraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     double fabSize = 90;
     //Main list content
     return Container(
@@ -31,5 +30,4 @@ class CameraPage extends StatelessWidget {
       ),
     );
   }
-
 }

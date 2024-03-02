@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared/ui/placeholder/placeholder_card_tall.dart';
 
 class HomeContent extends StatelessWidget {
-
   @override
   Widget build(context) {
     return Container(
@@ -20,4 +19,3 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
-

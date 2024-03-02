@@ -8,7 +8,6 @@ import './fluid_icon_data.dart';
 export './fluid_icon_data.dart';
 
 class FluidFillIcon extends StatelessWidget {
-
   static const double iconDataScale = 0.9;
 
   final FluidFillIconData _iconData;
@@ -19,40 +18,43 @@ class FluidFillIcon extends StatelessWidget {
   final double _scaleY;
 
   FluidFillIcon(FluidFillIconData iconData, double fillAmount, double scaleY)
-      : _iconData = iconData, _fillAmount = fillAmount, _scaleY = scaleY;
+      : _iconData = iconData,
+        _fillAmount = fillAmount,
+        _scaleY = scaleY;
 
   @override
   Widget build(context) {
     return CustomPaint(
-        painter: _FluidFillIconPainter(_iconData.paths, _fillAmount, _scaleY),
+      painter: _FluidFillIconPainter(_iconData.paths, _fillAmount, _scaleY),
     );
   }
 }
 
 class _FluidFillIconPainter extends CustomPainter {
-
   List<ui.Path> _paths;
   double _fillAmount;
   double _scaleY;
 
   _FluidFillIconPainter(List<ui.Path> paths, double fillAmount, double scaleY)
-      : _paths = paths, _fillAmount = fillAmount, _scaleY = scaleY;
+      : _paths = paths,
+        _fillAmount = fillAmount,
+        _scaleY = scaleY;
 
   @override
   void paint(canvas, size) {
     final paintBackground = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.4
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..color = Colors.grey;
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.4
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = Colors.grey;
 
     final paintForeground = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.4
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..color = Colors.black;
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.4
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = Colors.black;
 
     // Scale around (0, height / 2)
     canvas.translate(0.0, size.height / 2);
@@ -79,4 +81,3 @@ class _FluidFillIconPainter extends CustomPainter {
     return _fillAmount != oldWidget._fillAmount;
   }
 }
-

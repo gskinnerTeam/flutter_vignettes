@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/animation.dart';
 
 class CenteredElasticOutCurve extends Curve {
-
   final double period;
 
   CenteredElasticOutCurve([this.period = 0.4]);
@@ -16,7 +15,6 @@ class CenteredElasticOutCurve extends Curve {
 }
 
 class CenteredElasticInCurve extends Curve {
-
   final double period;
 
   CenteredElasticInCurve([this.period = 0.4]);
@@ -42,5 +40,4 @@ class LinearPointCurve extends Curve {
     final upperOffset = 1.0 - upperScale;
     return x < pIn ? x * lowerScale : x * upperScale + upperOffset;
   }
-
 }

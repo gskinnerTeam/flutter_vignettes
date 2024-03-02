@@ -13,13 +13,7 @@ class FluidNavBarDemo extends StatefulWidget {
 }
 
 class _FluidNavBarDemoState extends State {
-  Widget _child;
-
-  @override
-  void initState() {
-    _child = HomeContent();
-    super.initState();
-  }
+  Widget _child = HomeContent();
 
   @override
   Widget build(context) {
@@ -51,7 +45,8 @@ class _FluidNavBarDemoState extends State {
         switchInCurve: Curves.easeOut,
         switchOutCurve: Curves.easeIn,
         duration: Duration(milliseconds: 500),
-        child: _child,);
+        child: _child,
+      );
     });
   }
 }
