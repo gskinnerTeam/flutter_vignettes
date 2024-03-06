@@ -1,9 +1,19 @@
+import 'package:flutter/cupertino.dart';
+
 mixin FormMixin {
+  @protected
   Map<String, bool> validInputsMap = {};
+
+  @protected
   double formCompletion = 0;
+
+  @protected
   bool isFormErrorVisible = false;
 
-  void onItemValidate(String name, bool isValid, {String value});
+  @protected
+  void onItemValidate(String name, String value, bool isValid);
+
+  @protected
   void onItemChange(String name, String value);
 
   int countValidItems() {

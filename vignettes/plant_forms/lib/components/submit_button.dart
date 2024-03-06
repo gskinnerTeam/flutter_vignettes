@@ -5,14 +5,14 @@ import '../styles.dart';
 class SubmitButton extends StatelessWidget {
   final double percentage;
   final Widget child;
-  final Function onPressed;
+  final VoidCallback? onPressed;
   final bool isErrorVisible;
   final EdgeInsets padding;
 
   const SubmitButton({
-    Key key,
-    @required this.onPressed,
-    @required this.child,
+    Key? key,
+    required this.onPressed,
+    required this.child,
     this.percentage = 1,
     this.isErrorVisible = false,
     this.padding = const EdgeInsets.all(0),

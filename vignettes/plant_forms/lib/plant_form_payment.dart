@@ -14,18 +14,18 @@ import 'components/submit_button.dart';
 import 'form_inputs/text_input.dart';
 
 class PlantFormPayment extends StatefulWidget {
-  final double pageSize;
+  final double? pageSize;
 
-  const PlantFormPayment({Key key, this.pageSize}) : super(key: key);
+  const PlantFormPayment({Key? key, this.pageSize}) : super(key: key);
   @override
   _PlantFormPaymentState createState() => _PlantFormPaymentState();
 }
 
 class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   final _formKey = GlobalKey<FormState>();
-  CreditCardNetwork _cardNetwork;
+  CreditCardNetwork? _cardNetwork;
 
-  SharedFormState sharedState;
+  late SharedFormState sharedState;
   Map<String, String> get values => sharedState.valuesByName;
 
   @override
@@ -83,14 +83,14 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
           ],
         ),
         FormSectionTitle('Shipping Notifications'),
-        CheckBoxInput(label: 'Send shipping updates via email'),
+        CheckBoxInput(label: 'Send shipping updates via email', onChange: (_) {}),
         _buildSubmitButton()
       ],
     );
   }
 
   @override
-  void onItemValidate(String key, bool isValid, {String value}) {
+  void onItemValidate(String key, String value, bool isValid) {
     validInputsMap[key] = isValid;
     values[key] = value;
 
@@ -112,7 +112,7 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(constraints: BoxConstraints(minWidth: 85), child: Text('Contact', style: Styles.orderLabel)),
-          Text(values[FormKeys.email], overflow: TextOverflow.clip, style: Styles.orderPrice),
+          Text(values[FormKeys.email] ?? '', overflow: TextOverflow.clip, style: Styles.orderPrice),
         ],
       ),
       Padding(
@@ -136,12 +136,12 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   }
 
   String _getShippingAddress() {
-    String aptNumber = values[FormKeys.apt].isNotEmpty ? '#${values[FormKeys.apt]} ' : '';
-    String address = values[FormKeys.address];
-    String country = values[FormKeys.country];
-    String city = values[FormKeys.city];
+    String aptNumber = (values[FormKeys.apt]?.isNotEmpty ?? false) ? '#${values[FormKeys.apt]} ' : '';
+    String address = values[FormKeys.address] ?? '';
+    String country = values[FormKeys.country] ?? '';
+    String city = values[FormKeys.city] ?? '';
     String countrySubdivision = values[CountryData.getSubdivisionTitle(country)] ?? '';
-    String postalCode = values[FormKeys.postal];
+    String postalCode = values[FormKeys.postal] ?? '';
     return '$aptNumber$address\n$city, $countrySubdivision ${postalCode.toUpperCase()}\n${country.toUpperCase()}';
   }
 
@@ -195,12 +195,12 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   }
 
   void _handleSubmit() {
-    if (_formKey.currentState.validate() && formCompletion == 1) {
+    if (_formKey.currentState?.validate() == true && formCompletion == 1) {
     } else
       setState(() => isFormErrorVisible = true);
   }
 
-  void _handleItemChange(CreditCardNetwork cardNetwork) {
+  void _handleItemChange(CreditCardNetwork? cardNetwork) {
     setState(() => _cardNetwork = cardNetwork);
   }
 

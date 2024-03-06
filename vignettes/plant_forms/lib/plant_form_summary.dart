@@ -12,14 +12,13 @@ import 'main.dart';
 import 'styles.dart';
 
 class PlantFormSummary extends StatelessWidget {
-  final double pageSize;
+  final double? pageSize;
   final bool isHidden;
 
-  const PlantFormSummary({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
+  const PlantFormSummary({Key? key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding Summary @ ${DateTime.now().millisecondsSinceEpoch}");
     return FormPage(
       pageSizeProportion: pageSize ?? 0.85,
       isHidden: isHidden,
@@ -44,7 +43,9 @@ class PlantFormSummary extends StatelessWidget {
     Navigator.push(
       context,
       StackPagesRoute(
-        previousPages: [PlantFormSummary(pageSize: .85, isHidden: true)],
+        previousPages: [
+          PlantFormSummary(pageSize: .85, isHidden: true),
+        ],
         enterPage: PlantFormInformation(),
       ),
     );
@@ -55,15 +56,18 @@ class PlantFormSummary extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: <Widget>[
             Container(
               width: 135,
               height: 135,
               decoration: BoxDecoration(
-                  border: Border.all(color: Styles.grayColor),
-                  borderRadius: BorderRadius.circular(4),
-                  image: DecorationImage(image: AssetImage('images/plant_header_background.png', package: App.pkg))),
+                border: Border.all(color: Styles.grayColor),
+                borderRadius: BorderRadius.circular(4),
+                image: DecorationImage(
+                  image: AssetImage('images/plant_header_background.png', package: App.pkg),
+                ),
+              ),
             ),
             Positioned(
                 top: -10,
@@ -127,17 +131,16 @@ class PlantFormSummary extends StatelessWidget {
   }
 
   Widget _buildOrderSpecialInstructions(BuildContext context) {
-    String  name = 'Special Instructions';
+    String name = 'Special Instructions';
     SharedFormState sharedState = Provider.of<SharedFormState>(context, listen: false);
     var values = sharedState.valuesByName;
     return TextFormField(
-      onChanged: (value)=>values[FormKeys.instructions] = value,
-      initialValue: values.containsKey(FormKeys.instructions)? values[FormKeys.instructions] : "",
+      onChanged: (value) => values[FormKeys.instructions] = value,
+      initialValue: values.containsKey(FormKeys.instructions) ? values[FormKeys.instructions] : "",
       style: Styles.inputLabel,
       decoration: Styles.getInputDecoration(helper: name),
       minLines: 4,
       maxLines: 6,
     );
   }
-
 }

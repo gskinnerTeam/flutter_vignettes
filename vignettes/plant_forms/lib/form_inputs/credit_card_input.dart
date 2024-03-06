@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../demo_data.dart';
-import 'input_validator.dart';
 import '../styles.dart';
 
 class CreditCardInfoInput extends StatefulWidget {
   final String label;
   final String helper;
   final CreditCardInputType inputType;
-  final CreditCardNetwork cardNetwork;
-  final Function onValidate;
-  final Function onChange;
+  final CreditCardNetwork? cardNetwork;
+  final void Function(String key, String value, bool isValid) onValidate;
+  final void Function(CreditCardNetwork? cardNetwork)? onChange;
   final String initialValue;
 
   const CreditCardInfoInput({
-    Key key,
+    Key? key,
     this.label = '',
     this.helper = '',
     this.cardNetwork,
-    @required this.inputType,
-    @required this.onValidate,
+    required this.inputType,
+    required this.onValidate,
     this.onChange,
     this.initialValue = '',
   }) : super(key: key);
@@ -31,21 +30,15 @@ class CreditCardInfoInput extends StatefulWidget {
 }
 
 class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
-  MaskedTextController _textController;
-  CreditCardNetwork _creditCardType;
+  MaskedTextController _textController = MaskedTextController(mask: '00');
+  CreditCardNetwork? _creditCardType;
   bool _isAutoValidating = false;
-  bool _isValid;
+  bool? _isValid;
 
   String _value = '';
   String _errorText = '';
 
   String get _keyValue => (widget.key as ValueKey).value as String;
-
-  @override
-  initState() {
-    _textController = MaskedTextController(mask: '00');
-    super.initState();
-  }
 
   @override
   dispose() {
@@ -55,7 +48,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_keyValue, _isValid, value: _value);
+      widget.onValidate(_keyValue, _value, isValid);
     }
   }
 
@@ -72,17 +65,15 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
-          if (widget.label.isNotEmpty)
-            Positioned(
-                top: -24, child: Text(widget.label, style: Styles.inputLabel)),
+          if (widget.label.isNotEmpty) Positioned(top: -24, child: Text(widget.label, style: Styles.inputLabel)),
           TextFormField(
             controller: _textController,
             style: Styles.orderTotalLabel,
             onChanged: _handleChange,
             keyboardType: TextInputType.number,
-            autovalidate: _isAutoValidating,
+            autovalidateMode: _isAutoValidating ? AutovalidateMode.always : AutovalidateMode.disabled,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),
@@ -95,15 +86,10 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
             Positioned(
               top: 8,
               right: 14,
-              child:
-                  Text(_errorText.toUpperCase(), style: Styles.labelNotValid),
+              child: Text(_errorText.toUpperCase(), style: Styles.labelNotValid),
             ),
           if (widget.inputType == CreditCardInputType.number)
-            Positioned(
-                top: 15,
-                right: 18,
-                child: Icon(_getCreditCardIcon(),
-                    size: 28, color: Styles.darkGrayColor))
+            Positioned(top: 15, right: 18, child: Icon(_getCreditCardIcon(), size: 28, color: Styles.darkGrayColor))
         ],
       ),
     );
@@ -139,26 +125,56 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     }
   }
 
-  String _validateField(String value) {
+  // TODO: Consolidate the code here and in TextInput
+  String? _validateField(String? value) {
     // if is required
-    if (value.isEmpty) {
+    if (value == null) {
       isValid = false;
       _errorText = 'Required';
       return _errorText;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty &&
-        InputValidator.validate(widget.inputType, value,
-            cardNetwork: widget.cardNetwork)) {
-      isValid = true;
-      _errorText = '';
-      return null;
+    else if (value.isNotEmpty) {
+      if (switch (widget.inputType) {
+        CreditCardInputType.number => _validateCreditCardNumber(value, _creditCardType),
+        CreditCardInputType.expirationDate => _validateCreditCardExpirationDate(value),
+        CreditCardInputType.securityCode => _validateCreditCardSecurityCode(value, _creditCardType),
+      }) {
+        _errorText = '';
+        return null;
+      }
     }
-    // the value is not valid
-    else {
-      isValid = false;
-      _errorText = 'Not Valid';
-      return _errorText;
+    isValid = false;
+    _errorText = 'Not Valid';
+    return _errorText;
+  }
+
+  bool _validateCreditCardNumber(String value, CreditCardNetwork? cardNetwork) {
+    // remove empty spaces
+    String cardNumber = value.replaceAll(' ', '');
+    if (cardNetwork == CreditCardNetwork.amex) {
+      return cardNumber.length == 15;
+    } else {
+      return cardNumber.length == 16;
+    }
+  }
+
+  bool _validateCreditCardSecurityCode(String value, CreditCardNetwork? cardNetwork) {
+    if (cardNetwork == CreditCardNetwork.amex) {
+      return value.length == 4;
+    } else {
+      return value.length == 3;
+    }
+  }
+
+  bool _validateCreditCardExpirationDate(String value) {
+    if (value.length > 3) {
+      int month = int.parse(value.split('/').first);
+      int year = int.parse(value.split('/').last);
+      year += 2000;
+      return month <= 12 && year >= DateTime.now().year;
+    } else {
+      return false;
     }
   }
 
@@ -171,8 +187,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
           _textController.updateMask('0000 0000 0000 0000');
         }
         // AMEX
-        else if (_value.substring(0, 2) == '34' ||
-            _value.substring(0, 2) == '37') {
+        else if (_value.substring(0, 2) == '34' || _value.substring(0, 2) == '37') {
           _creditCardType = CreditCardNetwork.amex;
           _textController.updateMask('0000 000000 00000');
         }
@@ -200,6 +215,6 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
           _textController.updateMask('000');
         break;
     }
-    widget.onChange(_creditCardType);
+    widget.onChange?.call(_creditCardType);
   }
 }

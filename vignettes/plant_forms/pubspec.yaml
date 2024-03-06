@@ -1,17 +1,17 @@
 name: plant_forms
 description: A new Flutter project.
+publish_to: none
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.3.2 <3.0.0"
+  sdk: ^3.3.0
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  flutter_masked_text: ^0.8.0
-  font_awesome_flutter: ^8.5.0
+  flutter_masked_text2: ^0.9.1
+  font_awesome_flutter: ^10.7.0
   provider:
 
   shared:

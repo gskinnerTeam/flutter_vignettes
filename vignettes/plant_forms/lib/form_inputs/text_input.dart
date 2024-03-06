@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../demo_data.dart';
-import 'input_validator.dart';
 import '../styles.dart';
 
 class TextInput extends StatefulWidget {
@@ -10,18 +9,18 @@ class TextInput extends StatefulWidget {
   final String initialValue;
   final bool isRequired;
   final InputType type;
-  final Function onValidate;
-  final Function onChange;
+  final void Function(String key, String value, bool isValid) onValidate;
+  final void Function(String key, String value)? onChange;
   final bool isActive;
-  final ValueNotifier valueNotifier;
+  final ValueNotifier? valueNotifier;
 
   const TextInput({
-    Key key,
+    Key? key,
     this.helper = '',
     this.isRequired = true,
     this.initialValue = '',
     this.type = InputType.text,
-    @required this.onValidate,
+    required this.onValidate,
     this.label = '',
     this.isActive = true,
     this.onChange,
@@ -34,7 +33,7 @@ class TextInput extends StatefulWidget {
 
 class _TextInputState extends State<TextInput> {
   bool _isAutoValidating = false;
-  bool _isValid;
+  bool? _isValid;
 
   String _value = '';
   String _errorText = '';
@@ -42,23 +41,23 @@ class _TextInputState extends State<TextInput> {
   String get _keyValue => (widget.key as ValueKey).value as String;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     // Reset the valid state on notifier change
     if (widget.valueNotifier != null) {
-      widget.valueNotifier.addListener(()=>_isValid = false);
+      widget.valueNotifier?.addListener(() => _isValid = false);
     }
   }
 
   @override
-  dispose() {
+  void dispose() {
     super.dispose();
   }
 
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_keyValue, _isValid, value: _value);
+      widget.onValidate(_keyValue, _value, _isValid as bool);
     }
   }
 
@@ -75,16 +74,16 @@ class _TextInputState extends State<TextInput> {
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           if (widget.label.isNotEmpty) Positioned(top: -24, child: Text(widget.label, style: Styles.inputLabel)),
           TextFormField(
-            initialValue: _getInitialValue(),
+            initialValue: widget.initialValue,
             style: Styles.orderTotalLabel,
             enabled: widget.isActive,
             onChanged: _handleChange,
-            keyboardType: _setKeyboardType(),
-            autovalidate: _isAutoValidating,
+            keyboardType: _getKeyboardType(),
+            autovalidateMode: _isAutoValidating ? AutovalidateMode.always : AutovalidateMode.disabled,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),
@@ -107,21 +106,16 @@ class _TextInputState extends State<TextInput> {
   String _getLabel() {
     String label = '';
     if (!widget.isRequired && _value.isEmpty) label = 'Optional';
-    if (_value.isNotEmpty && widget.label.isEmpty || _getInitialValue().isNotEmpty) return widget.helper;
+    if (_value.isNotEmpty && widget.label.isEmpty || widget.initialValue.isNotEmpty) return widget.helper;
     return label;
-  }
-
-  String _getInitialValue() {
-    // initial value established from parent
-    if (widget.initialValue != null && widget.initialValue.isNotEmpty) return widget.initialValue;
-    return '';
   }
 
   void _handleChange(String value) {
     // save value status
     _value = value;
-    widget.onChange(_keyValue, value);
+    widget.onChange?.call(_keyValue, value);
 
+    // TODO: Can we just always have autoValidate=true and remove this code?
     // activate validation
     Future.delayed(Duration(milliseconds: 100), () => setState(() {}));
     if (!_isAutoValidating)
@@ -130,34 +124,20 @@ class _TextInputState extends State<TextInput> {
       });
   }
 
-  TextInputType _setKeyboardType() {
-    TextInputType type;
-    switch (widget.type) {
-      case InputType.email:
-        type = TextInputType.emailAddress;
-        break;
-      case InputType.telephone:
-        type = TextInputType.numberWithOptions(decimal: true);
-        break;
-      case InputType.number:
-        type = TextInputType.numberWithOptions(signed: true, decimal: true);
-        break;
-      case InputType.text:
-        return TextInputType.text;
-      default:
-        return null;
-    }
-    return type;
-  }
+  TextInputType? _getKeyboardType() => switch (widget.type) {
+        InputType.email => TextInputType.emailAddress,
+        InputType.telephone => TextInputType.numberWithOptions(decimal: true),
+        InputType.number => TextInputType.numberWithOptions(signed: true, decimal: true),
+        InputType.text => TextInputType.text
+      };
 
-  String _validateField(String value) {
+  String? _validateField(String? value) {
+    if (value == null) return null;
     _value = value;
     // if the value is required
     if (widget.isRequired && value.isEmpty) {
       isValid = false;
       _errorText = 'Required';
-      // Update error label, wait a frame because this was causing markAsBuild errors
-      Future.delayed(Duration(milliseconds: 17), () => setState(() {}));
       return _errorText;
     }
     // if it is optional
@@ -167,16 +147,30 @@ class _TextInputState extends State<TextInput> {
       return null;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty && InputValidator.validate(widget.type, value)) {
-      isValid = true;
-      _errorText = '';
-      return null;
+    else if (value.isNotEmpty) {
+      if (switch (widget.type) {
+        InputType.email => _validateEmail(value),
+        InputType.telephone => _validatePhoneNumber(value),
+        _ => true
+      }) {
+        _errorText = '';
+        return null;
+      }
     }
     // in other case, the item is not valid
-    else {
-      isValid = false;
-      _errorText = 'Not Valid';
-      return _errorText;
-    }
+
+    isValid = false;
+    _errorText = 'Not Valid';
+    return _errorText;
+  }
+
+  bool _validateEmail(String value) {
+    RegExp emailRegExp = RegExp(r"(^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$)");
+    return emailRegExp.hasMatch(value);
+  }
+
+  bool _validatePhoneNumber(String value) {
+    RegExp telRegExp = RegExp(r"(^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$)");
+    return telRegExp.hasMatch(value);
   }
 }
