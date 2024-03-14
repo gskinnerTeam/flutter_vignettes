@@ -1,32 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'styles.dart';
+import '../styles.dart';
 
 class FormPage extends StatelessWidget {
-
   static Map<String, String> formState = {};
 
   final List<Widget> children;
   final double pageSizeProportion;
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState>? formKey;
   final String title;
   final bool isHidden;
 
   const FormPage({
-    Key key,
+    Key? key,
     this.title = '',
     this.formKey,
     this.isHidden = false,
-    @required this.pageSizeProportion,
-    @required this.children,
+    required this.pageSizeProportion,
+    required this.children,
   }) : super(key: key);
-
-  // Size screenSize;
-  // double bottomPosition;
-  // double startPosition;
-  // double topListPadding = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +43,8 @@ class FormPage extends StatelessWidget {
           child: GestureDetector(
             onTap: () => _handleTap(context),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: Styles.hzPadding)
-                  .add(EdgeInsets.only(top: Styles.vtFormPadding)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: Styles.hzPadding).add(EdgeInsets.only(top: Styles.vtFormPadding)),
               width: screenSize.width,
               height: screenSize.height * pageSizeProportion,
               decoration: Styles.formContainerDecoration,

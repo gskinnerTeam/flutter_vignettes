@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:plant_forms/demo_data.dart';
 import 'package:provider/provider.dart';
 
-import 'components/section_separator.dart';
-import 'components/stack_pages_route.dart';
-import 'components/submit_button.dart';
-import 'demo.dart';
+import '../components/section_separator.dart';
+import '../components/stack_pages_route.dart';
+import '../components/submit_button.dart';
+import '../demo.dart';
 import 'form_page.dart';
 import 'plant_form_information.dart';
-import 'main.dart';
-import 'styles.dart';
+import '../main.dart';
+import '../styles.dart';
 
 class PlantFormSummary extends StatelessWidget {
-  final double pageSize;
+  final double? pageSize;
   final bool isHidden;
 
-  const PlantFormSummary({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
+  const PlantFormSummary({Key? key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class PlantFormSummary extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: <Widget>[
             Container(
               width: 135,
@@ -127,17 +127,16 @@ class PlantFormSummary extends StatelessWidget {
   }
 
   Widget _buildOrderSpecialInstructions(BuildContext context) {
-    String  name = 'Special Instructions';
+    String name = 'Special Instructions';
     SharedFormState sharedState = Provider.of<SharedFormState>(context, listen: false);
     var values = sharedState.valuesByName;
     return TextFormField(
-      onChanged: (value)=>values[FormKeys.instructions] = value,
-      initialValue: values.containsKey(FormKeys.instructions)? values[FormKeys.instructions] : "",
+      onChanged: (value) => values[FormKeys.instructions] = value,
+      initialValue: values.containsKey(FormKeys.instructions) ? values[FormKeys.instructions] : "",
       style: Styles.inputLabel,
       decoration: Styles.getInputDecoration(helper: name),
       minLines: 4,
       maxLines: 6,
     );
   }
-
 }

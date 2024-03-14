@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:plant_forms/demo.dart';
 import 'package:provider/provider.dart';
 
-import 'components/section_title.dart';
-import 'components/stack_pages_route.dart';
-import 'components/submit_button.dart';
-import 'demo_data.dart';
-import 'form_inputs/dropdown_menu.dart';
-import 'form_inputs/text_input.dart';
+import '../components/section_title.dart';
+import '../components/stack_pages_route.dart';
+import '../components/submit_button.dart';
+import '../demo_data.dart';
+import '../form_inputs/dropdown_menu.dart';
+import '../form_inputs/text_input.dart';
 import 'form_mixin.dart';
 import 'form_page.dart';
 import 'plant_form_payment.dart';
 import 'plant_form_summary.dart';
-import 'styles.dart';
+import '../styles.dart';
 
 class PlantFormInformation extends StatefulWidget {
-  final double pageSize;
+  final double? pageSize;
   final bool isHidden;
 
-  const PlantFormInformation({Key key, this.pageSize, this.isHidden = false}) : super(key: key);
+  const PlantFormInformation({Key? key, this.pageSize, this.isHidden = false}) : super(key: key);
 
   @override
   _PlantFormInformationState createState() => _PlantFormInformationState();
@@ -27,14 +27,14 @@ class PlantFormInformation extends StatefulWidget {
 class _PlantFormInformationState extends State<PlantFormInformation> with FormMixin {
   final _formKey = GlobalKey<FormState>();
 
-  SharedFormState formState;
+  late SharedFormState formState;
   Map<String, String> get values => formState.valuesByName;
   String get _selectedCountry => _getFormValue(FormKeys.country);
 
   //String _country;
-  ValueNotifier<String> _country;
-  String _countrySubdivisionKey;
-  List<String> _countries;
+  ValueNotifier<String> _country = ValueNotifier('');
+  late String _countrySubdivisionKey;
+  late List<String> _countries;
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
         _buildText(FormKeys.email, type: InputType.email, required: true),
         FormSectionTitle('Shipping Address'),
         //Country selector
-        DropdownMenu(
+        AppDropdownMenu(
           key: ValueKey(FormKeys.country),
           label: 'Country / Region',
           options: _countries,
@@ -87,8 +87,8 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     );
   }
 
-  DropdownMenu _buildSubdivisionDropdown() {
-    return DropdownMenu(
+  AppDropdownMenu _buildSubdivisionDropdown() {
+    return AppDropdownMenu(
         key: ValueKey(_countrySubdivisionKey),
         label: _countrySubdivisionKey,
         defaultOption: _getFormValue(_countrySubdivisionKey),
@@ -139,7 +139,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     return elements;
   }
 
-  TextInput _buildText(String key, {String title, bool required = false, InputType type = InputType.text}) {
+  TextInput _buildText(String key, {String? title, bool required = false, InputType type = InputType.text}) {
     title = title ?? _snakeToTitleCase(key);
     // Register the input validity
     if (!validInputsMap.containsKey(key)) validInputsMap[key] = !required;
@@ -156,7 +156,8 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   }
 
   @override
-  void onItemValidate(String key, bool isValid, {String value}) {
+  void onItemValidate(String key, bool isValid, {String? value}) {
+    if (value == null) return;
     // update the input validity
     validInputsMap[key] = isValid;
     bool hasChanged = values[key] != value;
@@ -190,9 +191,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     return words.join(" ");
   }
 
-  String _getFormValue(String name) {
-    return values.containsKey(name) ? values[name] : "";
-  }
+  String _getFormValue(String name) => values[name] ?? "";
 
   void _updateCountrySubdivision(String country) {
     //Invalidate input maps
@@ -206,7 +205,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   }
 
   void _handleSubmit(BuildContext context) {
-    if (_formKey.currentState.validate() && formCompletion == 1) {
+    if (_formKey.currentState?.validate() == true && formCompletion == 1) {
       Navigator.push(
           context,
           StackPagesRoute(previousPages: [

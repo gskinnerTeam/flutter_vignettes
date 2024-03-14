@@ -6,7 +6,7 @@ class FormSectionTitle extends StatelessWidget {
   final String title;
   final EdgeInsets padding;
 
-  const FormSectionTitle(this.title, {this.padding = const EdgeInsets.all(0), Key key}) : super(key: key);
+  const FormSectionTitle(this.title, {this.padding = const EdgeInsets.all(0), Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
