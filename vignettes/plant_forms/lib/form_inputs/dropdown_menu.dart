@@ -2,44 +2,39 @@ import 'package:flutter/material.dart';
 
 import '../styles.dart';
 
-class FormDropdownMenu extends StatefulWidget {
-  final void Function(String key, String value, bool isValid) onValidate;
+class AppDropdownMenu extends StatefulWidget {
+  final Function onValidate;
   final String label;
-  final String defaultOption;
+  final String? defaultOption;
   final List<String> options;
 
-  const FormDropdownMenu({
-    Key? key,
-    required this.options,
-    required this.label,
-    required this.onValidate,
-    required this.defaultOption,
-  }) : super(key: key);
+  const AppDropdownMenu(
+      {Key? key, required this.options, required this.label, required this.onValidate, this.defaultOption})
+      : super(key: key);
 
   @override
-  _FormDropdownMenuState createState() => _FormDropdownMenuState();
+  _AppDropdownMenuState createState() => _AppDropdownMenuState();
 }
 
-class _FormDropdownMenuState extends State<FormDropdownMenu> {
-  String _selectedOption = '';
-  bool _isValid = false;
+class _AppDropdownMenuState extends State<AppDropdownMenu> {
+  String? _selectedOption = '';
+  bool? _isValid;
   String get _keyValue => (widget.key as ValueKey).value as String;
 
-  set isValid(bool value) {
-    if (_isValid == value) return;
-    _isValid = value;
-    widget.onValidate(_keyValue, _selectedOption, _isValid);
+  set isValid(bool isValid) {
+    _isValid = isValid;
+    widget.onValidate(_keyValue, _isValid, value: _selectedOption);
   }
 
   @override
   initState() {
     super.initState();
-    _selectedOption = widget.defaultOption;
+    _selectedOption = widget.defaultOption ?? "";
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isValid && _selectedOption.isNotEmpty) {
+    if (_isValid == null && _selectedOption!.isNotEmpty) {
       isValid = true;
     }
     var items = _buildMenuItems();
@@ -102,16 +97,17 @@ class _FormDropdownMenuState extends State<FormDropdownMenu> {
 
   _showOptions() async {
     _selectedOption = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DropdownOptions(
-                title: widget.label,
-                selectedOption: _selectedOption,
-                options: widget.options,
-              ),
-            )) ??
-        _selectedOption;
-    if (_selectedOption.isNotEmpty) isValid = true;
+        context,
+        MaterialPageRoute(
+          builder: (context) => DropdownOptions(
+            title: widget.label,
+            selectedOption: _selectedOption ?? '',
+            options: widget.options,
+          ),
+        ));
+    if (_selectedOption != null && _selectedOption!.isNotEmpty) {
+      isValid = true;
+    }
     setState(() {});
   }
 }
@@ -119,10 +115,9 @@ class _FormDropdownMenuState extends State<FormDropdownMenu> {
 class DropdownOptions extends StatefulWidget {
   final String title;
   final List<String> options;
-  final String selectedOption;
+  final String? selectedOption;
 
-  const DropdownOptions({Key? key, required this.title, required this.options, required this.selectedOption})
-      : super(key: key);
+  const DropdownOptions({Key? key, required this.title, required this.options, this.selectedOption}) : super(key: key);
 
   @override
   _DropdownOptionsState createState() => _DropdownOptionsState();
@@ -133,7 +128,7 @@ class _DropdownOptionsState extends State<DropdownOptions> {
   String _selectedOption = '';
   @override
   void initState() {
-    _selectedOption = widget.selectedOption;
+    _selectedOption = widget.selectedOption ?? '';
     super.initState();
   }
 
@@ -149,7 +144,7 @@ class _DropdownOptionsState extends State<DropdownOptions> {
           TextButton(
             child: Text('Done', style: Styles.textButton),
             onPressed: _sendSelectedOption,
-          ),
+          )
         ],
       ),
       backgroundColor: Color(0xfff4f4f4),

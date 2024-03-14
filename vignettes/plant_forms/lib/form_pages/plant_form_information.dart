@@ -1,20 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:plant_forms/demo.dart';
 import 'package:provider/provider.dart';
 
-import 'components/section_title.dart';
-import 'components/stack_pages_route.dart';
-import 'components/submit_button.dart';
-import 'demo_data.dart';
-import 'form_inputs/dropdown_menu.dart';
-import 'form_inputs/text_input.dart';
+import '../components/section_title.dart';
+import '../components/stack_pages_route.dart';
+import '../components/submit_button.dart';
+import '../demo_data.dart';
+import '../form_inputs/dropdown_menu.dart';
+import '../form_inputs/text_input.dart';
 import 'form_mixin.dart';
 import 'form_page.dart';
 import 'plant_form_payment.dart';
 import 'plant_form_summary.dart';
-import 'styles.dart';
+import '../styles.dart';
 
 class PlantFormInformation extends StatefulWidget {
   final double? pageSize;
@@ -34,13 +32,14 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   String get _selectedCountry => _getFormValue(FormKeys.country);
 
   //String _country;
-  late ValueNotifier<String> _country = ValueNotifier(_countries[2]);
+  ValueNotifier<String> _country = ValueNotifier('');
   late String _countrySubdivisionKey;
-  List<String> _countries = CountryData.getCountries();
+  late List<String> _countries;
 
   @override
   void initState() {
     super.initState();
+    _countries = CountryData.getCountries();
     formState = Provider.of<SharedFormState>(context, listen: false);
     if (!values.containsKey(FormKeys.country)) {
       // if not value, set default country
@@ -65,7 +64,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
         _buildText(FormKeys.email, type: InputType.email, required: true),
         FormSectionTitle('Shipping Address'),
         //Country selector
-        FormDropdownMenu(
+        AppDropdownMenu(
           key: ValueKey(FormKeys.country),
           label: 'Country / Region',
           options: _countries,
@@ -88,14 +87,13 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     );
   }
 
-  FormDropdownMenu _buildSubdivisionDropdown() {
-    return FormDropdownMenu(
-      key: ValueKey(_countrySubdivisionKey),
-      label: _countrySubdivisionKey,
-      defaultOption: _getFormValue(_countrySubdivisionKey),
-      options: CountryData.getSubdivisionList(_countrySubdivisionKey),
-      onValidate: onItemValidate,
-    );
+  AppDropdownMenu _buildSubdivisionDropdown() {
+    return AppDropdownMenu(
+        key: ValueKey(_countrySubdivisionKey),
+        label: _countrySubdivisionKey,
+        defaultOption: _getFormValue(_countrySubdivisionKey),
+        options: CountryData.getSubdivisionList(_countrySubdivisionKey),
+        onValidate: onItemValidate);
   }
 
   List<Widget> _buildCountrySpecificFormElements() {
@@ -158,7 +156,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
   }
 
   @override
-  void onItemValidate(String key, String? value, bool isValid) {
+  void onItemValidate(String key, bool isValid, {String? value}) {
     if (value == null) return;
     // update the input validity
     validInputsMap[key] = isValid;
@@ -171,7 +169,8 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
       _updateCountrySubdivision(value);
       onItemChange(key, value);
     }
-    scheduleMicrotask(() {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         formCompletion = countValidItems() / validInputsMap.length;
         if (formCompletion == 1) isFormErrorVisible = false;
@@ -192,9 +191,7 @@ class _PlantFormInformationState extends State<PlantFormInformation> with FormMi
     return words.join(" ");
   }
 
-  String _getFormValue(String name) {
-    return values[name] ?? "";
-  }
+  String _getFormValue(String name) => values[name] ?? "";
 
   void _updateCountrySubdivision(String country) {
     //Invalidate input maps

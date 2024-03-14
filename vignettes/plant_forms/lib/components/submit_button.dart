@@ -5,7 +5,7 @@ import '../styles.dart';
 class SubmitButton extends StatelessWidget {
   final double percentage;
   final Widget child;
-  final VoidCallback? onPressed;
+  final void Function()? onPressed;
   final bool isErrorVisible;
   final EdgeInsets padding;
 

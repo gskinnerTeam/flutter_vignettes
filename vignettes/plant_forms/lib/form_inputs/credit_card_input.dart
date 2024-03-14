@@ -3,6 +3,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../demo_data.dart';
+import 'input_validator.dart';
 import '../styles.dart';
 
 class CreditCardInfoInput extends StatefulWidget {
@@ -10,8 +11,8 @@ class CreditCardInfoInput extends StatefulWidget {
   final String helper;
   final CreditCardInputType inputType;
   final CreditCardNetwork? cardNetwork;
-  final void Function(String key, String value, bool isValid) onValidate;
-  final void Function(CreditCardNetwork? cardNetwork)? onChange;
+  final Function onValidate;
+  final Function? onChange;
   final String initialValue;
 
   const CreditCardInfoInput({
@@ -48,7 +49,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_keyValue, _value, isValid);
+      widget.onValidate(_keyValue, _isValid, value: _value);
     }
   }
 
@@ -73,8 +74,7 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
             style: Styles.orderTotalLabel,
             onChanged: _handleChange,
             keyboardType: TextInputType.number,
-            autovalidateMode: _isAutoValidating ? AutovalidateMode.always : AutovalidateMode.disabled,
-            validator: _validateField,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),
           Positioned(
@@ -125,56 +125,24 @@ class _CreditCardInfoInputState extends State<CreditCardInfoInput> {
     }
   }
 
-  // TODO: Consolidate the code here and in TextInput
-  String? _validateField(String? value) {
+  String? _validateField(String value) {
     // if is required
-    if (value == null) {
+    if (value.isEmpty) {
       isValid = false;
       _errorText = 'Required';
       return _errorText;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty) {
-      if (switch (widget.inputType) {
-        CreditCardInputType.number => _validateCreditCardNumber(value, _creditCardType),
-        CreditCardInputType.expirationDate => _validateCreditCardExpirationDate(value),
-        CreditCardInputType.securityCode => _validateCreditCardSecurityCode(value, _creditCardType),
-      }) {
-        _errorText = '';
-        return null;
-      }
+    else if (value.isNotEmpty && InputValidator.validate(widget.inputType, value, cardNetwork: widget.cardNetwork)) {
+      isValid = true;
+      _errorText = '';
+      return null;
     }
-    isValid = false;
-    _errorText = 'Not Valid';
-    return _errorText;
-  }
-
-  bool _validateCreditCardNumber(String value, CreditCardNetwork? cardNetwork) {
-    // remove empty spaces
-    String cardNumber = value.replaceAll(' ', '');
-    if (cardNetwork == CreditCardNetwork.amex) {
-      return cardNumber.length == 15;
-    } else {
-      return cardNumber.length == 16;
-    }
-  }
-
-  bool _validateCreditCardSecurityCode(String value, CreditCardNetwork? cardNetwork) {
-    if (cardNetwork == CreditCardNetwork.amex) {
-      return value.length == 4;
-    } else {
-      return value.length == 3;
-    }
-  }
-
-  bool _validateCreditCardExpirationDate(String value) {
-    if (value.length > 3) {
-      int month = int.parse(value.split('/').first);
-      int year = int.parse(value.split('/').last);
-      year += 2000;
-      return month <= 12 && year >= DateTime.now().year;
-    } else {
-      return false;
+    // the value is not valid
+    else {
+      isValid = false;
+      _errorText = 'Not Valid';
+      return _errorText;
     }
   }
 

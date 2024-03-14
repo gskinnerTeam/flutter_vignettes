@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plant_forms/form_pages/plant_form_payment.dart';
 import 'package:provider/provider.dart';
 
 import 'components/header.dart';
 import 'components/stack_pages_route.dart';
-import 'plant_form_summary.dart';
 
 class PlantFormsDemo extends StatefulWidget {
   @override
@@ -35,7 +35,11 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
             child: Navigator(
               key: navKey,
               onGenerateRoute: (route) {
-                return StackPagesRoute(previousPages: [], enterPage: PlantFormSummary());
+                return StackPagesRoute(
+                  previousPages: [],
+                  //enterPage: PlantFormSummary(),
+                  enterPage: PlantFormPayment(),
+                );
               },
             ),
           ),
@@ -45,10 +49,8 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
   }
 
   Future<bool> _handleBackPop() async {
-    if (navKey.currentState?.canPop() ?? false) {
-      //If the pop worked, return false, preventing any pops in the MaterialApp's navigator
+    if (navKey.currentState?.canPop() == true) {
       navKey.currentState?.pop();
-      return false;
     }
     return true;
   }

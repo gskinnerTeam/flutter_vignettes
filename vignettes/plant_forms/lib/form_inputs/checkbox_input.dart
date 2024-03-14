@@ -4,10 +4,9 @@ import '../styles.dart';
 
 class CheckBoxInput extends StatefulWidget {
   final String label;
+  final Function? onChange;
 
-  final void Function(bool? value) onChange;
-
-  const CheckBoxInput({Key? key, required this.label, required this.onChange}) : super(key: key);
+  const CheckBoxInput({Key? key, required this.label, this.onChange}) : super(key: key);
 
   @override
   _CheckBoxInputState createState() => _CheckBoxInputState();
@@ -38,7 +37,8 @@ class _CheckBoxInputState extends State<CheckBoxInput> {
   }
 
   void _handleChange(bool? value) {
-    setState(() => _value = value ?? false);
-    widget.onChange.call(_value);
+    setState(() {
+      _value = value ?? false;
+    });
   }
 }

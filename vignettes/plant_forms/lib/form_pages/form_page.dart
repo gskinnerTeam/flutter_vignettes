@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'styles.dart';
+import '../styles.dart';
 
 class FormPage extends StatelessWidget {
   static Map<String, String> formState = {};
@@ -20,11 +20,6 @@ class FormPage extends StatelessWidget {
     required this.pageSizeProportion,
     required this.children,
   }) : super(key: key);
-
-  // Size screenSize;
-  // double bottomPosition;
-  // double startPosition;
-  // double topListPadding = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +78,7 @@ class FormPage extends StatelessWidget {
   }
 
   _handleTap(BuildContext context) {
-    //To improve user experience, we'll unfocus any textfields when the users taps on the background of the form
+    //To improve user experience, we'll unfocus any textfields when the users taps oon the background of the form
     if (MediaQuery.of(context).viewInsets.bottom > 0) SystemChannels.textInput.invokeMethod('TextInput.hide');
     WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
   }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:plant_forms/demo_data.dart';
 import 'package:provider/provider.dart';
 
-import 'components/section_separator.dart';
-import 'components/stack_pages_route.dart';
-import 'components/submit_button.dart';
-import 'demo.dart';
+import '../components/section_separator.dart';
+import '../components/stack_pages_route.dart';
+import '../components/submit_button.dart';
+import '../demo.dart';
 import 'form_page.dart';
 import 'plant_form_information.dart';
-import 'main.dart';
-import 'styles.dart';
+import '../main.dart';
+import '../styles.dart';
 
 class PlantFormSummary extends StatelessWidget {
   final double? pageSize;
@@ -19,6 +19,7 @@ class PlantFormSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuilding Summary @ ${DateTime.now().millisecondsSinceEpoch}");
     return FormPage(
       pageSizeProportion: pageSize ?? 0.85,
       isHidden: isHidden,
@@ -43,9 +44,7 @@ class PlantFormSummary extends StatelessWidget {
     Navigator.push(
       context,
       StackPagesRoute(
-        previousPages: [
-          PlantFormSummary(pageSize: .85, isHidden: true),
-        ],
+        previousPages: [PlantFormSummary(pageSize: .85, isHidden: true)],
         enterPage: PlantFormInformation(),
       ),
     );
@@ -62,12 +61,9 @@ class PlantFormSummary extends StatelessWidget {
               width: 135,
               height: 135,
               decoration: BoxDecoration(
-                border: Border.all(color: Styles.grayColor),
-                borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(
-                  image: AssetImage('images/plant_header_background.png', package: App.pkg),
-                ),
-              ),
+                  border: Border.all(color: Styles.grayColor),
+                  borderRadius: BorderRadius.circular(4),
+                  image: DecorationImage(image: AssetImage('images/plant_header_background.png', package: App.pkg))),
             ),
             Positioned(
                 top: -10,

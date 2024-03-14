@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:plant_forms/demo.dart';
 import 'package:provider/provider.dart';
 
-import 'demo_data.dart';
-import 'form_inputs/checkbox_input.dart';
-import 'form_inputs/credit_card_input.dart';
+import '../demo_data.dart';
+import '../form_inputs/checkbox_input.dart';
+import '../form_inputs/credit_card_input.dart';
 import 'form_mixin.dart';
 import 'form_page.dart';
-import 'components/section_separator.dart';
-import 'components/section_title.dart';
-import 'styles.dart';
-import 'components/submit_button.dart';
-import 'form_inputs/text_input.dart';
+import '../components/section_separator.dart';
+import '../components/section_title.dart';
+import '../styles.dart';
+import '../components/submit_button.dart';
+import '../form_inputs/text_input.dart';
 
 class PlantFormPayment extends StatefulWidget {
   final double? pageSize;
@@ -83,16 +83,16 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
           ],
         ),
         FormSectionTitle('Shipping Notifications'),
-        CheckBoxInput(label: 'Send shipping updates via email', onChange: (_) {}),
+        CheckBoxInput(label: 'Send shipping updates via email'),
         _buildSubmitButton()
       ],
     );
   }
 
   @override
-  void onItemValidate(String key, String value, bool isValid) {
+  void onItemValidate(String key, bool isValid, {String? value}) {
     validInputsMap[key] = isValid;
-    values[key] = value;
+    values[key] = value ?? '';
 
     Future.delayed(
       Duration(milliseconds: 500),
@@ -136,13 +136,13 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
   }
 
   String _getShippingAddress() {
-    String aptNumber = (values[FormKeys.apt]?.isNotEmpty ?? false) ? '#${values[FormKeys.apt]} ' : '';
-    String address = values[FormKeys.address] ?? '';
-    String country = values[FormKeys.country] ?? '';
-    String city = values[FormKeys.city] ?? '';
-    String countrySubdivision = values[CountryData.getSubdivisionTitle(country)] ?? '';
-    String postalCode = values[FormKeys.postal] ?? '';
-    return '$aptNumber$address\n$city, $countrySubdivision ${postalCode.toUpperCase()}\n${country.toUpperCase()}';
+    String? aptNumber = values[FormKeys.apt]?.isNotEmpty == true ? '#${values[FormKeys.apt]} ' : '';
+    String? address = values[FormKeys.address];
+    String? country = values[FormKeys.country];
+    String? city = values[FormKeys.city];
+    String? countrySubdivision = values[CountryData.getSubdivisionTitle(country)] ?? '';
+    String? postalCode = values[FormKeys.postal];
+    return '$aptNumber$address\n$city, $countrySubdivision ${postalCode?.toUpperCase()}\n${country?.toUpperCase()}';
   }
 
   Widget _buildInputWithButton() {
@@ -200,7 +200,7 @@ class _PlantFormPaymentState extends State<PlantFormPayment> with FormMixin {
       setState(() => isFormErrorVisible = true);
   }
 
-  void _handleItemChange(CreditCardNetwork? cardNetwork) {
+  void _handleItemChange(CreditCardNetwork cardNetwork) {
     setState(() => _cardNetwork = cardNetwork);
   }
 

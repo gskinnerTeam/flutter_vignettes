@@ -15,7 +15,7 @@ migration:
     - platform: root
       create_revision: abb292a07e20d696c4568099f918f6c5f330e6b0
       base_revision: abb292a07e20d696c4568099f918f6c5f330e6b0
-    - platform: android
+    - platform: windows
       create_revision: abb292a07e20d696c4568099f918f6c5f330e6b0
       base_revision: abb292a07e20d696c4568099f918f6c5f330e6b0
 

@@ -9,8 +9,10 @@ class FormSectionTitle extends StatelessWidget {
   const FormSectionTitle(this.title, {this.padding = const EdgeInsets.all(0), Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: 10.0).add(padding),
-        child: Text(title.toUpperCase(), style: Styles.formSection),
-      );
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0).add(padding),
+      child: Text(title.toUpperCase(), style: Styles.formSection),
+    );
+  }
 }

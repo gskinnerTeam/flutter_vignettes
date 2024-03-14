@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../demo_data.dart';
+import 'input_validator.dart';
 import '../styles.dart';
 
 class TextInput extends StatefulWidget {
@@ -9,8 +10,8 @@ class TextInput extends StatefulWidget {
   final String initialValue;
   final bool isRequired;
   final InputType type;
-  final void Function(String key, String value, bool isValid) onValidate;
-  final void Function(String key, String value)? onChange;
+  final Function onValidate;
+  final Function? onChange;
   final bool isActive;
   final ValueNotifier? valueNotifier;
 
@@ -41,7 +42,7 @@ class _TextInputState extends State<TextInput> {
   String get _keyValue => (widget.key as ValueKey).value as String;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     // Reset the valid state on notifier change
     if (widget.valueNotifier != null) {
@@ -50,24 +51,22 @@ class _TextInputState extends State<TextInput> {
   }
 
   @override
-  void dispose() {
+  dispose() {
     super.dispose();
   }
 
   set isValid(bool isValid) {
     if (isValid != _isValid) {
       _isValid = isValid;
-      widget.onValidate(_keyValue, _value, _isValid as bool);
+      widget.onValidate(_keyValue, _isValid, value: _value);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     //Validate based on initial value, only do this once. We do it here instead of initState as it may trigger rebuilds up the tree
-    if (_isValid == null) {
-      if (widget.initialValue.isNotEmpty) {
-        _validateField(widget.initialValue);
-      }
+    if (_isValid == null && widget.initialValue.isNotEmpty) {
+      _validateField(widget.initialValue);
     }
 
     //build input
@@ -82,8 +81,8 @@ class _TextInputState extends State<TextInput> {
             style: Styles.orderTotalLabel,
             enabled: widget.isActive,
             onChanged: _handleChange,
-            keyboardType: _getKeyboardType(),
-            autovalidateMode: _isAutoValidating ? AutovalidateMode.always : AutovalidateMode.disabled,
+            keyboardType: _setKeyboardType(),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),
@@ -115,7 +114,6 @@ class _TextInputState extends State<TextInput> {
     _value = value;
     widget.onChange?.call(_keyValue, value);
 
-    // TODO: Can we just always have autoValidate=true and remove this code?
     // activate validation
     Future.delayed(Duration(milliseconds: 100), () => setState(() {}));
     if (!_isAutoValidating)
@@ -124,53 +122,53 @@ class _TextInputState extends State<TextInput> {
       });
   }
 
-  TextInputType? _getKeyboardType() => switch (widget.type) {
-        InputType.email => TextInputType.emailAddress,
-        InputType.telephone => TextInputType.numberWithOptions(decimal: true),
-        InputType.number => TextInputType.numberWithOptions(signed: true, decimal: true),
-        InputType.text => TextInputType.text
-      };
+  TextInputType? _setKeyboardType() {
+    TextInputType type;
+    switch (widget.type) {
+      case InputType.email:
+        type = TextInputType.emailAddress;
+        break;
+      case InputType.telephone:
+        type = TextInputType.numberWithOptions(decimal: true);
+        break;
+      case InputType.number:
+        type = TextInputType.numberWithOptions(signed: true, decimal: true);
+        break;
+      case InputType.text:
+        return TextInputType.text;
+      default:
+        return null;
+    }
+    return type;
+  }
 
   String? _validateField(String? value) {
-    if (value == null) return null;
-    _value = value;
+    _value = value ?? '';
     // if the value is required
-    if (widget.isRequired && value.isEmpty) {
+    if (widget.isRequired && _value.isEmpty) {
       isValid = false;
       _errorText = 'Required';
+      // Update error label, wait a frame because this was causing markAsBuild errors
+      Future.delayed(Duration(milliseconds: 17), () => setState(() {}));
       return _errorText;
     }
     // if it is optional
-    else if (!widget.isRequired && value.isEmpty) {
+    else if (!widget.isRequired && _value.isEmpty) {
       isValid = true;
       _errorText = '';
       return null;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty) {
-      if (switch (widget.type) {
-        InputType.email => _validateEmail(value),
-        InputType.telephone => _validatePhoneNumber(value),
-        _ => true
-      }) {
-        _errorText = '';
-        return null;
-      }
+    else if (_value.isNotEmpty && InputValidator.validate(widget.type, _value)) {
+      isValid = true;
+      _errorText = '';
+      return null;
     }
     // in other case, the item is not valid
-
-    isValid = false;
-    _errorText = 'Not Valid';
-    return _errorText;
-  }
-
-  bool _validateEmail(String value) {
-    RegExp emailRegExp = RegExp(r"(^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$)");
-    return emailRegExp.hasMatch(value);
-  }
-
-  bool _validatePhoneNumber(String value) {
-    RegExp telRegExp = RegExp(r"(^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$)");
-    return telRegExp.hasMatch(value);
+    else {
+      isValid = false;
+      _errorText = 'Not Valid';
+      return _errorText;
+    }
   }
 }
