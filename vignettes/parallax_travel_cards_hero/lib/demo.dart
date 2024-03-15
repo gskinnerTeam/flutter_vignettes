@@ -57,7 +57,7 @@ class HeroCardDemo extends StatelessWidget {
         onTap: () => _handlePressedBtn(context),
         child: Container(
           constraints: BoxConstraints(
-              minHeight: 290, minWidth: 250, maxHeight: MediaQuery.of(context).size.height * .43, maxWidth: 300),
+              minHeight: 290, minWidth: 250, maxHeight: MediaQuery.of(context).size.height * .44, maxWidth: 300),
           child: Hero(tag: '${city.name}-hero', child: CityScenery(city: city)),
         ),
       ),
