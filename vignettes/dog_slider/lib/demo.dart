@@ -29,7 +29,6 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          //padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
               _buildTopNav(),
@@ -74,13 +73,13 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text("PRODUCT DETAIL", style: baseStyle.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
-              SizedBox(height: 12),
+              SizedBox(height: 8),
               Text("Fetch Tennis Ball - 2.0 inch",
                   style: baseStyle.copyWith(fontSize: contentFontSize, fontWeight: FontWeight.bold)),
-              SizedBox(height: 12),
+              SizedBox(height: 8),
               Text("Colour: Green", style: baseStyle.copyWith(fontSize: contentFontSize)),
               Text("Size: 2.5 inch", style: baseStyle.copyWith(fontSize: contentFontSize)),
-              SizedBox(height: 12),
+              SizedBox(height: 8),
               Text(
                   "For stimulating playtime that encouages pets to leap and chase. Made from a high-quality natural latex and designed for the game of fetch. ",
                   style: baseStyle.copyWith(fontSize: contentFontSize)),
@@ -113,7 +112,7 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
   Container _buildBottomMenu() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 22),
-      height: 100,
+      height: 90,
       width: double.infinity,
       decoration: BoxDecoration(
           color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(.1), blurRadius: 20)]),
@@ -155,7 +154,6 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
   Widget _buildTopNav() {
     return Container(
       padding: EdgeInsets.all(12),
-      //color: Colors.green,
       child: Row(
         children: <Widget>[
           IconButton(
