@@ -1,13 +1,13 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:spending_tracker/main.dart';
 
 import 'chart/chart.dart';
-import 'components/scaling_info.dart';
 import 'app_colors.dart';
 import 'components/circle_percentage_widget.dart';
 
 class SpendingCategoryList extends StatefulWidget {
-  final Listenable updateNotifier;
+  final Listenable? updateNotifier;
 
   SpendingCategoryList({this.updateNotifier});
 
@@ -45,19 +45,14 @@ class _SpendingCategoryListState extends State<SpendingCategoryList> {
     percent2 /= sum;
 
     return Container(
-      height: 120 * ScalingInfo.scaleY,
+      height: 120 * appScale,
       color: AppColors.colorBg1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
             'EXPENSE CATEGORIES',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
+            style: text1.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

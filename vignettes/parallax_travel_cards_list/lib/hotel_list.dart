@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'demo_data.dart';
 import 'styles.dart';
@@ -14,44 +13,45 @@ class HotelList extends StatefulWidget {
 }
 
 class _HotelListViewState extends State<HotelList> with SingleTickerProviderStateMixin {
-  AnimationController _anim;
-
-  List<Hotel> _oldHotels;
+  late AnimationController _anim = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
 
   @override
   void initState() {
-    _anim = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    _anim.addListener(() => setState(() {}));
+    _anim.forward(from: 0);
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (_oldHotels != widget.hotels) {
+  void didUpdateWidget(covariant HotelList oldWidget) {
+    if (oldWidget.hotels != widget.hotels) {
       _anim.forward(from: 0);
     }
-    _oldHotels = widget.hotels;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Opacity(
-      opacity: _anim.value,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding * 1.5, vertical: 10),
-        child: Container(
-          width: 400,
-          height: size.height * .25,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text('Hotels'.toUpperCase(), style: Styles.hotelsTitleSection),
-              Expanded(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding * 1.5, vertical: 10),
+      child: Container(
+        width: 400,
+        height: size.height * .25,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Hotels'.toUpperCase(), style: Styles.hotelsTitleSection),
+            Expanded(
+              child: FadeTransition(
+                opacity: _anim,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[for (Hotel hotel in widget.hotels) _buildHotelData(hotel)],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -64,30 +64,34 @@ class _HotelListViewState extends State<HotelList> with SingleTickerProviderStat
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            /// Hotel name
             Text(hotel.name, style: Styles.hotelTitle),
             SizedBox(height: 3),
             Row(
               children: <Widget>[
-                _buildStars(hotel.rate.toInt()),
+                /// Stars
+                Row(
+                  children: List.generate(hotel.rating.toInt(), (index) {
+                    return Icon(Icons.star, color: Color(0xFFfeda7d), size: 13);
+                  }),
+                ),
+
+                /// Rating
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(hotel.rate.toString(), style: Styles.hotelScore),
+                  child: Text(hotel.rating.toString(), style: Styles.hotelScore),
                 ),
+
+                /// Review count
                 Text('(${hotel.reviews})', style: Styles.hotelData),
               ],
             )
           ],
         ),
+
+        /// Price
         Text('\$${hotel.price}', style: Styles.hotelPrice)
       ],
     );
-  }
-
-  Widget _buildStars(int count) {
-    List<Widget> stars = [];
-    for (int i = 0; i < count; i++) {
-      stars.add(Icon(Icons.star, color: Color(0xFFfeda7d), size: 13));
-    }
-    return Row(children: stars);
   }
 }

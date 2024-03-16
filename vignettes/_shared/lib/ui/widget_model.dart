@@ -38,9 +38,9 @@ class OBJViewer extends StatefulWidget {
 }
 
 class OBJViewerState extends State<OBJViewer> {
-  VertexMesh _mesh;
-  VertexMeshInstance _meshInstance;
-  vec32.Quaternion _rotation;
+  late VertexMesh _mesh;
+  late VertexMeshInstance _meshInstance;
+  late vec32.Quaternion _rotation;
 
   OBJViewerState() : _rotation = vec32.Quaternion.identity();
 
@@ -76,60 +76,59 @@ class OBJViewerState extends State<OBJViewer> {
   void _updateTransform() {
     final modelMatrix = vec32.Matrix4.compose(vec32.Vector3.zero(), _rotation, vec32.Vector3.all(1.0));
 
-    final viewMatrix = vec32.makeViewMatrix(
-        vec32.Vector3(0.0, 0.0, 4.0),
-        vec32.Vector3(0.0, 0.0, 0.0),
-        vec32.Vector3(0.0, 1.0, 0.0));
+    final viewMatrix =
+        vec32.makeViewMatrix(vec32.Vector3(0.0, 0.0, 4.0), vec32.Vector3(0.0, 0.0, 0.0), vec32.Vector3(0.0, 1.0, 0.0));
 
     final projMatrix = vec32.makePerspectiveMatrix(math.pi / 2.0, 320.0 / 480.0, 0.01, 100.0);
 
     setState(() {
-      _meshInstance = VertexMeshInstance(_mesh)
-          ..setTransform(viewMatrix * modelMatrix, projMatrix);
+      _meshInstance = VertexMeshInstance(_mesh)..setTransform(viewMatrix * modelMatrix, projMatrix);
     });
   }
-
 }
 
 class OBJLoaderMaterial {
-  String name;
+  String? name;
 
-  Color diffuseColor;
+  Color? diffuseColor;
 
-  String texturePath;
-  ui.Image texture;
+  String? texturePath;
+  ui.Image? texture;
 }
 
 class OBJLoaderFace {
-
   List<vec32.Vector3> _positions;
   List<vec32.Vector3> _normals;
   List<vec32.Vector2> _uvs;
-  String materialName;
+  String? materialName;
 
   OBJLoaderFace()
-    : _positions = List<vec32.Vector3>(3), _normals = List<vec32.Vector3>(3), _uvs = List<vec32.Vector2>(3);
+      : _positions = List<vec32.Vector3>.filled(3, vec32.Vector3.zero()),
+        _normals = List<vec32.Vector3>.filled(3, vec32.Vector3.zero()),
+        _uvs = List<vec32.Vector2>.filled(3, vec32.Vector2.zero());
 
   List<vec32.Vector3> get positions => _positions;
-  List<vec32.Vector3> get normals => _normals;
-  List<vec32.Vector2> get uvs => _uvs;
 
+  List<vec32.Vector3> get normals => _normals;
+
+  List<vec32.Vector2> get uvs => _uvs;
 }
 
 class OBJLoader {
-
   AssetBundle _bundle;
   String _basePath;
   String _objPath;
-  String _mtlPath;
+  String? _mtlPath;
 
-  String _objSource;
-  String _mtlSource;
+  String? _objSource;
+  String? _mtlSource;
 
   List<OBJLoaderFace> _faces;
   Map<String, OBJLoaderMaterial> _materials;
 
-  OBJLoader(this._bundle, this._basePath, this._objPath) : _faces = <OBJLoaderFace>[], _materials = Map<String, OBJLoaderMaterial>();
+  OBJLoader(this._bundle, this._basePath, this._objPath)
+      : _faces = <OBJLoaderFace>[],
+        _materials = Map<String, OBJLoaderMaterial>();
 
   Future<VertexMesh> parse() async {
     String p = path.join(_basePath, _objPath);
@@ -147,9 +146,9 @@ class OBJLoader {
     List<vec32.Vector3> positions = <vec32.Vector3>[];
     List<vec32.Vector3> normals = <vec32.Vector3>[];
     List<vec32.Vector2> uvs = <vec32.Vector2>[];
-    String currentMaterialName;
+    String? currentMaterialName;
 
-    final objLines = _objSource.split('\n');
+    final objLines = _objSource?.split('\n') ?? [];
     for (var line in objLines) {
       line = line.replaceAll("\r", "");
       if (line.startsWith('v ')) {
@@ -198,7 +197,6 @@ class OBJLoader {
 
         face.materialName = currentMaterialName;
         _faces.add(face);
-
       } else if (line.startsWith('o ')) {
         // TODO: Load multiple objects
       } else if (line.startsWith('mtllib ')) {
@@ -209,33 +207,25 @@ class OBJLoader {
         // TODO: Set scale value
       }
     }
-
-
   }
 
   void _parseMTLFile() {
-    final mtlLines = _mtlSource.split('\n');
+    final mtlLines = _mtlSource?.split('\n') ?? [];
 
-    OBJLoaderMaterial currentMaterial;
+    OBJLoaderMaterial? currentMaterial;
 
     for (var line in mtlLines) {
       line = line.replaceAll("\r", "");
       if (line.startsWith('newmtl ')) {
-
-        if (currentMaterial != null)
-          _materials[currentMaterial.name] = currentMaterial;
+        if (currentMaterial != null) _materials[currentMaterial.name!] = currentMaterial;
 
         currentMaterial = OBJLoaderMaterial();
         currentMaterial.name = line.split(' ')[1];
       } else if (line.startsWith('Kd ')) {
         if (currentMaterial != null) {
           final args = line.split(' ');
-          currentMaterial.diffuseColor
-              = Color.fromARGB(
-                  255,
-                  (double.parse(args[1]) * 255).round(),
-                  (double.parse(args[2]) * 255).round(),
-                  (double.parse(args[3]) * 255).round());
+          currentMaterial.diffuseColor = Color.fromARGB(255, (double.parse(args[1]) * 255).round(),
+              (double.parse(args[2]) * 255).round(), (double.parse(args[3]) * 255).round());
         }
       } else if (line.startsWith('map_Kd ')) {
         if (currentMaterial != null) {
@@ -243,15 +233,12 @@ class OBJLoader {
           currentMaterial.texturePath = args[1];
         }
       }
-
     }
 
-    if (currentMaterial != null)
-      _materials[currentMaterial.name] = currentMaterial;
+    if (currentMaterial != null) _materials[currentMaterial.name!] = currentMaterial;
   }
 
   Future<void> _loadMTLTextures() async {
-
     List<Future<void>> _imageFutures = <Future<void>>[];
 
     for (var mtl in _materials.values) {
@@ -260,11 +247,11 @@ class OBJLoader {
         final c = Completer<void>();
         _imageFutures.add(c.future);
         AssetImage(path.join(_basePath, mtl.texturePath), bundle: _bundle).resolve(ImageConfiguration()).addListener(
-            ImageStreamListener((ImageInfo info, bool _) {
-              print('loaded texture: ${mtl.texturePath}');
-              mtl.texture = info.image;
-              c.complete();
-            }),
+          ImageStreamListener((ImageInfo info, bool _) {
+            print('loaded texture: ${mtl.texturePath}');
+            mtl.texture = info.image;
+            c.complete();
+          }),
         );
       }
     }
@@ -281,7 +268,7 @@ class OBJLoader {
     Uint16List indices = Uint16List(_faces.length * 3);
 
     // TODO: Combine multiple material textures into one and offset uv's accordingly
-    ui.Image texture = _materials.values.first.texture;
+    ui.Image? texture = _materials.values.first.texture;
 
     for (int i = 0; i < _faces.length; ++i) {
       positions[i * 9 + 0] = _faces[i].positions[0].x;
@@ -311,28 +298,21 @@ class OBJLoader {
       uvs[i * 6 + 4] = _faces[i].uvs[2].x;
       uvs[i * 6 + 5] = _faces[i].uvs[2].y;
 
-      colors[i * 3 + 0] = _materials[_faces[i].materialName].diffuseColor.value;
-      colors[i * 3 + 1] = _materials[_faces[i].materialName].diffuseColor.value;
-      colors[i * 3 + 2] = _materials[_faces[i].materialName].diffuseColor.value;
+      colors[i * 3 + 0] = _materials[_faces[i].materialName]!.diffuseColor!.value;
+      colors[i * 3 + 1] = _materials[_faces[i].materialName]!.diffuseColor!.value;
+      colors[i * 3 + 2] = _materials[_faces[i].materialName]!.diffuseColor!.value;
 
       indices[i * 3 + 0] = i * 3 + 0;
       indices[i * 3 + 1] = i * 3 + 1;
       indices[i * 3 + 2] = i * 3 + 2;
     }
 
-    return VertexMesh()
-        ..positions = positions
-        ..normals = normals
-        ..uvs = uvs
-        ..colors = colors
-        ..indices = indices
-        ..texture = texture;
+    return VertexMesh(
+        positions: positions, normals: normals, uvs: uvs, colors: colors, indices: indices, texture: texture);
   }
-
 }
 
-Future<VertexMesh> loadVertexMeshFromOBJAsset(
-    BuildContext context, String basePath, String path) async {
+Future<VertexMesh> loadVertexMeshFromOBJAsset(BuildContext context, String basePath, String path) async {
   final bundle = DefaultAssetBundle.of(context);
 
   final loader = OBJLoader(bundle, basePath, path);
@@ -356,9 +336,16 @@ class VertexMesh {
   Uint16List indices;
 
   /// Material texture
-  ui.Image texture;
+  ui.Image? texture;
 
-  VertexMesh();
+  VertexMesh({
+    required this.positions,
+    required this.normals,
+    required this.uvs,
+    required this.colors,
+    required this.indices,
+    this.texture,
+  });
 
   int get vertexCount => positions.length ~/ 3;
 
@@ -403,10 +390,10 @@ class VertexMeshInstance {
   VertexMesh _mesh;
 
   /// Post transform draw ready vertices
-  ui.Vertices _vertices;
+  late ui.Vertices _vertices;
 
-  vec32.Matrix4 _modelView;
-  vec32.Matrix4 _projection;
+  late vec32.Matrix4 _modelView;
+  late vec32.Matrix4 _projection;
 
   bool _vertexCacheInvalid;
 
@@ -424,25 +411,21 @@ class VertexMeshInstance {
     return _vertices;
   }
 
-  ui.Image get texture {
+  ui.Image? get texture {
     return _mesh.texture;
   }
 
   void _cacheVertices() {
     // Create vertices from mesh data
-    List<vec32.Vector4> transformedPositions =
-        List<vec32.Vector4>(_mesh.vertexCount);
+    List<vec32.Vector4> transformedPositions = List<vec32.Vector4>.filled(_mesh.vertexCount, vec32.Vector4.zero());
     List<int> culledIndices = <int>[];
 
     final transform = _projection * _modelView;
 
     // Transform vertices
     for (int i = 0; i < _mesh.vertexCount; ++i) {
-      vec32.Vector4 position = vec32.Vector4(
-          _mesh.positions[i * 3 + 0],
-          _mesh.positions[i * 3 + 1],
-          _mesh.positions[i * 3 + 2],
-          1.0);
+      vec32.Vector4 position =
+          vec32.Vector4(_mesh.positions[i * 3 + 0], _mesh.positions[i * 3 + 1], _mesh.positions[i * 3 + 2], 1.0);
       position = transform.transform(position);
       position.xyz /= position.w;
 
@@ -491,12 +474,12 @@ class VertexMeshInstance {
         _mesh.normals[i * 3 + 2],
       ).normalized());
 
-      final b = 1.0;//xn.dot(vec32.Vector3(0.5, 0.5, 1.0).normalized()).clamp(0.1, 1.0);
+      final b = 1.0; //xn.dot(vec32.Vector3(0.5, 0.5, 1.0).normalized()).clamp(0.1, 1.0);
 
-      colors[i] = 0xFF000000
-          | ((b * ((_mesh.colors[i] >> 16) & 0xFF)).floor() << 16)
-          | ((b * ((_mesh.colors[i] >> 8) & 0xFF)).floor() << 8)
-          | ((b * ((_mesh.colors[i] >> 0) & 0xFF)).floor() << 0);
+      colors[i] = 0xFF000000 |
+          ((b * ((_mesh.colors[i] >> 16) & 0xFF)).floor() << 16) |
+          ((b * ((_mesh.colors[i] >> 8) & 0xFF)).floor() << 8) |
+          ((b * ((_mesh.colors[i] >> 0) & 0xFF)).floor() << 0);
     }
 
     _vertices = ui.Vertices.raw(VertexMode.triangles, positions2D,
@@ -507,7 +490,7 @@ class VertexMeshInstance {
 }
 
 class MeshCustomPainter extends CustomPainter {
-  VertexMeshInstance _meshInstance;
+  VertexMeshInstance? _meshInstance;
 
   MeshCustomPainter(this._meshInstance);
 
@@ -520,21 +503,18 @@ class MeshCustomPainter extends CustomPainter {
     canvas.scale(1, -1);
 
     if (_meshInstance != null) {
-
       final paint = Paint();
-      if (_meshInstance.texture != null) {
+      if (_meshInstance!.texture != null) {
         paint.shader = ImageShader(
-          _meshInstance.texture,
-          TileMode.clamp,
-          TileMode.clamp,
-          Matrix4.identity().scaled(
-              1 / _meshInstance.texture.width,
-              1 / _meshInstance.texture.height,
-              1.0
-          ).storage);
+            _meshInstance!.texture!,
+            TileMode.clamp,
+            TileMode.clamp,
+            Matrix4.identity()
+                .scaled(1 / _meshInstance!.texture!.width, 1 / _meshInstance!.texture!.height, 1.0)
+                .storage);
       }
 
-      canvas.drawVertices(_meshInstance.vertices, BlendMode.multiply, paint);
+      canvas.drawVertices(_meshInstance!.vertices, BlendMode.multiply, paint);
     }
   }
 
@@ -565,7 +545,8 @@ bool _compareDepth(List<vec32.Vector4> positions, List<int> src, int indexA, int
   return depthA > depthB;
 }
 
-void _triangleMergeSortMerge(List<vec32.Vector4> positions, List<int> dst, List<int> src, int begin, int middle, int end) {
+void _triangleMergeSortMerge(
+    List<vec32.Vector4> positions, List<int> dst, List<int> src, int begin, int middle, int end) {
   assert(begin < middle && middle < end);
   int j = begin, k = middle;
   for (int i = begin; i < end; ++i) {
@@ -592,4 +573,3 @@ void _triangleMergeSortSplit(List<vec32.Vector4> positions, List<int> dst, List<
     _triangleMergeSortMerge(positions, dst, src, begin, middle, end);
   }
 }
-

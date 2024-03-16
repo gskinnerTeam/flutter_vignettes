@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DarkInkControls extends StatefulWidget {
   final ValueNotifier<bool> darkModeValue;
 
-  DarkInkControls({this.darkModeValue});
+  DarkInkControls({required this.darkModeValue});
 
   @override
   State createState() {
@@ -14,13 +14,13 @@ class DarkInkControls extends StatefulWidget {
 class _DarkInkControlsState extends State<DarkInkControls> with SingleTickerProviderStateMixin {
   ValueNotifier<bool> _darkModeValue;
 
-  AnimationController _controller;
-  Animation<double> _buttonAnimation0;
-  Animation<double> _buttonAnimation1;
-  Animation<double> _buttonAnimation2;
+  late AnimationController _controller;
+  late Animation<double> _buttonAnimation0;
+  late Animation<double> _buttonAnimation1;
+  late Animation<double> _buttonAnimation2;
 
-  Color _backgroundColor;
-  Color _foregroundColor;
+  late Color _backgroundColor;
+  late Color _foregroundColor;
 
   _DarkInkControlsState(ValueNotifier<bool> darkModeValue) : _darkModeValue = darkModeValue {
     _darkModeValue.addListener(_handleDarkModeChange);

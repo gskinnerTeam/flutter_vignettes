@@ -5,7 +5,6 @@ import 'dog_slider_bg_painter.dart';
 import 'main.dart';
 import 'moving_character_physics_2d.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -13,12 +12,18 @@ import 'bouncing_icon.dart';
 
 class DogSlider extends StatefulWidget {
   final double arcRadius;
-  final ValueChanged<double> onChanged;
+  final ValueChanged<double>? onChanged;
   final double width;
   final double hzPadding;
   final double startValue;
 
-  const DogSlider({Key key, @required this.onChanged, this.width = 100, this.arcRadius = 15, this.hzPadding = 40, this.startValue = .5})
+  const DogSlider(
+      {Key? key,
+      required this.onChanged,
+      this.width = 100,
+      this.arcRadius = 15,
+      this.hzPadding = 40,
+      this.startValue = .5})
       : super(key: key);
 
   @override
@@ -29,13 +34,14 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
   static const double _offscreenX = -50;
   static const double _bottomPadding = 15;
 
-  AnimationController _ballAnim;
+  late AnimationController _ballAnim;
+  late Ticker _dogTicker;
+  late MovingCharacterPhysics2d _dogPhysics;
+  late DogFlareControls _dogController;
+
   double _slidePosX = 230;
   double _sliderValue = 0;
   double _dogWidth = 100;
-  Ticker _dogTicker;
-  MovingCharacterPhysics2d _dogPhysics;
-  DogFlareControls _dogController;
 
   @override
   void initState() {
@@ -174,9 +180,7 @@ class _DogSliderState extends State<DogSlider> with TickerProviderStateMixin {
       //Inject targetX into dogPhysics
       _slidePosX = xPos.clamp(widget.hzPadding, widget.width - widget.hzPadding);
       _sliderValue = (_slidePosX - widget.hzPadding) / (widget.width - widget.hzPadding * 2);
-      if (widget.onChanged != null) {
-        widget.onChanged(_sliderValue);
-      }
+      widget.onChanged?.call(_sliderValue);
       _dogPhysics.targetX = _sliderValue == 0 ? _offscreenX : _slidePosX;
     });
   }

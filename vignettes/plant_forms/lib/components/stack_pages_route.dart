@@ -5,7 +5,7 @@ import 'header.dart';
 class StackPagesRoute extends PageRouteBuilder {
   final Widget enterPage;
   final List<Widget> previousPages;
-  StackPagesRoute({this.previousPages, this.enterPage})
+  StackPagesRoute({required this.previousPages, required this.enterPage})
       : super(
           pageBuilder: (
             BuildContext context,
@@ -20,7 +20,7 @@ class StackPagesRoute extends PageRouteBuilder {
             Widget child,
           ) {
             return Stack(
-              overflow: Overflow.clip,
+              clipBehavior: Clip.none,
               fit: StackFit.expand,
               children: <Widget>[
                 Header(),

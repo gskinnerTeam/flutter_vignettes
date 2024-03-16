@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class IndieAppBar extends StatelessWidget {
-  const IndieAppBar({Key key}) : super(key: key);
+  const IndieAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(context) {

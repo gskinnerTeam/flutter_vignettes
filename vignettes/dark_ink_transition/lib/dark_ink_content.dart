@@ -11,7 +11,7 @@ class DarkInkContent extends StatelessWidget {
   final bool darkMode;
   final ScrollController scrollController;
 
-  DarkInkContent({this.darkMode, this.scrollController});
+  DarkInkContent({required this.darkMode,required this.scrollController});
 
   @override
   Widget build(context) {

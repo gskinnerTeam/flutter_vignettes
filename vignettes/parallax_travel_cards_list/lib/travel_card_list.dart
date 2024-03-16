@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared/ui/rotation_3d.dart';
 import 'demo_data.dart';
-import 'rotation_3d.dart';
 import 'travel_card_renderer.dart';
 
 class TravelCardList extends StatefulWidget {
   final List<City> cities;
   final Function onCityChange;
 
-  const TravelCardList({Key key, this.cities, @required this.onCityChange}) : super(key: key);
+  const TravelCardList({Key? key, required this.cities, required this.onCityChange}) : super(key: key);
 
   @override
   TravelCardListState createState() => TravelCardListState();
@@ -16,7 +16,7 @@ class TravelCardList extends StatefulWidget {
 class TravelCardListState extends State<TravelCardList> with SingleTickerProviderStateMixin {
   final double _maxRotation = 20;
 
-  PageController _pageController;
+  PageController? _pageController;
 
   double _cardWidth = 160;
   double _cardHeight = 200;
@@ -25,9 +25,20 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
   bool _isScrolling = false;
   //int _focusedIndex = 0;
 
-  AnimationController _tweenController;
-  Tween<double> _tween;
-  Animation<double> _tweenAnim;
+  //Create Controller, which starts/stops the tween, and rebuilds this widget while it's running
+  late AnimationController _tweenController = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+  //Create Tween, which defines our begin + end values
+  Tween<double> _tween = Tween<double>(begin: -1, end: 0);
+  //Create Animation, which allows us to access the current tween value and the onUpdate() callback.
+  late Animation<double> _tweenAnim = _tween.animate(
+    new CurvedAnimation(parent: _tweenController, curve: Curves.elasticOut),
+  );
+  @override
+  void initState() {
+    //Set our offset each time the tween updates
+    _tweenAnim.addListener(() => _setOffset(_tweenAnim.value));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +59,7 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
         controller: _pageController,
         itemCount: 8,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => _buildItemRenderer(i),
+        itemBuilder: (context, i) => _buildRotatedTravelCard(i),
       ),
     );
 
@@ -65,7 +76,7 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
   }
 
   //Create a renderer for each list item
-  Widget _buildItemRenderer(int itemIndex) {
+  Widget _buildRotatedTravelCard(int itemIndex) {
     return Container(
       //Vertically pad all the non-selected items, to make them smaller. AnimatedPadding widget handles the animation.
       child: Rotation3d(
@@ -96,15 +107,16 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
       _prevScrollX = notification.metrics.pixels;
       //Calculate the index closest to middle
       //_focusedIndex = (_prevScrollX / (_itemWidth + _listItemPadding)).round();
-      widget.onCityChange(widget.cities.elementAt(_pageController.page.round() % widget.cities.length));
+      final currentPage = _pageController?.page?.round();
+      if (currentPage != null) {
+        widget.onCityChange(widget.cities.elementAt(currentPage % widget.cities.length));
+      }
     }
     //Scroll Start
     else if (notification is ScrollStartNotification) {
       _isScrolling = true;
       _prevScrollX = notification.metrics.pixels;
-      if (_tween != null) {
-        _tweenController.stop();
-      }
+      _tweenController.stop();
     }
     return true;
   }
@@ -127,20 +139,6 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
 
   //Tweens our offset from the current value, to 0
   void _startOffsetTweenToZero() {
-    //The first time this runs, setup our controller, tween and animation. All 3 are required to control an active animation.
-    int tweenTime = 1000;
-    if (_tweenController == null) {
-      //Create Controller, which starts/stops the tween, and rebuilds this widget while it's running
-      _tweenController = AnimationController(vsync: this, duration: Duration(milliseconds: tweenTime));
-      //Create Tween, which defines our begin + end values
-      _tween = Tween<double>(begin: -1, end: 0);
-      //Create Animation, which allows us to access the current tween value and the onUpdate() callback.
-      _tweenAnim = _tween.animate(new CurvedAnimation(parent: _tweenController, curve: Curves.elasticOut))
-        //Set our offset each time the tween fires, triggering a rebuild
-        ..addListener(() {
-          _setOffset(_tweenAnim.value);
-        });
-    }
     //Restart the tweenController and inject a new start value into the tween
     _tween.begin = _normalizedOffset;
     _tweenController.reset();

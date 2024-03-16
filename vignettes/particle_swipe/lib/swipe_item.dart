@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -33,9 +34,9 @@ class SwipeItem extends StatefulWidget {
 
   final Email data;
   final bool isEven;
-  final Function(GlobalKey, {SwipeAction action}) onSwipe; // called when a row is swiped left.
+  final void Function(GlobalKey key, {required SwipeAction action})? onSwipe; // called when a row is swiped left.
 
-  SwipeItem({@required this.data, this.onSwipe, @required this.isEven});
+  SwipeItem({required this.data, this.onSwipe, required this.isEven});
 
   @override
   State<SwipeItem> createState() {
@@ -44,16 +45,14 @@ class SwipeItem extends StatefulWidget {
 }
 
 class SwipeItemState extends State<SwipeItem> {
-  ScrollController _scrollController;
+  ScrollController _hzScrollController = ScrollController();
   double _swipeDistance = 0.0;
-  Key _key = GlobalKey();
+  GlobalKey _key = GlobalKey();
   bool _isPerformingAction = false;
-
-  SwipeItemState();
 
   @override
   void initState() {
-    _resetScrollController();
+    _hzScrollController.addListener(_handleSwipe);
     super.initState();
   }
 
@@ -116,7 +115,7 @@ class SwipeItemState extends State<SwipeItem> {
             physics: ConstrainedScrollPhysics(
               maxOverscroll: SwipeItem.swipeDistance * 1.2,
             ),
-            controller: _scrollController,
+            controller: _hzScrollController,
             child: Opacity(
               opacity: 1.0 - swipeRatio * 0.9,
               child: Transform.scale(
@@ -130,24 +129,19 @@ class SwipeItemState extends State<SwipeItem> {
     );
   }
 
-  void _resetScrollController() {
-    // _scrollController is attached to the horizontal scroll view, and notifies _handleSwipe of changes.
-    _scrollController?.dispose();
-    _scrollController = new ScrollController();
-    _scrollController.addListener(_handleSwipe);
-  }
+  void _resetScrollController() => _hzScrollController.jumpTo(0);
 
   void _handleSwipe() {
-    double d = _scrollController.position.pixels;
+    double d = _hzScrollController.position.pixels;
     if (d > SwipeItem.swipeDistance && !_isPerformingAction) {
       // Completed a left swipe. Call onRemove, and reset the scroll controller to release the swipe.
       widget.onSwipe?.call(_key, action: SwipeAction.remove);
-      _resetScrollController();
+      scheduleMicrotask(_resetScrollController);
     } else if (d < -SwipeItem.swipeDistance && !_isPerformingAction) {
       _isPerformingAction = true;
       // Right swipe.
       widget.onSwipe?.call(_key, action: SwipeAction.favorite);
-      _scrollController
+      _hzScrollController
           .animateTo(0, duration: Duration(milliseconds: 800), curve: Interval(.25, 1, curve: Curves.easeOutQuad))
           .whenComplete(() => _isPerformingAction = false);
     }

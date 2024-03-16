@@ -25,10 +25,14 @@ class ProductDetailView extends StatelessWidget {
               child: Hero(
                 tag: 'hero-speaker',
                 child: Container(
-                    width: frameWidth,
-                    height: frameHeight,
-                    child: Sprite(
-                        image: AssetImage("images/speaker_sprite.png", package: App.pkg), frameWidth: 360, frameHeight: 500, frame: 59)),
+                  width: frameWidth,
+                  height: frameHeight,
+                  child: Sprite(
+                      image: AssetImage("images/speaker_sprite.png", package: App.pkg),
+                      frameWidth: 360,
+                      frameHeight: 500,
+                      frame: 59),
+                ),
               ),
             ),
             Align(
@@ -47,7 +51,12 @@ class ProductDetailView extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                   child: Text(
                     'Buy Now \$349.95'.toUpperCase(),
-                    style: TextStyle(fontFamily: 'WorkSans', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 2, package: App.pkg),
+                    style: TextStyle(
+                        fontFamily: 'WorkSans',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        letterSpacing: 2,
+                        package: App.pkg),
                   ),
                 ),
               ),

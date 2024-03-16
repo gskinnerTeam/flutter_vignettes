@@ -6,11 +6,10 @@ import 'package:shared/ui/animated_sprite.dart';
 import 'main.dart';
 
 class TransitionContainer extends StatefulWidget {
-
   final ValueNotifier<bool> darkModeValue;
   final Widget child;
 
-  TransitionContainer({ this.darkModeValue, this.child });
+  TransitionContainer({required this.darkModeValue, required this.child});
 
   @override
   State createState() {
@@ -18,20 +17,31 @@ class TransitionContainer extends StatefulWidget {
   }
 }
 
-class _TransitionContainerState extends State<TransitionContainer>
-    with SingleTickerProviderStateMixin {
+class _TransitionContainerState extends State<TransitionContainer> with SingleTickerProviderStateMixin {
+  late AnimationController _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
+  late Animation<double> _animation = TweenSequence(
+    <TweenSequenceItem<double>>[
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0.0, end: 0.0),
+        weight: 30,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0.0, end: 34.0),
+        weight: 70,
+      ),
+    ],
+  ).animate(_controller);
 
-  AnimationController _controller;
-  Animation<double> _animation;
-
-  List<ImageProvider> _images;
+  List<ImageProvider> _images = [];
   int _currentImageIndex = 0;
 
-  Widget _childForeground;
-  Widget _childBackground;
+  Widget? _childForeground;
+  Widget? _childBackground;
 
   _TransitionContainerState(ValueNotifier<bool> darkModeValue, this._childBackground) {
-    darkModeValue?.addListener(() { _handleDarkModeChange(darkModeValue.value); });
+    darkModeValue.addListener(() {
+      _handleDarkModeChange(darkModeValue.value);
+    });
   }
 
   @override
@@ -42,22 +52,8 @@ class _TransitionContainerState extends State<TransitionContainer>
       AssetImage('assets/images/tendril_mask.png', package: App.pkg),
     ];
 
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
-    _animation = TweenSequence(
-      <TweenSequenceItem<double>>[
-        TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 0.0),
-          weight: 30,
-        ),
-        TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 34.0),
-          weight: 70,
-        ),
-      ],
-    ).animate(_controller);
     _controller.addListener(() {
-      setState(() {
-      });
+      setState(() {});
     });
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -65,7 +61,7 @@ class _TransitionContainerState extends State<TransitionContainer>
           _childBackground = _childForeground;
           _childForeground = null;
         });
-          _controller.reset();
+        _controller.reset();
       }
     });
     super.initState();
@@ -95,11 +91,11 @@ class _TransitionContainerState extends State<TransitionContainer>
     final height = appSize.height;
 
     List<Widget> children = <Widget>[
-        Container(
-          width: width,
-          height: height,
-          child: _childBackground,
-        ),
+      Container(
+        width: width,
+        height: height,
+        child: _childBackground,
+      ),
     ];
 
     // If we swapped the child then add the foreground to the list of children when animating
@@ -148,4 +144,3 @@ class _TransitionContainerState extends State<TransitionContainer>
     }
   }
 }
-

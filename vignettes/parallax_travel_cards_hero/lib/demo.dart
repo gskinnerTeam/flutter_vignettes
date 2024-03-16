@@ -30,12 +30,11 @@ class HeroCardDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       elevation: 0.0,
       leading: Icon(Icons.menu, color: Colors.black),
       backgroundColor: Colors.white,
-      brightness: Brightness.light,
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
@@ -57,7 +56,8 @@ class HeroCardDemo extends StatelessWidget {
       child: GestureDetector(
         onTap: () => _handlePressedBtn(context),
         child: Container(
-          constraints: BoxConstraints(minHeight: 290, minWidth: 250, maxHeight: MediaQuery.of(context).size.height * .43, maxWidth: 300),
+          constraints: BoxConstraints(
+              minHeight: 290, minWidth: 250, maxHeight: MediaQuery.of(context).size.height * .43, maxWidth: 300),
           child: Hero(tag: '${city.name}-hero', child: CityScenery(city: city)),
         ),
       ),

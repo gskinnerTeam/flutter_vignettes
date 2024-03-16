@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spending_tracker/main.dart';
 
-import 'scaling_info.dart';
 import '../app_colors.dart';
 import 'circle_percentage_painter.dart';
 
@@ -18,18 +18,12 @@ class CirclePercentageWidget extends StatefulWidget {
 }
 
 class _CirclePercentageWidgetState extends State<CirclePercentageWidget> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 2400));
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 2400));
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-
+    _controller.addListener(() => setState(() {}));
     _controller.animateTo(widget.percent);
-
     super.initState();
   }
 
@@ -48,27 +42,17 @@ class _CirclePercentageWidgetState extends State<CirclePercentageWidget> with Si
 
   @override
   Widget build(context) {
-    final titleStyle = TextStyle(
-      color: AppColors.colorText0,
-      fontFamily: 'Lato',
-      fontWeight: FontWeight.w200,
-      fontSize: 14,
-    );
-
-    final labelStyle = TextStyle(
-      color: AppColors.colorText1,
-      fontFamily: 'Lato',
-      fontWeight: FontWeight.w200,
-      fontSize: 14,
-    );
+    final titleStyle = text1.copyWith(color: AppColors.colorText0, fontSize: 14);
+    final labelStyle = text1.copyWith(fontSize: 14);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(widget.title, style: titleStyle),
         Container(
-          width: 42 * ScalingInfo.scaleY,
-          height: 42 * ScalingInfo.scaleY,
+          /// TODO: Fix ScalingInfo
+          width: 42 * appScale,
+          height: 42 * appScale,
           margin: EdgeInsets.all(12),
           child: CustomPaint(
             isComplex: false,

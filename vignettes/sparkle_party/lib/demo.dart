@@ -15,10 +15,22 @@ import 'utils/sprite_sheet.dart';
 
 class SparklePartyDemo extends StatefulWidget {
   static final List<FXEntry> fxs = [
-    FXEntry("Waterfall", create: ({spriteSheet, size}) => Waterfall(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Fireworks", create: ({spriteSheet, size}) => Fireworks(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Comet", create: ({spriteSheet, size}) => Comet(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Pinwheel", create: ({spriteSheet, size}) => Pinwheel(spriteSheet: spriteSheet, size: size)),
+    FXEntry(
+      "Waterfall",
+      create: (spriteSheet, size) => Waterfall(spriteSheet: spriteSheet, size: size),
+    ),
+    FXEntry(
+      "Fireworks",
+      create: (spriteSheet, size) => Fireworks(spriteSheet: spriteSheet, size: size),
+    ),
+    FXEntry(
+      "Comet",
+      create: (spriteSheet, size) => Comet(spriteSheet: spriteSheet, size: size),
+    ),
+    FXEntry(
+      "Pinwheel",
+      create: (spriteSheet, size) => Pinwheel(spriteSheet: spriteSheet, size: size),
+    ),
   ];
 
   static final List<String> instructions = [
@@ -36,20 +48,17 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
   int _fxIndex = 0;
   int _buttonIndex = 0;
 
-  AnimationController _transitionController;
-  AnimationController _textController;
+  late AnimationController _transitionController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 350),
+  );
+  late AnimationController _textController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 800),
+  );
 
   @override
   void initState() {
-    _transitionController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 350),
-    );
-    _textController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-
     Listenable.merge([_transitionController, _textController]).addListener(() {
       setState(() {});
     });
@@ -59,6 +68,7 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
   @override
   void dispose() {
     _transitionController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
@@ -67,7 +77,6 @@ class _SparklePartyDemoState extends State<SparklePartyDemo> with TickerProvider
     return Scaffold(
       body: Stack(
         children: <Widget>[
-
           //Main Background image
           Positioned.fill(
             child: Image.asset("assets/sparkleparty_bg.png", fit: BoxFit.cover, package: App.pkg),

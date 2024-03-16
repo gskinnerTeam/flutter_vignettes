@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:shared/ui/rotation_3d.dart';
 
-import 'components/rotation_3d.dart';
 import 'demo_data.dart';
 import 'main.dart';
 import 'styles.dart';
@@ -12,12 +12,12 @@ class CityScenery extends StatelessWidget {
   final double animationValue;
   final CityData city;
 
-  const CityScenery({Key key, this.animationValue = 0, @required this.city}) : super(key: key);
+  const CityScenery({Key? key, this.animationValue = 0, required this.city}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var animation = AlwaysStoppedAnimation(animationValue);
+    var animation = AlwaysStoppedAnimation<double>(animationValue);
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -31,7 +31,7 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildCardInfo(Animation animation, Size screenSize) {
+  Widget _buildCardInfo(Animation<double> animation, Size screenSize) {
     return FadeTransition(
       opacity: Tween<double>(begin: 1.0, end: 0).animate(CurvedAnimation(curve: Interval(0, .22), parent: animation)),
       child: Container(
@@ -56,9 +56,9 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildBackgroundTransition(Animation animation) {
-    var gradientStart =
-        ColorTween(begin: city.color, end: Color(0xFFfde9c8)).animate(CurvedAnimation(curve: Curves.easeOut, parent: animation));
+  Widget _buildBackgroundTransition(Animation<double> animation) {
+    var gradientStart = ColorTween(begin: city.color, end: Color(0xFFfde9c8))
+        .animate(CurvedAnimation(curve: Curves.easeOut, parent: animation));
     var gradientEnd = ColorTween(begin: city.color, end: Color(0xFFfdf8f1)).evaluate(animation);
     var borderRadiusAnimation = Tween<double>(begin: Styles.cardBorderRadius, end: 0).transform(animationValue);
     return Container(
@@ -68,15 +68,16 @@ class CityScenery extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [gradientStart.value, gradientEnd],
+            colors: [gradientStart.value!, gradientEnd!],
           )),
     );
   }
 
-  Widget _buildRoadTransition(Animation animation, Size screenSize) {
+  Widget _buildRoadTransition(Animation<double> animation, Size screenSize) {
     double scale = .55 * .2;
     return FadeTransition(
-      opacity: Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(.7, 1, curve: Curves.easeIn), parent: animation)),
+      opacity: Tween<double>(begin: 0, end: 1)
+          .animate(CurvedAnimation(curve: Interval(.7, 1, curve: Curves.easeIn), parent: animation)),
       child: SlideTransition(
         position: Tween<Offset>(begin: Offset(0, -1.4), end: Offset.zero).animate(animation),
         child: SizeTransition(
@@ -100,25 +101,25 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildCloudsAnimation(Animation animation) {
+  Widget _buildCloudsAnimation(Animation<double> animation) {
     return FadeTransition(
       opacity: animation,
       child: _Clouds(),
     );
   }
 
-  Widget _buildCityAndTreesTransition(Animation animation, Size screenSize) {
+  Widget _buildCityAndTreesTransition(Animation<double> animation, Size screenSize) {
     // City Image Animation
     var sizeStart = Size(screenSize.width * .55, screenSize.height * .24);
     var sizeEnd = Size(screenSize.width, screenSize.height * .35);
-    var sizeTransition =
-        Tween(begin: sizeStart, end: sizeEnd).animate(CurvedAnimation(curve: Interval(.25, 1, curve: Curves.easeIn), parent: animation));
+    var sizeTransition = Tween(begin: sizeStart, end: sizeEnd)
+        .animate(CurvedAnimation(curve: Interval(.25, 1, curve: Curves.easeIn), parent: animation));
 
     var cityPositionTransition = Tween(begin: Offset(0, -screenSize.height * .112), end: Offset.zero)
         .animate(CurvedAnimation(curve: Interval(0.5, 1, curve: Curves.easeIn), parent: animation));
     //Trees Animations
-    var treesOpacityTransition =
-        Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(curve: Interval(.75, 1, curve: Curves.easeIn), parent: animation));
+    var treesOpacityTransition = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(curve: Interval(.75, 1, curve: Curves.easeIn), parent: animation));
 
     return Transform.translate(
       offset: cityPositionTransition.value,
@@ -138,7 +139,7 @@ class CityScenery extends StatelessWidget {
     );
   }
 
-  Widget _buildLeavesAnimation(Animation animation) {
+  Widget _buildLeavesAnimation(Animation<double> animation) {
     return FadeTransition(
       opacity: animation,
       child: _Leaves(),
@@ -157,8 +158,8 @@ class _Clouds extends StatefulWidget {
 
 class _CloudsState extends State<_Clouds> with SingleTickerProviderStateMixin {
   static Map<String, _CloudsState> _cachedState = {};
-  Ticker _ticker;
-  double _animationValue;
+  late Ticker _ticker;
+  late double _animationValue;
 
   @override
   void initState() {
@@ -195,7 +196,8 @@ class _CloudsState extends State<_Clouds> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var dxPosition = Tween<double>(begin: -screenSize.width * .1, end: screenSize.width * 1.8).transform(_animationValue);
+    var dxPosition =
+        Tween<double>(begin: -screenSize.width * .1, end: screenSize.width * 1.8).transform(_animationValue);
 
     return Stack(
       children: <Widget>[
@@ -229,8 +231,8 @@ class _Leaves extends StatefulWidget {
 
 class _LeavesState extends State<_Leaves> with SingleTickerProviderStateMixin {
   static Map<String, _LeavesState> _cachedState = {};
-  Ticker _ticker;
-  double _animationValue;
+  late Ticker _ticker;
+  late double _animationValue;
 
   @override
   initState() {
@@ -294,14 +296,14 @@ class _Leaf extends StatelessWidget {
   final Function getCurvePath;
   final Curve curve;
 
-  _Leaf({@required this.animationValue, @required this.getCurvePath, this.curve = Curves.linear, this.rotationScale = 1});
+  _Leaf({required this.animationValue, required this.getCurvePath, this.curve = Curves.linear, this.rotationScale = 1});
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    var dxPosition =
-        Tween<double>(begin: -10, end: screenSize.width + 10).transform(Interval(0, .9, curve: this.curve).transform(animationValue));
+    var dxPosition = Tween<double>(begin: -10, end: screenSize.width + 10)
+        .transform(Interval(0, .9, curve: this.curve).transform(animationValue));
     var dyPosition = Tween<double>(begin: 0, end: pi * 2).transform(animationValue);
     var rotation = Tween<double>(begin: 0, end: 360).transform(Curves.easeOutSine.transform(animationValue));
 
@@ -363,7 +365,7 @@ class _CityImage extends StatelessWidget {
   final Size size;
   final CityData city;
 
-  const _CityImage({Key key, this.size, this.city}) : super(key: key);
+  const _CityImage({Key? key, required this.size, required this.city}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -376,12 +378,25 @@ class _CityImage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[
-                Image.asset('images/${city.name}/${city.name}-Back.png', package: App.pkg,),
-                Image.asset('images/${city.name}/${city.name}-Middle.png', package: App.pkg,),
-                Image.asset('images/${city.name}/${city.name}-Front.png', package: App.pkg,),
+                Image.asset(
+                  'images/${city.name}/${city.name}-Back.png',
+                  package: App.pkg,
+                ),
+                Image.asset(
+                  'images/${city.name}/${city.name}-Middle.png',
+                  package: App.pkg,
+                ),
+                Image.asset(
+                  'images/${city.name}/${city.name}-Front.png',
+                  package: App.pkg,
+                ),
               ],
             )),
-        Image.asset('images/Ground.png', width: size.width, package: App.pkg,)
+        Image.asset(
+          'images/Ground.png',
+          width: size.width,
+          package: App.pkg,
+        )
       ],
     );
   }

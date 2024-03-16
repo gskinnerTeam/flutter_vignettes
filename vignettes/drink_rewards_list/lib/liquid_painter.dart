@@ -10,17 +10,16 @@ class LiquidSimulation {
 
   double endPtX1 = .5;
   double endPtY1 = 1;
-  double duration;
-  double time;
+  // double duration;
+  // double time;
   double xOffset = 0;
 
   final ElasticOutCurve _ease = ElasticOutCurve(.3);
 
-  double hzScale;
-  double hzOffset;
+  double hzScale = 1;
+  double hzOffset = 0;
 
   void start(AnimationController controller, bool flipY) {
-
     //Each time the controller ticks, update our control points, using the latest tween values
     controller.addListener(updateControlPointsFromTweens);
     //Calculate gap between each ctrl/end pt.
@@ -34,7 +33,7 @@ class LiquidSimulation {
     endPts.clear();
     //For n curves, we need n + 2 endpoints
     //Create first end point
-    endPts.insert(0, Offset(0, 0));//Start at 0,0
+    endPts.insert(0, Offset(0, 0)); //Start at 0,0
     for (var i = 1; i < curveCount; i++) {
       endPts.add(Offset(gap * i * 2, 0));
     }
@@ -45,7 +44,7 @@ class LiquidSimulation {
     ctrlPts.clear();
     for (var i = 0; i < curveCount + 1; i++) {
       //Choose random height for this control pt
-      var height = (.5 + Random().nextDouble() * .5) * (i % 2 == 0 ? 1 : -1) * (flipY? -1 : 1);
+      var height = (.5 + Random().nextDouble() * .5) * (i % 2 == 0 ? 1 : -1) * (flipY ? -1 : 1);
       //Create a 3 part tween, does nothing for a bit, then easesOut to 'height', then elastic snaps back to 0
       var animSequence = TweenSequence([
         TweenSequenceItem<double>(
@@ -67,7 +66,7 @@ class LiquidSimulation {
   }
 
   List<Offset> updateControlPointsFromTweens() {
-    for(var i = 0; i < ctrlPts.length; i++){
+    for (var i = 0; i < ctrlPts.length; i++) {
       var o = ctrlPts[i];
       ctrlPts[i] = Offset(o.dx, ctrlTweens[i].value);
     }
@@ -85,10 +84,8 @@ class LiquidPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
     _drawLiquidSim(simulation1, canvas, size, 0, Color(0xffC48D3B).withOpacity(.4));
-    _drawLiquidSim(simulation2, canvas, size, 5,  Color(0xff9D7B32).withOpacity(.4));
-
+    _drawLiquidSim(simulation2, canvas, size, 5, Color(0xff9D7B32).withOpacity(.4));
   }
 
   @override
@@ -96,7 +93,7 @@ class LiquidPainter extends CustomPainter {
     return false;
   }
 
-  void _drawLiquidSim(LiquidSimulation simulation, Canvas canvas, Size size, double offsetY, Color color){
+  void _drawLiquidSim(LiquidSimulation simulation, Canvas canvas, Size size, double offsetY, Color color) {
     canvas.scale(simulation.hzScale, 1);
     canvas.translate(simulation.hzOffset * size.width, offsetY);
 
@@ -110,7 +107,7 @@ class LiquidPainter extends CustomPainter {
       ..lineTo(-size.width * .25, 0);
 
     //Loop through simulation control and end points, drawing each as a pair
-    for(var i = 0; i < simulation.curveCount; i++){
+    for (var i = 0; i < simulation.curveCount; i++) {
       var ctrlPt = sizeOffset(simulation.ctrlPts[i], size);
       var endPt = sizeOffset(simulation.endPts[i + 1], size);
       path.quadraticBezierTo(ctrlPt.dx, ctrlPt.dy, endPt.dx, endPt.dy);
@@ -118,11 +115,10 @@ class LiquidPainter extends CustomPainter {
     canvas.drawPath(path, Paint()..color = color);
 
     canvas.translate(-simulation.hzOffset * size.width, -offsetY);
-    canvas.scale(1/simulation.hzScale, 1);
+    canvas.scale(1 / simulation.hzScale, 1);
   }
 
   void _drawOffsets(LiquidSimulation simulation, Canvas canvas, Size size) {
-    var floor = size.height;
     simulation1.endPts.forEach((pt) {
       canvas.drawCircle(sizeOffset(pt, size), 4, Paint()..color = Colors.red);
     });
@@ -132,6 +128,6 @@ class LiquidPainter extends CustomPainter {
   }
 
   Offset sizeOffset(Offset pt, Size size) {
-    return Offset(pt.dx * size.width, waveHeight * pt.dy );
+    return Offset(pt.dx * size.width, waveHeight * pt.dy);
   }
 }

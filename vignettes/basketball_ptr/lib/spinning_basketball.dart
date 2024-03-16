@@ -22,7 +22,7 @@ class SpinningBasketball extends StatefulWidget {
   final AnimationController controller;
   final double maxHeight;
 
-  SpinningBasketball({this.controller, this.maxHeight}) : super(key: ValueKey(controller));
+  SpinningBasketball({required this.controller, required this.maxHeight}) : super(key: ValueKey(controller));
 
   @override
   State createState() {
@@ -35,11 +35,11 @@ class _SpinningBasketballState extends State<SpinningBasketball> with SingleTick
 
   AnimationController _controller;
 
-  Animation<double> _spriteAnimation;
+  late Animation<double> _spriteAnimation;
 
-  Animation<double> _xAnimation;
-  Animation<double> _yAnimation;
-  Animation<double> _scaleAnimation;
+  late Animation<double> _xAnimation;
+  late Animation<double> _yAnimation;
+  late Animation<double> _scaleAnimation;
 
   _SpinningBasketballState(this._controller, this._maxHeight);
 
@@ -77,21 +77,18 @@ class _SpinningBasketballState extends State<SpinningBasketball> with SingleTick
         weight: 0.6,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.12, end: -0.12)
-            .chain(CurveTween(curve: cosCurve)),
+        tween: Tween<double>(begin: 0.12, end: -0.12).chain(CurveTween(curve: cosCurve)),
         weight: 4.2,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.12, end: 0.0)
-            .chain(CurveTween(curve: Curves.easeInSine)),
+        tween: Tween<double>(begin: 0.12, end: 0.0).chain(CurveTween(curve: Curves.easeInSine)),
         weight: 1,
       ),
     ]).animate(_controller);
 
     _yAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.70, end: -0.72)
-            .chain(CurveTween(curve: Curves.easeOutSine)),
+        tween: Tween<double>(begin: 1.70, end: -0.72).chain(CurveTween(curve: Curves.easeOutSine)),
         weight: 1.3,
       ),
       TweenSequenceItem(
@@ -104,8 +101,7 @@ class _SpinningBasketballState extends State<SpinningBasketball> with SingleTick
         weight: 4.00,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.02, end: 0.30)
-            .chain(CurveTween(curve: Curves.easeInCubic)),
+        tween: Tween<double>(begin: 0.02, end: 0.30).chain(CurveTween(curve: Curves.easeInCubic)),
         weight: 1,
       ),
     ]).animate(_controller);
@@ -138,7 +134,6 @@ class _SpinningBasketballState extends State<SpinningBasketball> with SingleTick
 
     double scaledWidth = 0.3 * _maxHeight * _scaleAnimation.value * 0.8;
     double scaledHeight = 0.3 * _maxHeight * _scaleAnimation.value * 0.8;
-
 
     final yOffset = _maxHeight * 0.08;
     final backboardWidth = 0.8 * _maxHeight * 0.8;

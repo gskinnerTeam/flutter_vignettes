@@ -11,17 +11,17 @@ class TextInput extends StatefulWidget {
   final bool isRequired;
   final InputType type;
   final Function onValidate;
-  final Function onChange;
+  final Function? onChange;
   final bool isActive;
-  final ValueNotifier valueNotifier;
+  final ValueNotifier? valueNotifier;
 
   const TextInput({
-    Key key,
+    Key? key,
     this.helper = '',
     this.isRequired = true,
     this.initialValue = '',
     this.type = InputType.text,
-    @required this.onValidate,
+    required this.onValidate,
     this.label = '',
     this.isActive = true,
     this.onChange,
@@ -34,7 +34,7 @@ class TextInput extends StatefulWidget {
 
 class _TextInputState extends State<TextInput> {
   bool _isAutoValidating = false;
-  bool _isValid;
+  bool? _isValid;
 
   String _value = '';
   String _errorText = '';
@@ -46,7 +46,7 @@ class _TextInputState extends State<TextInput> {
     super.initState();
     // Reset the valid state on notifier change
     if (widget.valueNotifier != null) {
-      widget.valueNotifier.addListener(()=>_isValid = false);
+      widget.valueNotifier?.addListener(() => _isValid = false);
     }
   }
 
@@ -65,26 +65,24 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     //Validate based on initial value, only do this once. We do it here instead of initState as it may trigger rebuilds up the tree
-    if (_isValid == null) {
-      if (widget.initialValue.isNotEmpty) {
-        _validateField(widget.initialValue);
-      }
+    if (_isValid == null && widget.initialValue.isNotEmpty) {
+      _validateField(widget.initialValue);
     }
 
     //build input
     return Container(
       padding: EdgeInsets.only(top: widget.label.isNotEmpty ? 18 : 0),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: <Widget>[
           if (widget.label.isNotEmpty) Positioned(top: -24, child: Text(widget.label, style: Styles.inputLabel)),
           TextFormField(
-            initialValue: _getInitialValue(),
+            initialValue: widget.initialValue,
             style: Styles.orderTotalLabel,
             enabled: widget.isActive,
             onChanged: _handleChange,
             keyboardType: _setKeyboardType(),
-            autovalidate: _isAutoValidating,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: _validateField,
             decoration: Styles.getInputDecoration(helper: widget.helper),
           ),
@@ -107,20 +105,14 @@ class _TextInputState extends State<TextInput> {
   String _getLabel() {
     String label = '';
     if (!widget.isRequired && _value.isEmpty) label = 'Optional';
-    if (_value.isNotEmpty && widget.label.isEmpty || _getInitialValue().isNotEmpty) return widget.helper;
+    if (_value.isNotEmpty && widget.label.isEmpty || widget.initialValue.isNotEmpty) return widget.helper;
     return label;
-  }
-
-  String _getInitialValue() {
-    // initial value established from parent
-    if (widget.initialValue != null && widget.initialValue.isNotEmpty) return widget.initialValue;
-    return '';
   }
 
   void _handleChange(String value) {
     // save value status
     _value = value;
-    widget.onChange(_keyValue, value);
+    widget.onChange?.call(_keyValue, value);
 
     // activate validation
     Future.delayed(Duration(milliseconds: 100), () => setState(() {}));
@@ -130,7 +122,7 @@ class _TextInputState extends State<TextInput> {
       });
   }
 
-  TextInputType _setKeyboardType() {
+  TextInputType? _setKeyboardType() {
     TextInputType type;
     switch (widget.type) {
       case InputType.email:
@@ -150,10 +142,10 @@ class _TextInputState extends State<TextInput> {
     return type;
   }
 
-  String _validateField(String value) {
-    _value = value;
+  String? _validateField(String? value) {
+    _value = value ?? '';
     // if the value is required
-    if (widget.isRequired && value.isEmpty) {
+    if (widget.isRequired && _value.isEmpty) {
       isValid = false;
       _errorText = 'Required';
       // Update error label, wait a frame because this was causing markAsBuild errors
@@ -161,13 +153,13 @@ class _TextInputState extends State<TextInput> {
       return _errorText;
     }
     // if it is optional
-    else if (!widget.isRequired && value.isEmpty) {
+    else if (!widget.isRequired && _value.isEmpty) {
       isValid = true;
       _errorText = '';
       return null;
     }
     // validate when the input has a value
-    else if (value.isNotEmpty && InputValidator.validate(widget.type, value)) {
+    else if (_value.isNotEmpty && InputValidator.validate(widget.type, _value)) {
       isValid = true;
       _errorText = '';
       return null;

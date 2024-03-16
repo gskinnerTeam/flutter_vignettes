@@ -1,4 +1,3 @@
-
 class FormKeys {
   static String instructions = "instructions";
   static String firstName = "first_name";
@@ -137,7 +136,7 @@ class CountryData {
     'Wyoming'
   ];
 
-  static String getSubdivisionTitle(String country) {
+  static String getSubdivisionTitle(String? country) {
     String subdivision = '';
     switch (country) {
       case 'Canada':
@@ -171,5 +170,7 @@ class CountryData {
 }
 
 enum InputType { text, email, number, telephone }
+
 enum CreditCardInputType { number, expirationDate, securityCode }
+
 enum CreditCardNetwork { visa, mastercard, amex }

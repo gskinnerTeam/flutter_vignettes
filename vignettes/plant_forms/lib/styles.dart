@@ -47,27 +47,39 @@ class Styles {
 
   static TextStyle formTitle = baloo.copyWith(color: Styles.primaryColor, height: 1, fontSize: 30, letterSpacing: 0.22);
 
-  static TextStyle formSection = barlow.copyWith(fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: secondaryColor);
+  static TextStyle formSection =
+      barlow.copyWith(fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: secondaryColor);
 
-  static TextStyle imageBatch = barlow.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 0.5);
+  static TextStyle imageBatch =
+      barlow.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 0.5);
 
   static TextStyle productName =
       barlow.copyWith(fontWeight: FontWeight.w600, color: Styles.secondaryColor, letterSpacing: 0.63, fontSize: 20);
-  static TextStyle productPrice = barlow.copyWith(fontWeight: FontWeight.w500, fontSize: 20, height: 1.8, letterSpacing: 0.63);
-  static TextStyle orderLabel = barlow.copyWith(fontSize: 14, color: Styles.baseColor, letterSpacing: 0.44, fontWeight: FontWeight.w500);
-  static TextStyle orderPrice = barlow.copyWith(fontSize: 14, color: Styles.baseColor, letterSpacing: 0.44, fontWeight: FontWeight.w600);
+  static TextStyle productPrice =
+      barlow.copyWith(fontWeight: FontWeight.w500, fontSize: 20, height: 1.8, letterSpacing: 0.63);
+  static TextStyle orderLabel =
+      barlow.copyWith(fontSize: 14, color: Styles.baseColor, letterSpacing: 0.44, fontWeight: FontWeight.w500);
+  static TextStyle orderPrice =
+      barlow.copyWith(fontSize: 14, color: Styles.baseColor, letterSpacing: 0.44, fontWeight: FontWeight.w600);
   static TextStyle orderTotalLabel =
       barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w500);
-  static TextStyle orderTotal = barlow.copyWith(fontSize: 20, color: Styles.baseColor, letterSpacing: 0.63, fontWeight: FontWeight.bold);
+  static TextStyle orderTotal =
+      barlow.copyWith(fontSize: 20, color: Styles.baseColor, letterSpacing: 0.63, fontWeight: FontWeight.bold);
 
-  static TextStyle helperStyle = barlow.copyWith(fontSize: 16, color: helperColor, letterSpacing: 0.5, fontWeight: FontWeight.w500);
-  static TextStyle inputStyle = barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w500);
+  static TextStyle helperStyle =
+      barlow.copyWith(fontSize: 16, color: helperColor, letterSpacing: 0.5, fontWeight: FontWeight.w500);
+  static TextStyle inputStyle =
+      barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w500);
 
-  static TextStyle submitButtonText = barlow.copyWith(fontSize: 16, color: Colors.white, letterSpacing: 0.44, fontWeight: FontWeight.bold);
+  static TextStyle submitButtonText =
+      barlow.copyWith(fontSize: 16, color: Colors.white, letterSpacing: 0.44, fontWeight: FontWeight.bold);
 
-  static TextStyle labelOptional = barlow.copyWith(fontSize: 8, color: optionalColor, fontWeight: FontWeight.bold, letterSpacing: 1);
-  static TextStyle labelNotValid = barlow.copyWith(fontSize: 8, color: errorColor, fontWeight: FontWeight.bold, letterSpacing: 1);
-  static TextStyle labelRequired = barlow.copyWith(fontSize: 6, color: grayColor, fontWeight: FontWeight.bold, letterSpacing: .5);
+  static TextStyle labelOptional =
+      barlow.copyWith(fontSize: 8, color: optionalColor, fontWeight: FontWeight.bold, letterSpacing: 1);
+  static TextStyle labelNotValid =
+      barlow.copyWith(fontSize: 8, color: errorColor, fontWeight: FontWeight.bold, letterSpacing: 1);
+  static TextStyle labelRequired =
+      barlow.copyWith(fontSize: 6, color: grayColor, fontWeight: FontWeight.bold, letterSpacing: .5);
 
   static TextStyle textButton =
       barlow.copyWith(fontSize: 16, color: Styles.secondaryColor, letterSpacing: 0.5, fontWeight: FontWeight.bold);
@@ -79,12 +91,13 @@ class Styles {
     fontSize: 27,
   );
 
-  static TextStyle formError =
-      barlow.copyWith(fontSize: 12, color: errorColor, fontStyle: FontStyle.italic, letterSpacing: 0.38, fontWeight: FontWeight.w500);
+  static TextStyle formError = barlow.copyWith(
+      fontSize: 12, color: errorColor, fontStyle: FontStyle.italic, letterSpacing: 0.38, fontWeight: FontWeight.w500);
 
-  static TextStyle inputLabel = barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w600);
+  static TextStyle inputLabel =
+      barlow.copyWith(fontSize: 16, color: Styles.baseColor, letterSpacing: 0.5, fontWeight: FontWeight.w600);
 
-  static InputDecoration getInputDecoration({String helper}) {
+  static InputDecoration getInputDecoration({String? helper}) {
     return InputDecoration(
       helperStyle: Styles.helperStyle,
       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Styles.secondaryColor)),

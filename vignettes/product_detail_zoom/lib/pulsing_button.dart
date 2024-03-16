@@ -3,25 +3,19 @@ import 'package:flutter/material.dart';
 import 'components/circle_painter.dart';
 
 class PulsingButton extends StatefulWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final IconData icon;
 
-  const PulsingButton({Key key, @required this.onPressed, @required this.icon}) : super(key: key);
+  const PulsingButton({Key? key, required this.onPressed, required this.icon}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PulsingButtonState();
 }
 
 class _PulsingButtonState extends State<PulsingButton> with SingleTickerProviderStateMixin {
-  AnimationController _btnAnimController;
-  CurvedAnimation _btnAnim;
-
-  @override
-  void initState() {
-    super.initState();
-    _btnAnimController = AnimationController(vsync: this, duration: Duration(milliseconds: 1200))..repeat();
-    _btnAnim = CurvedAnimation(curve: Curves.linear, parent: _btnAnimController);
-  }
+  late AnimationController _btnAnimController = AnimationController(vsync: this, duration: Duration(milliseconds: 1200))
+    ..repeat();
+  late CurvedAnimation _btnAnim = CurvedAnimation(curve: Curves.linear, parent: _btnAnimController);
 
   @override
   void dispose() {
@@ -53,7 +47,7 @@ class _PulsingButtonState extends State<PulsingButton> with SingleTickerProvider
         ),
         AnimatedBuilder(
           animation: _btnAnimController,
-          builder: (BuildContext context, Widget child) {
+          builder: (BuildContext context, Widget? child) {
             double opacity = Tween<double>(begin: .7, end: .9).transform(_btnAnim.value);
             return MaterialButton(
               height: 28,

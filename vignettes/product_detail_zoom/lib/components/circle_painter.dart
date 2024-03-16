@@ -5,7 +5,7 @@ class CirclePainter extends CustomPainter {
   final Color color;
   final double radius;
 
-  CirclePainter({this.color, this.radius})
+  CirclePainter({required this.color, required this.radius})
       : _paint = Paint()
           ..color = color
           ..strokeWidth = 10.0

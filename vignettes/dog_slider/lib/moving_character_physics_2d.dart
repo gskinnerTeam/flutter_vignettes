@@ -7,8 +7,8 @@ class MovingCharacterPhysics2d {
 
   bool get atDestination => _atDestination;
 
-  Function onDestinationReached;
-  Function onMoveStarted;
+  VoidCallback? onDestinationReached;
+  VoidCallback? onMoveStarted;
 
   double targetX;
   double acc;
@@ -43,7 +43,7 @@ class MovingCharacterPhysics2d {
     _canChase = _getElapsed(_lastArrivalTime) > chaseDelay;
     //Tick physics
     double t = elapsed.inMicroseconds * 1.0e-6;
-    if (_lastTickTime == null) {
+    if (_lastTickTime == 0) {
       _lastTickTime = t;
     }
     _updatePhysics(t - _lastTickTime);
@@ -58,7 +58,7 @@ class MovingCharacterPhysics2d {
     //If we're not close to our target, accelerate towards it
     if (_canChase && (_x - targetX).abs() > stopDistance) {
       if (_atDestination && onMoveStarted != null) {
-        onMoveStarted();
+        onMoveStarted?.call();
       }
       _atDestination = false;
       //Accelerate
@@ -79,7 +79,7 @@ class MovingCharacterPhysics2d {
       _atDestination = true;
       _lastArrivalTime = DateTime.now().millisecondsSinceEpoch;
       if (onDestinationReached != null) {
-        onDestinationReached();
+        onDestinationReached?.call();
       }
     }
   }

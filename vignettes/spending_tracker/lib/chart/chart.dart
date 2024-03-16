@@ -4,13 +4,13 @@ import 'chart_data_set.dart';
 
 class Chart extends ChangeNotifier {
   List<ChartDataSet> _dataSets;
-  double _domainStart, _domainEnd, _maxDomain;
-  double _rangeStart, _rangeEnd;
+  double _domainStart;
+  late double _domainEnd, _maxDomain, _rangeStart, _rangeEnd;
 
   final String xAxisUnit;
   final String yAxisUnit;
 
-  int _selectedDataPoint;
+  int _selectedDataPoint = -1;
 
   Chart(List<ChartDataSet> dataSets, this.xAxisUnit, this.yAxisUnit)
       : _dataSets = dataSets,
@@ -21,7 +21,6 @@ class Chart extends ChangeNotifier {
       if (dataSet.values.length < _maxDomain) _maxDomain = dataSet.values.length.toDouble();
     }
     _domainEnd = _maxDomain;
-    _selectedDataPoint = -1;
 
     _rangeStart = min();
     _rangeEnd = max();
@@ -45,7 +44,7 @@ class Chart extends ChangeNotifier {
 
   double mean(int setIndex) {
     final values = _dataSets[setIndex].values.sublist(_domainStart.round(), _domainEnd.round());
-    return values.fold(0.0, (a, b) => a + b) / values.length;
+    return values.fold<double>(0.0, (a, b) => a + b) / values.length;
   }
 
   double median(int setIndex) {
@@ -69,16 +68,14 @@ class Chart extends ChangeNotifier {
   }
 
   set domainStart(double domainStart) {
-    if (domainStart == _domainStart)
-      return;
+    if (domainStart == _domainStart) return;
 
     _domainStart = domainStart.clamp(0, _domainEnd - 1.2);
     notifyListeners();
   }
 
   set domainEnd(double domainEnd) {
-    if (domainEnd == _domainEnd)
-      return;
+    if (domainEnd == _domainEnd) return;
     _domainEnd = domainEnd.clamp(_domainStart + 1.2, _maxDomain);
 
     notifyListeners();

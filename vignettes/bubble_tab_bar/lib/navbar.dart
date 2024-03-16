@@ -7,9 +7,9 @@ class NavBar extends StatelessWidget {
   final int currentIndex;
   final List<NavBarItemData> items;
 
-  const NavBar({this.items, this.itemTapped, this.currentIndex = 0});
+  const NavBar({required this.items, required this.itemTapped, this.currentIndex = 0});
 
-  NavBarItemData get selectedItem => currentIndex >= 0 && currentIndex < items.length ? items[currentIndex] : null;
+  NavBarItemData? get selectedItem => currentIndex >= 0 && currentIndex < items.length ? items[currentIndex] : null;
 
   @override
   Widget build(BuildContext context) {

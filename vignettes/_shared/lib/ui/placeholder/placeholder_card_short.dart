@@ -6,10 +6,10 @@ class PlaceholderCardShort extends StatelessWidget {
   final double width;
   final double height;
   final double cornerRadius;
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
 
-  const PlaceholderCardShort({Key key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 400, this.height = 90 }) : super(key: key);
+  const PlaceholderCardShort({Key? key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 400, this.height = 90 }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

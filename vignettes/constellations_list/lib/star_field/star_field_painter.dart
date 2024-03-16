@@ -4,25 +4,27 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class StarFieldPainter extends CustomPainter {
-  final List<Star> stars;
-  final ui.Image glowImage;
+  final List<Star>? stars;
+  final ui.Image? glowImage;
 
-  StarFieldPainter(this.stars, {this.glowImage });
+  StarFieldPainter(this.stars, {this.glowImage});
 
   @override
   void paint(Canvas canvas, Size canvasSize) {
-    if (stars == null || canvasSize == null) return;
+    final stars = this.stars;
+    final glowImage = this.glowImage;
+    if (stars == null) return;
     canvas.translate(canvasSize.width / 2, canvasSize.height / 2);
     var paint = Paint()..color = Colors.white;
     stars.forEach((s) {
       var scale = .1 + map(s.z, 0, canvasSize.width, s.size, 0);
       var sx = map(s.x / s.z, 0, 1, 0, canvasSize.width);
       var sy = map(s.y / s.z, 0, 1, 0, canvasSize.height);
-      var time = DateTime.now().millisecondsSinceEpoch/200;
+      var time = DateTime.now().millisecondsSinceEpoch / 200;
       paint.color = s.color;
-      var pos = Offset(sx,sy);
-      canvas.drawCircle( pos, scale, paint,);
-      if(glowImage != null && s.color != Colors.white){
+      var pos = Offset(sx, sy);
+      canvas.drawCircle(pos, scale, paint);
+      if (glowImage != null && s.color != Colors.white) {
         var glowSizeX = scale * 6 + 2 * (sin(time * .5));
         var glowSizeY = scale * 6 + 2 * (cos(time * .75));
         var src = Rect.fromPoints(Offset.zero, Offset(glowImage.width.toDouble(), glowImage.height.toDouble()));

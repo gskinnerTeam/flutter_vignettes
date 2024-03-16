@@ -16,10 +16,10 @@ class BubbleTabBarDemo extends StatefulWidget {
 }
 
 class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
-  List<NavBarItemData> _navBarItems;
+  List<NavBarItemData> _navBarItems = [];
   int _selectedNavIndex = 0;
 
-  List<Widget> _viewsByIndex;
+  List<Widget> _viewsByIndex = [];
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _BubbleTabBarDemoState extends State<BubbleTabBarDemo> {
             duration: Duration(milliseconds: 350),
             //Pass the current accent color down as a theme, so our overscroll indicator matches the btn color
             child: Theme(
-              data: ThemeData(accentColor: accentColor),
+              data: ThemeData(colorScheme: Theme.of(context).colorScheme.copyWith(secondary: accentColor)),
               child: contentView,
             ),
           ),

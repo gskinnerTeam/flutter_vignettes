@@ -6,7 +6,7 @@ import 'swipe_item.dart';
 class RemovedSwipeItem extends StatelessWidget {
   final Animation<double> animation;
 
-  RemovedSwipeItem({this.animation});
+  RemovedSwipeItem({required this.animation});
 
   @override
   Widget build(BuildContext context) {

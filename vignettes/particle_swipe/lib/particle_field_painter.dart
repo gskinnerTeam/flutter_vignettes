@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'particle_field.dart';
 import 'components/sprite_sheet.dart';
 
-
 // Renders a ParticleField.
 class ParticleFieldPainter extends CustomPainter {
   ParticleField field;
   SpriteSheet spriteSheet;
 
   // ParticleField is a ChangeNotifier, so we can use it as the repaint notifier.
-  ParticleFieldPainter({@required this.field, this.spriteSheet}) : super(repaint: field);
+  ParticleFieldPainter({required this.field, required this.spriteSheet}) : super(repaint: field);
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (spriteSheet.image == null) {
+    final img = spriteSheet.image;
+    if (img == null) {
       return;
     } // image hasn't loaded
 
@@ -29,14 +29,17 @@ class ParticleFieldPainter extends CustomPainter {
       transforms.add(RSTransform.fromComponents(
           translateX: o.x, translateY: o.y, rotation: 0, scale: o.life, anchorX: 0, anchorY: 0));
       // And a rect entry, which describes the portion (frame) of the sprite sheet image to use as the source.
-      rects.add(spriteSheet.getFrame((frameCount * o.life * 2 % frameCount).floor()));
+      final rect = spriteSheet.getFrame((frameCount * o.life * 2 % frameCount).floor());
+      if (rect != null) {
+        rects.add(rect);
+      }
       // And a color entry, which is composited with the frame via the blend mode.
       colors.add(o.color);
     });
 
     // Draw all of the particles based on the data entries.
     canvas.drawAtlas(
-      spriteSheet.image,
+      img,
       transforms,
       rects,
       colors,

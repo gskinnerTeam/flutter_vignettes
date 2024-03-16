@@ -1,29 +1,28 @@
 import 'package:plant_forms/demo_data.dart';
-import 'package:plant_forms/demo_data.dart';
 
 class InputValidator {
   const InputValidator();
 
-  static bool validate(type, String value, {CreditCardNetwork cardNetwork}) {
+  static bool validate(type, String value, {CreditCardNetwork? cardNetwork}) {
     if (type.runtimeType == InputType) {
       switch (type as InputType) {
         case InputType.email:
           return _validateEmail(value);
         case InputType.telephone:
           return _validatePhoneNumber(value);
-          break;
         default:
           return true;
       }
     }
     if (type.runtimeType == CreditCardInputType) {
+      final network = cardNetwork ?? CreditCardNetwork.mastercard;
       switch (type as CreditCardInputType) {
         case CreditCardInputType.number:
-          return _validateCreditCardNumber(value, cardNetwork);
+          return _validateCreditCardNumber(value, network);
         case CreditCardInputType.expirationDate:
           return _validateCreditCardExpirationDate(value);
         case CreditCardInputType.securityCode:
-          return _validateCreditCardSecurityCode(value, cardNetwork);
+          return _validateCreditCardSecurityCode(value, network);
       }
     }
     return false;

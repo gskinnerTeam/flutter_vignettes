@@ -4,13 +4,12 @@ import 'app_colors.dart';
 import 'components/header_row.dart';
 import 'components/profile_icon.dart';
 
-class SpendingAppBar extends StatelessWidget with PreferredSizeWidget {
-  SpendingAppBar({Key key}) : super(key: key);
+class SpendingAppBar extends StatelessWidget implements PreferredSizeWidget {
+  SpendingAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(context) {
     return Container(
-      height: preferredSize.height,
       color: AppColors.colorBg1,
       child: SafeArea(
         child: Row(
@@ -33,11 +32,4 @@ class SpendingAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   Size get preferredSize => Size(double.infinity, 88);
-}
-
-class Foo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
 }

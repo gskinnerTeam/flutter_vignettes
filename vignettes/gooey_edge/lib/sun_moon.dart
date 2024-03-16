@@ -5,15 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'main.dart';
 
 class SunAndMoon extends StatefulWidget {
-  final bool isDragComplete;
+  final bool? isDragComplete;
   final List<String> assetPaths;
   final int index;
 
   SunAndMoon(
-      {Key key,
+      {Key? key,
       this.isDragComplete = false,
       this.assetPaths = const ['images/Sun-Yellow.png', 'images/Sun-Red.png', 'images/Moon-Crescent.png'],
-      this.index})
+      required this.index})
       : super(key: key);
 
   @override
@@ -21,10 +21,10 @@ class SunAndMoon extends StatefulWidget {
 }
 
 class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _rotationAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _rotationAnimation;
   int _rotationRadius = 300;
-  int _currentIndex;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -82,5 +82,4 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
       ),
     );
   }
-
 }

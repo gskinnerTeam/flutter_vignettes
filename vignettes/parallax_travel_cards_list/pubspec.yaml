@@ -4,7 +4,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.3.2 <3.0.0"
+  sdk: ">=2.12.0 <=3.3.0"
 
 dependencies:
   flutter:
@@ -12,9 +12,6 @@ dependencies:
 
   shared:
     path: ../_shared/
-
-  cupertino_icons: ^0.1.2
-
 
 flutter:
 
