@@ -62,29 +62,27 @@ class _DogSliderDemoState extends State<DogSliderDemo> {
     double contentFontSize = 13;
     return Align(
       alignment: Alignment.bottomCenter,
-      child: FractionallySizedBox(
-        heightFactor: .5,
-        child: Container(
-          width: _maxContentWidth,
-          padding: EdgeInsets.only(top: 40, bottom: 40, left: 26, right: 26),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("PRODUCT DETAIL", style: baseStyle.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
-              SizedBox(height: 8),
-              Text("Fetch Tennis Ball - 2.0 inch",
-                  style: baseStyle.copyWith(fontSize: contentFontSize, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text("Colour: Green", style: baseStyle.copyWith(fontSize: contentFontSize)),
-              Text("Size: 2.5 inch", style: baseStyle.copyWith(fontSize: contentFontSize)),
-              SizedBox(height: 8),
-              Text(
-                  "For stimulating playtime that encouages pets to leap and chase. Made from a high-quality natural latex and designed for the game of fetch. ",
-                  style: baseStyle.copyWith(fontSize: contentFontSize)),
-            ],
-          ),
+      child: Container(
+        width: _maxContentWidth,
+        padding: EdgeInsets.only(left: 26, right: 26),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("PRODUCT DETAIL", style: baseStyle.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
+            SizedBox(height: 8),
+            Text("Fetch Tennis Ball - 2.0 inch",
+                style: baseStyle.copyWith(fontSize: contentFontSize, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            Text("Colour: Green", style: baseStyle.copyWith(fontSize: contentFontSize)),
+            Text("Size: 2.5 inch", style: baseStyle.copyWith(fontSize: contentFontSize)),
+            SizedBox(height: 8),
+            Text(
+                "For stimulating playtime that encourages pets to leap and chase. Made from a high-quality natural latex and designed for the game of fetch. ",
+                style: baseStyle.copyWith(fontSize: contentFontSize)),
+            SizedBox(height: 16),
+          ],
         ),
       ),
     );

@@ -10,12 +10,10 @@ class HotelListRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.only(right: Styles.hzScreenPadding * 1.5, left: Styles.hzScreenPadding * 1.5, bottom: 20),
       child: Container(
         width: double.infinity,
-        height: size.height * .25,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,11 +22,9 @@ class HotelListRenderer extends StatelessWidget {
               'Hotels'.toUpperCase(),
               style: Styles.hotelsTitleSection,
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: hotels.map((hotel) => _buildHotelData(hotel)).toList(),
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: hotels.map((hotel) => _buildHotelData(hotel)).toList(),
             )
           ],
         ),

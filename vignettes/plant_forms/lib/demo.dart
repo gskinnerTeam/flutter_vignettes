@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_forms/form_pages/plant_form_payment.dart';
+import 'package:plant_forms/form_pages/plant_form_summary.dart';
 import 'package:provider/provider.dart';
 
 import 'components/header.dart';
@@ -37,8 +38,8 @@ class _PlantFormsDemoState extends State<PlantFormsDemo> {
               onGenerateRoute: (route) {
                 return StackPagesRoute(
                   previousPages: [],
-                  //enterPage: PlantFormSummary(),
-                  enterPage: PlantFormPayment(),
+                  enterPage: PlantFormSummary(),
+                  //enterPage: PlantFormPayment(),
                 );
               },
             ),

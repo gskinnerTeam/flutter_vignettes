@@ -11,7 +11,7 @@ class DarkInkContent extends StatelessWidget {
   final bool darkMode;
   final ScrollController scrollController;
 
-  DarkInkContent({required this.darkMode,required this.scrollController});
+  DarkInkContent({required this.darkMode, required this.scrollController});
 
   @override
   Widget build(context) {
@@ -27,6 +27,7 @@ class DarkInkContent extends StatelessWidget {
         color: darkMode ? Color(0xFF313466) : Color(0xFFFFFFFF),
         padding: EdgeInsets.all(37),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(height: 30),
           Text(
             headerText,
             style: TextStyle(

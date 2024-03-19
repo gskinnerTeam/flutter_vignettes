@@ -13,18 +13,20 @@ class HeroCardDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
       backgroundColor: Colors.white,
       //Create a column of items, with the cityCard expanding to fill the empty space
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildHeader(),
-            Expanded(child: _buildCityCard(context)),
-            HotelListRenderer(city.hotels),
-          ],
+      body: Center(
+        child: Container(
+          width: 400,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildHeader(),
+              Expanded(child: _buildCityCard(context)),
+              HotelListRenderer(city.hotels),
+            ],
+          ),
         ),
       ),
     );
@@ -46,8 +48,8 @@ class HeroCardDemo extends StatelessWidget {
 
   Widget _buildHeader() {
     return Padding(
-      padding: EdgeInsets.only(right: Styles.hzScreenPadding * 3, left: Styles.hzScreenPadding * 3),
-      child: Text('Get ready for your trip', textAlign: TextAlign.center, style: Styles.appHeader),
+      padding: EdgeInsets.only(right: Styles.hzScreenPadding * 3, left: Styles.hzScreenPadding * 3, top: 16),
+      child: Text('Get ready for your trip!', textAlign: TextAlign.center, style: Styles.appHeader),
     );
   }
 
@@ -56,8 +58,7 @@ class HeroCardDemo extends StatelessWidget {
       child: GestureDetector(
         onTap: () => _handlePressedBtn(context),
         child: Container(
-          constraints: BoxConstraints(
-              minHeight: 290, minWidth: 250, maxHeight: MediaQuery.of(context).size.height * .44, maxWidth: 300),
+          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .44, maxWidth: 300),
           child: Hero(tag: '${city.name}-hero', child: CityScenery(city: city)),
         ),
       ),

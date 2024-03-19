@@ -88,7 +88,7 @@ class TravelCardListState extends State<TravelCardList> with SingleTickerProvide
           //Pass in city path for the image asset links
           city: widget.cities[itemIndex % widget.cities.length],
           cardWidth: _cardWidth,
-          cardHeight: _cardHeight,
+          cardHeight: _cardHeight - 50,
         ),
       ),
     );

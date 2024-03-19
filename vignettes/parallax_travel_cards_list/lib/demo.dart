@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'demo_data.dart';
@@ -26,7 +27,6 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: SizedBox()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
               child: Text(
@@ -36,12 +36,13 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
                 maxLines: 2,
               ),
             ),
-            TravelCardList(
-              cities: _cityList,
-              onCityChange: _handleCityChange,
+            Expanded(
+              child: TravelCardList(
+                cities: _cityList,
+                onCityChange: _handleCityChange,
+              ),
             ),
             HotelList(_currentCity.hotels),
-            Expanded(child: SizedBox()),
           ],
         ),
       ),

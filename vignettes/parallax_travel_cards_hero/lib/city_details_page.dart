@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'city_scenery.dart';
@@ -19,7 +20,7 @@ class CityDetailsPage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _buildHeroWidget(context),
+              Expanded(child: _buildHeroWidget(context)),
               _buildCityDetails(),
             ],
           ),

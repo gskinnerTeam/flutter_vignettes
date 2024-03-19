@@ -6,18 +6,18 @@ import 'package:shared/ui/animated_sprite.dart';
 import 'main.dart';
 
 class TransitionContainer extends StatefulWidget {
-  final ValueNotifier<bool> darkModeValue;
   final Widget child;
 
-  TransitionContainer({required this.darkModeValue, required this.child});
+  TransitionContainer({required this.child});
 
   @override
   State createState() {
-    return _TransitionContainerState(darkModeValue, child);
+    return _TransitionContainerState(child);
   }
 }
 
 class _TransitionContainerState extends State<TransitionContainer> with SingleTickerProviderStateMixin {
+  _TransitionContainerState(this._childBackground);
   late AnimationController _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
   late Animation<double> _animation = TweenSequence(
     <TweenSequenceItem<double>>[
@@ -32,26 +32,13 @@ class _TransitionContainerState extends State<TransitionContainer> with SingleTi
     ],
   ).animate(_controller);
 
-  List<ImageProvider> _images = [];
-  int _currentImageIndex = 0;
+  ImageProvider _image = AssetImage('assets/images/ink_mask.png', package: App.pkg);
 
   Widget? _childForeground;
   Widget? _childBackground;
 
-  _TransitionContainerState(ValueNotifier<bool> darkModeValue, this._childBackground) {
-    darkModeValue.addListener(() {
-      _handleDarkModeChange(darkModeValue.value);
-    });
-  }
-
   @override
   void initState() {
-    _images = [
-      AssetImage('assets/images/ink_mask.png', package: App.pkg),
-      AssetImage('assets/images/wipe_mask.png', package: App.pkg),
-      AssetImage('assets/images/tendril_mask.png', package: App.pkg),
-    ];
-
     _controller.addListener(() {
       setState(() {});
     });
@@ -108,7 +95,7 @@ class _TransitionContainerState extends State<TransitionContainer> with SingleTi
             height: height,
             // Draw the transition animation as the mask
             child: AnimatedSprite(
-              image: _images[_currentImageIndex],
+              image: _image,
               frameWidth: 360,
               frameHeight: 720,
               animation: _animation,
@@ -131,16 +118,5 @@ class _TransitionContainerState extends State<TransitionContainer> with SingleTi
         children: children,
       ),
     );
-  }
-
-  void _handleDarkModeChange(bool darkMode) {
-    if (darkMode) {
-      setState(() {
-        ++_currentImageIndex;
-        if (_currentImageIndex >= _images.length) {
-          _currentImageIndex = 0;
-        }
-      });
-    }
   }
 }

@@ -27,12 +27,12 @@ class _GameScoreState extends State<GameScore> with SingleTickerProviderStateMix
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
 
     _scoreAnimation = Tween<double>(
       begin: 0.0,
       end: -1.0,
-    ).animate(_controller);
+    ).chain(CurveTween(curve: Curves.easeInOut)).animate(_controller);
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -95,6 +95,7 @@ class _GameScoreState extends State<GameScore> with SingleTickerProviderStateMix
     );
   }
 
+  //TODO: Clean up this implementation, it's quite hard to read
   List<Widget> _buildTeamScores(bool homeTeam) {
     final currentColor =
         (homeTeam ? _data.homeTeamScore > _data.awayTeamScore : _data.awayTeamScore > _data.homeTeamScore) &&

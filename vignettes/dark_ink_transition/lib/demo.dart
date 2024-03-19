@@ -8,9 +8,7 @@ import 'transition_container.dart';
 
 class DarkInkDemo extends StatefulWidget {
   @override
-  State createState() {
-    return _DarkInkDemoState();
-  }
+  State createState() => _DarkInkDemoState();
 }
 
 class _DarkInkDemoState extends State<DarkInkDemo> {
@@ -43,11 +41,13 @@ class _DarkInkDemoState extends State<DarkInkDemo> {
       child: Stack(
         children: [
           TransitionContainer(
-            darkModeValue: _darkModeValue,
             child: DarkInkContent(darkMode: _darkModeValue.value, scrollController: _scrollController),
           ),
           DarkInkBar(darkModeValue: _darkModeValue),
-          DarkInkControls(darkModeValue: _darkModeValue),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(padding: EdgeInsets.only(bottom: 16), child: DarkInkControls(darkModeValue: _darkModeValue)),
+          ),
         ],
       ),
     );

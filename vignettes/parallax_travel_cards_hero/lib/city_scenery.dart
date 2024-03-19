@@ -196,8 +196,10 @@ class _CloudsState extends State<_Clouds> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var dxPosition =
-        Tween<double>(begin: -screenSize.width * .1, end: screenSize.width * 1.8).transform(_animationValue);
+    var dxPosition = Tween<double>(
+      begin: -screenSize.width * .1,
+      end: screenSize.width * 1.8,
+    ).transform(_animationValue);
 
     return Stack(
       children: <Widget>[
