@@ -42,12 +42,12 @@ class CityScenery extends StatelessWidget {
             // Sized box gives the space of the city image in the stack
             SizedBox(height: screenSize.height * .22),
             Padding(
-              padding: const EdgeInsets.only(top: 22.0),
+              padding: const EdgeInsets.only(top: 16.0),
               child: Text(city.title, style: Styles.cardTitle),
             ),
             Text(city.description, textAlign: TextAlign.center, style: Styles.cardSubtitle),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.only(top: 4, bottom: 12),
               child: Text('Learn More'.toUpperCase(), style: Styles.cardAction),
             )
           ],
