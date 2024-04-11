@@ -13,6 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     const title = 'Ticket Fold Demo';
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: title,
       home: TicketFoldDemo(),
     );

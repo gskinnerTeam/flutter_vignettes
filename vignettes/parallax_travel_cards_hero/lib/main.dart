@@ -17,6 +17,7 @@ class App extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Hero Travel Card',
       theme: ThemeData(brightness: Brightness.light),
       home: HeroCardDemo(),

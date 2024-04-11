@@ -16,7 +16,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _appScale = MediaQuery.sizeOf(context).height / 480;
-    return MaterialApp(home: SpendingTrackerDemo());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SpendingTrackerDemo(),
+    );
   }
 }
 

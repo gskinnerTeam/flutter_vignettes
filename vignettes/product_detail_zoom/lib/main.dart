@@ -14,6 +14,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     const title = '3D Product Detail Zoom';
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: title,
       themeMode: ThemeMode.dark,
       home: ProductDetailZoomDemo(),

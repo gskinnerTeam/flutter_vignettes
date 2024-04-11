@@ -11,6 +11,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: DogSliderDemo());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DogSliderDemo(),
+    );
   }
 }

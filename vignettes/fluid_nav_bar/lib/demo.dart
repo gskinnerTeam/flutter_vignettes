@@ -19,6 +19,7 @@ class _FluidNavBarDemoState extends State {
   Widget build(context) {
     // Build a simple container that switches content based of off the selected navigation item
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFF75B7E1),
         extendBody: true,

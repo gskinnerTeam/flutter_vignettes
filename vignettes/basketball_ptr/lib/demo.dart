@@ -11,6 +11,7 @@ class BasketballPTRDemo extends StatelessWidget {
   @override
   Widget build(context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SafeArea(child: Material(child: BasketballPTRHome())),
     );
   }
