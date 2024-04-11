@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
 
 import './scaling_info.dart';
 import './demo_data.dart';
@@ -12,6 +13,7 @@ class BasketballPTRDemo extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      scrollBehavior: AppScrollBehavior(),
       home: SafeArea(child: Material(child: BasketballPTRHome())),
     );
   }

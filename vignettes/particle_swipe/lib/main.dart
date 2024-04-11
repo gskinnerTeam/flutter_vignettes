@@ -4,6 +4,7 @@ import 'package:particle_swipe/components/particle_app_bar.dart';
 import 'package:shared/env.dart';
 
 import 'demo.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
 
 void main() => runApp(App());
 
@@ -25,6 +26,7 @@ class App extends StatelessWidget {
     );
     return MaterialApp(
       title: 'Particle Swipe',
+      scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(

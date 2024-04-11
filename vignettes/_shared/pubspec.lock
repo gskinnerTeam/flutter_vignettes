@@ -193,4 +193,4 @@ packages:
     source: hosted
     version: "13.0.0"
 sdks:
-  dart: ">=3.2.0-0 <=3.3.0"
+  dart: ">=3.2.0-0 <=3.3.1"

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
 
 import './content/home.dart';
 import './content/account.dart';
@@ -19,6 +20,7 @@ class _FluidNavBarDemoState extends State {
   Widget build(context) {
     // Build a simple container that switches content based of off the selected navigation item
     return MaterialApp(
+      scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFF75B7E1),

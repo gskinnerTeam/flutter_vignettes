@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared/env.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
+
 import 'demo.dart';
 
 void main() => runApp(App());
@@ -16,6 +18,7 @@ class App extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
     return MaterialApp(
+      scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: TravelCardDemo(),
     );

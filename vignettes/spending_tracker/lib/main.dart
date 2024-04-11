@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared/env.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
 import 'package:spending_tracker/app_colors.dart';
 
 import './demo.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     _appScale = MediaQuery.sizeOf(context).height / 480;
     return MaterialApp(
+      scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: SpendingTrackerDemo(),
     );

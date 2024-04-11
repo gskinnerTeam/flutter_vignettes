@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared/env.dart';
+import 'package:shared/ui/app_scroll_behavior.dart';
 
 import 'demo.dart';
 
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     const title = '3D Product Detail Zoom';
     return MaterialApp(
+      scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       title: title,
       themeMode: ThemeMode.dark,
