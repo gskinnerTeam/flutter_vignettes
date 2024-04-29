@@ -40,6 +40,8 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
 
   void _tick(Duration duration) {
     _edge.tick(duration);
+    // TODO: This tick could be more efficient, could use an AnimatedBuilder for the GooeyEdge,
+    // and just pass the index into the SunMoon widget, which can tick internally when index changes
     setState(() {});
   }
 
@@ -90,7 +92,7 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
   }
 
   void _handlePanUpdate(DragUpdateDetails details, Size size) {
-    double dx = details.globalPosition.dx - _dragOffset.dx;
+    double dx = details.localPosition.dx - _dragOffset.dx;
 
     if (!_isSwipeActive(dx)) {
       return;

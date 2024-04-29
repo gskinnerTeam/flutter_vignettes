@@ -65,9 +65,9 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
 
   Widget _buildAssetWithDefaultAngle(int index, double degreeAngle) {
     double radianAngle = degreeAngle / 180 * pi;
-    double currentAngle = radianAngle + _rotationAnimation.value * (2 * pi);
-    return Opacity(
-      opacity: sin(currentAngle) < 0 ? 1 : 0,
+    return AnimatedOpacity(
+      opacity: index == _currentIndex % 3 ? 1 : 0,
+      duration: Duration(milliseconds: 300),
       child: RotationTransition(
         turns: _rotationAnimation,
         child: Transform.translate(

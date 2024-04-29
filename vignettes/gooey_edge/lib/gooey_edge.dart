@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'side.dart';
 
-class GooeyEdge {
+class GooeyEdge extends ChangeNotifier {
   List<_GooeyPoint> points = [];
   Side side;
   double edgeTension = 0.01;
@@ -31,15 +31,15 @@ class GooeyEdge {
       touchOffset = null;
       return;
     }
-    FractionalOffset o = FractionalOffset.fromOffsetAndSize(offset, size);
+    final fraction = FractionalOffset.fromOffsetAndSize(offset, size);
     if (side == Side.left) {
-      touchOffset = o;
+      touchOffset = fraction;
     } else if (side == Side.right) {
-      touchOffset = FractionalOffset(1.0 - o.dx, 1.0 - o.dy);
+      touchOffset = FractionalOffset(1.0 - fraction.dx, 1.0 - fraction.dy);
     } else if (side == Side.top) {
-      touchOffset = FractionalOffset(o.dy, 1.0 - o.dx);
+      touchOffset = FractionalOffset(fraction.dy, 1.0 - fraction.dx);
     } else {
-      touchOffset = FractionalOffset(1.0 - o.dy, o.dx);
+      touchOffset = FractionalOffset(1.0 - fraction.dy, fraction.dx);
     }
   }
 
@@ -108,6 +108,7 @@ class GooeyEdge {
       _GooeyPoint pt = points[i];
       pt.x += pt.velX * t;
     }
+    notifyListeners();
   }
 
   Matrix4 _getTransform(Size size, double margin) {
