@@ -73,50 +73,52 @@ class _TransitionContainerState extends State<TransitionContainer> with SingleTi
 
   @override
   Widget build(context) {
-    final appSize = MediaQuery.of(context).size;
-    final width = appSize.width;
-    final height = appSize.height;
+    return LayoutBuilder(builder: (_, constraints) {
+      final appSize = constraints.biggest;
+      final width = appSize.width;
+      final height = appSize.height;
 
-    List<Widget> children = <Widget>[
-      Container(
-        width: width,
-        height: height,
-        child: _childBackground,
-      ),
-    ];
+      List<Widget> children = <Widget>[
+        Container(
+          width: width,
+          height: height,
+          child: _childBackground,
+        ),
+      ];
 
-    // If we swapped the child then add the foreground to the list of children when animating
-    if (_childForeground != null) {
-      children.add(
-        // Draw the foreground masked over the background
-        WidgetMask(
-          maskChild: Container(
-            width: width,
-            height: height,
-            // Draw the transition animation as the mask
-            child: AnimatedSprite(
-              image: _image,
-              frameWidth: 360,
-              frameHeight: 720,
-              animation: _animation,
+      // If we swapped the child then add the foreground to the list of children when animating
+      if (_childForeground != null) {
+        children.add(
+          // Draw the foreground masked over the background
+          WidgetMask(
+            maskChild: Container(
+              width: width,
+              height: height,
+              // Draw the transition animation as the mask
+              child: AnimatedSprite(
+                image: _image,
+                frameWidth: 360,
+                frameHeight: 720,
+                animation: _animation,
+              ),
+            ),
+            child: Container(
+              width: width,
+              height: height,
+              child: _childForeground,
             ),
           ),
-          child: Container(
-            width: width,
-            height: height,
-            child: _childForeground,
-          ),
+        );
+      }
+
+      return Positioned(
+        left: 0,
+        width: width,
+        height: height,
+        child: Stack(
+          children: children,
         ),
       );
-    }
-
-    return Positioned(
-      left: 0,
-      width: width,
-      height: height,
-      child: Stack(
-        children: children,
-      ),
-    );
+    });
   }
 }
