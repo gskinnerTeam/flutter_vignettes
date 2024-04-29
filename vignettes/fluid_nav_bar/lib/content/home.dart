@@ -8,7 +8,7 @@ class HomeContent extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
       child: ListView.builder(
-        itemCount: 9,
+        itemCount: 20,
         itemBuilder: (content, index) {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 12),

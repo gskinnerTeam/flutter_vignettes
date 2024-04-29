@@ -12,7 +12,7 @@ class GridContent extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, top: 20),
       child: GridView.count(
         crossAxisCount: columnCount,
-        children: List.generate(20, (index) {
+        children: List.generate(30, (index) {
           return PlaceholderImageWithText(color: Color(0xFF99D3F7), backgroundColor: Color(0xFFC7EAFF));
         }),
       ),
