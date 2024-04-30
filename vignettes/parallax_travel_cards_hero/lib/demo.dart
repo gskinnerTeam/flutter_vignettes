@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'city_scenery.dart';
@@ -16,33 +17,24 @@ class HeroCardDemo extends StatelessWidget {
       backgroundColor: Colors.white,
       //Create a column of items, with the cityCard expanding to fill the empty space
       body: Center(
-        child: Container(
-          width: 400,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildHeader(),
-              Expanded(child: _buildCityCard(context)),
-              HotelListRenderer(city.hotels),
-            ],
+        child: SingleChildScrollView(
+          child: Container(
+            width: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildHeader(),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: _buildCityCard(context),
+                ),
+                HotelListRenderer(city.hotels),
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      elevation: 0.0,
-      leading: Icon(Icons.menu, color: Colors.black),
-      backgroundColor: Colors.white,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
-          child: Icon(Icons.search, color: Colors.black),
-        )
-      ],
     );
   }
 
