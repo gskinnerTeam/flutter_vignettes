@@ -22,28 +22,32 @@ class _TravelCardDemoState extends State<TravelCardDemo> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: Container(
+        alignment: Alignment.center,
         color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
-              child: Text(
-                'Where are you going next?',
-                overflow: TextOverflow.ellipsis,
-                style: Styles.appHeader,
-                maxLines: 2,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Styles.hzScreenPadding),
+                child: Text(
+                  'Where are you going next?',
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.appHeader,
+                  maxLines: 2,
+                ),
               ),
-            ),
-            Expanded(
-              child: TravelCardList(
-                cities: _cityList,
-                onCityChange: _handleCityChange,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: TravelCardList(
+                  cities: _cityList,
+                  onCityChange: _handleCityChange,
+                ),
               ),
-            ),
-            HotelList(_currentCity.hotels),
-          ],
+              HotelList(_currentCity.hotels),
+            ],
+          ),
         ),
       ),
     );
